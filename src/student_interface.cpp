@@ -2,6 +2,7 @@
 #include "student_planning_interface.hpp"
 #include "imageManager.hpp"
 #include "extrinsicCalib.hpp"
+#include "mapProcessing.hpp"
 
 #include <stdexcept>
 #include <experimental/filesystem>

@@ -1,5 +1,8 @@
 #include "imageManager.hpp"
 
+#define DEBUG_LI
+#define DEBUG_GIL
+
 namespace stdfs = std::experimental::filesystem;
 
 //**********************************************************************
@@ -11,17 +14,32 @@ namespace stdfs = std::experimental::filesystem;
 * @param[in]
 * @param[out] 
 */
-std::vector<std::string> get_filenames(std::experimental::filesystem::path path){
-	//namespace stdfs = std::experimental::filesystem;
-  std::vector<std::string> filenames;
-  const stdfs::directory_iterator end{};
+void get_filenames(std::string path, std::vector<std::string>& img_list){
+  /*for (auto& fn: stdfs::directory_iterator(path)){
+    if (stdfs::is_regular_file(fn))
+  		img_list.push_back(fn.path());
+  }*/
+  const char* dir_path = path.c_str();
+  DIR* dir = opendir(dir_path);
+  struct dirent* dir_reader;
 
-  for(stdfs::directory_iterator iter{path}; iter != end; ++iter){
-  	if(stdfs::is_regular_file(*iter))
-  		filenames.push_back(iter->path().string());
+  if (dir == nullptr){
+    perror("get_filenames - error in opendir");
+    throw std::logic_error( "get_filenames - cannot open: " +  path);
   }
 
-  return filenames;
+  while ((dir_reader = readdir(dir)) != nullptr){
+    std::string fn = dir_reader->d_name;    
+
+    if (fn != "." & fn != ".."){
+      std::string img_path = path + "/" + fn;
+      img_list.push_back(img_path);
+    }
+  }
+  closedir(dir);
+
+  /*for(auto& ip: img_list)
+    std::cout << "File name: " << ip << std::endl;*/
 }
 
 //**********************************************************************
@@ -29,28 +47,61 @@ std::vector<std::string> get_filenames(std::experimental::filesystem::path path)
 //**********************************************************************
 
 void my_loadImage(cv::Mat& img_out, const std::string& config_folder){
-	//log
+	#ifdef DEBUG_LI
   std::cout << "STUDENT FUNCTION - my_loadImage" << std::endl;
+  #endif
 
-	static std::string dir_path = config_folder + "/camera_image";
+  static bool init = false;
+  #ifdef DEBUG_LI
+    static std::string dir_path = "/home/mala/Desktop/RP_Lab/Lab5_07-10-20/lect8/demo_shape_detection/test";
+  #else
+	 static std::string dir_path = config_folder + "/img_to_load";
+  #endif  
+  static size_t img_id = 0;
+  static std::vector<std::string> filenames;
+  get_filenames(dir_path, filenames);
+  
+  if (!init){
+    if (!filenames.size() > 0) 
+      throw std::logic_error("my_loadImage - There is no file in: " +  dir_path);
+    /*else
+      throw std::logic_error("OK");*/
 
-  for (const auto& img_path: get_filenames(dir_path)){
-    img_out = cv::imread(img_path, cv::IMREAD_COLOR);
+    init = true;
+    img_id = 0;
 
-    if(img_out.empty()){
-      std::cout << "Could not open or find the image" << std::endl;
-      exit(EXIT_FAILURE);
-    }
+    #ifdef DEBUG_LI
+      std::cout << "init == false" << std::endl;
+    #endif
+  }else{
+    // some img has already been read --> keep it until 'n' is pressed
+    // when 'n' is pressed --> update img_id
+    #ifdef DEBUG_LI
+      std::cout << "init == true" << std::endl;
+    #endif
 
-    cv::namedWindow("Loaded_img", cv::WINDOW_AUTOSIZE);
-    cv::imshow("Loaded_img", img_out);
-    cv::waitKey(0);
+    char key = cv::waitKey(30);
+    if (key == 'n'){
+      img_id = (img_id + 1) % filenames.size();
+      
+      #ifdef DEBUG_LI
+        std::cout << "key \'n\' arrived" << std::endl;
+      #endif
+    }      
+
+    #ifdef DEBUG_LI
+      std::cout << "img_id: " << img_id << std::endl;
+    #endif
   }
+
+  // Finally, read the img with the appropriate img_id
+  img_out = cv::imread(filenames[img_id]);
 }
 
 void my_genericImageListener(const cv::Mat& img_in, std::string topic, const std::string& config_folder){
-	//log
+	#ifdef DEBUG_GIL
   std::cout << "STUDENT FUNCTION - my_genericImageListener" << std::endl;
+  #endif
   /*
   std::cout << std::experimental::filesystem::current_path() << std::endl;
   std::cout << "config_folder = " << config_folder << std::endl;

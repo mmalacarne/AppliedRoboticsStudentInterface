@@ -19,6 +19,7 @@ add_library(student SHARED
    src/student_interface.cpp
    src/imageManager.cpp
    src/extrinsicCalib.cpp
+   src/mapProcessing.cpp
 )
 
 target_link_libraries(student

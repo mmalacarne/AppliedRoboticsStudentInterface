@@ -1,4 +1,5 @@
 #include <vector>
+#include <dirent.h>
 #include <experimental/filesystem>
 #include <opencv2/opencv.hpp>
 
