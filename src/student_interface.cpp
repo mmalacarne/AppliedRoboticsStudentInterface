@@ -97,12 +97,14 @@ namespace student {
     cv::warpPerspective(img_in, img_out, transf, img_in.size());
   }
 
-  bool processMap(const cv::Mat& img_in, const double scale, std::vector<Polygon>& obstacle_list, std::vector<std::pair<int,Polygon>>& victim_list, Polygon& gate, const std::string& config_folder){
-    throw std::logic_error( "STUDENT FUNCTION - PROCESS MAP - NOT IMPLEMENTED" );   
+  bool processMap(const cv::Mat& img_in, const double scale, std::vector<Polygon>& obstacles_list, 
+    std::vector<std::pair<int,Polygon>>& victims_list, Polygon& gate, const std::string& config_folder){
+    
+    return my_processMap(img_in, scale, obstacles_list, victims_list, gate, config_folder);
   }
 
   bool findRobot(const cv::Mat& img_in, const double scale, Polygon& triangle, double& x, double& y, double& theta, const std::string& config_folder){
-    throw std::logic_error( "STUDENT FUNCTION - FIND ROBOT - NOT IMPLEMENTED" );    
+    return my_findRobot(img_in, scale, triangle, x, y, theta, config_folder);  
   }
 
   bool planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_list, const std::vector<std::pair<int,Polygon>>& victim_list, const Polygon& gate, const float x, const float y, const float theta, Path& path){

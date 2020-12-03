@@ -31,7 +31,7 @@ void get_filenames(std::string path, std::vector<std::string>& img_list){
   while ((dir_reader = readdir(dir)) != nullptr){
     std::string fn = dir_reader->d_name;    
 
-    if (fn != "." & fn != ".."){
+    if (fn != "." && fn != ".."){
       std::string img_path = path + "/" + fn;
       img_list.push_back(img_path);
     }
@@ -47,16 +47,30 @@ void get_filenames(std::string path, std::vector<std::string>& img_list){
 //**********************************************************************
 
 void my_loadImage(cv::Mat& img_out, const std::string& config_folder){
-	#ifdef DEBUG_LI
-  std::cout << "STUDENT FUNCTION - my_loadImage" << std::endl;
-  #endif
-
-  static bool init = false;
   #ifdef DEBUG_LI
+    std::cout << "STUDENT FUNCTION - my_loadImage" << std::endl;
     static std::string dir_path = "/home/mala/Desktop/RP_Lab/Lab5_07-10-20/lect8/demo_shape_detection/test";
   #else
-	 static std::string dir_path = config_folder + "/img_to_load";
-  #endif  
+    static std::string dir_path = config_folder + "/img_to_load";
+  #endif
+
+  static std::string jpg_file = dir_path + "/test_arena.jpg";
+  img_out = cv::imread(jpg_file);
+
+  #ifdef DEBUG_LI
+    std::cout << "jpg_file: " << jpg_file << std::endl;
+  #endif
+}
+
+/*void my_loadImage(cv::Mat& img_out, const std::string& config_folder){
+  #ifdef DEBUG_LI
+    std::cout << "STUDENT FUNCTION - my_loadImage" << std::endl;
+    static std::string dir_path = "/home/mala/Desktop/RP_Lab/Lab5_07-10-20/lect8/demo_shape_detection/test";
+  #else
+   static std::string dir_path = config_folder + "/img_to_load";
+  #endif
+
+  static bool init = false; 
   static size_t img_id = 0;
   static std::vector<std::string> filenames;
   get_filenames(dir_path, filenames);
@@ -64,30 +78,16 @@ void my_loadImage(cv::Mat& img_out, const std::string& config_folder){
   if (!init){
     if (!filenames.size() > 0) 
       throw std::logic_error("my_loadImage - There is no file in: " +  dir_path);
-    /*else
-      throw std::logic_error("OK");*/
 
     init = true;
     img_id = 0;
-
-    #ifdef DEBUG_LI
-      std::cout << "init == false" << std::endl;
-    #endif
   }else{
     // some img has already been read --> keep it until 'n' is pressed
     // when 'n' is pressed --> update img_id
-    #ifdef DEBUG_LI
-      std::cout << "init == true" << std::endl;
-    #endif
-
-    char key = cv::waitKey(30);
-    if (key == 'n'){
+    char key;
+    key = cv::waitKey(0);
+    if (key == 'n')
       img_id = (img_id + 1) % filenames.size();
-      
-      #ifdef DEBUG_LI
-        std::cout << "key \'n\' arrived" << std::endl;
-      #endif
-    }      
 
     #ifdef DEBUG_LI
       std::cout << "img_id: " << img_id << std::endl;
@@ -96,7 +96,8 @@ void my_loadImage(cv::Mat& img_out, const std::string& config_folder){
 
   // Finally, read the img with the appropriate img_id
   img_out = cv::imread(filenames[img_id]);
-}
+
+}*/
 
 void my_genericImageListener(const cv::Mat& img_in, std::string topic, const std::string& config_folder){
 	#ifdef DEBUG_GIL
