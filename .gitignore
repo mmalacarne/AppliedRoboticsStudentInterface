@@ -33,3 +33,10 @@ build/
 *.exe
 *.out
 *.app
+
+# Camera calibration
+intrinsic_calibration.xml
+src/camera_calibration.cpp
+
+# Shape detection
+src/demo_shape_detection
