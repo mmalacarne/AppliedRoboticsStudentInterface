@@ -104,6 +104,7 @@ namespace student {
   }
 
   bool findRobot(const cv::Mat& img_in, const double scale, Polygon& triangle, double& x, double& y, double& theta, const std::string& config_folder){
+    
     return my_findRobot(img_in, scale, triangle, x, y, theta, config_folder);  
   }
 
