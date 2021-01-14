@@ -98,12 +98,14 @@ void getObstacles(const cv::Mat& hsv_img, const double scale, std::vector<Polygo
 }
 
 /*!
-* Support function which retrives all the template images given directory.
-* @param[in]  config_path 			Path to the config folder.
+* Support function which retrives all the template images from src/template_images.
 * @param[out] template_img_list 	Vector of pairs <represented id, template image>.
 */
-void getTemplateImgs(std::string config_path, std::vector<std::pair<int,cv::Mat>>& template_img_list){
-  std::string path = config_path + "/template_images/"; // for the exam?
+void getTemplateImgs(std::vector<std::pair<int,cv::Mat>>& template_img_list){
+  std::string this_file_path = __FILE__;
+  std::string this_file_name = "mapProcessing.cpp";
+  int upper_bound = this_file_path.length() - this_file_name.length();
+  std::string path = this_file_path.substr(0, upper_bound) + "template_images/";
   std::string img_path;
   cv::Mat template_img;
 
@@ -114,6 +116,8 @@ void getTemplateImgs(std::string config_path, std::vector<std::pair<int,cv::Mat>
   }
 
   #ifdef DEBUG_getTemplateImgs
+  	std::cout << "Path to template images: " << path << std::endl;
+
   	for (const auto& id_img: template_img_list){
   		std::string ti_window = "Template image ID = " + std::to_string(id_img.first);
   		cv::imshow(ti_window, id_img.second);
@@ -438,7 +442,7 @@ void getVictimsAndGate(const cv::Mat& hsv_img, const double scale,
 	// Retrieve the template images
 	std::vector<std::pair<int,cv::Mat>> template_images;
 	std::string config_path = "/tmp"; // TODO: delete and pass as argument to function
-	getTemplateImgs(config_path, template_images);
+	getTemplateImgs(template_images);
 
 	// Retrieve victims and gate depending on verteces
 	int victim_id;
