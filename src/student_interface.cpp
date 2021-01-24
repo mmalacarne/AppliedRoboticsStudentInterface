@@ -3,6 +3,7 @@
 #include "imageManager.hpp"
 #include "extrinsicCalib.hpp"
 #include "mapProcessing.hpp"
+#include "pathPlanning.hpp"
 
 #include <stdexcept>
 #include <experimental/filesystem>
@@ -52,49 +53,22 @@ namespace student {
 
   void imageUndistort(const cv::Mat& img_in, cv::Mat& img_out, 
     const cv::Mat& cam_matrix, const cv::Mat& dist_coeffs, const std::string& config_folder){
-    //log
-    std::cout << "STUDENT FUNCTION - imageUndistort" << std::endl;
-
-    static bool optimize = true;
-
-    if (!optimize){
-      // slow version
-      cv::undistort(img_in, img_out, cam_matrix, dist_coeffs);
-    }else{
-      // fast version
-      static bool m_init = false;
-      static cv::Mat map1, map2;
-
-      if(!m_init){
-        cv::Mat R;
-        cv::initUndistortRectifyMap(cam_matrix, dist_coeffs, R, cam_matrix, 
-                                    img_in.size(), CV_16SC2, map1, map2);
-
-        m_init = true;
-      }
-
-      // Initialize output image    
-      cv::remap(img_in, img_out, map1, map2, cv::INTER_LINEAR);
-    }    
+    
+    my_imageUndistort(img_in, img_out, cam_matrix, dist_coeffs, config_folder);
   }
 
   void findPlaneTransform(const cv::Mat& cam_matrix, const cv::Mat& rvec, const cv::Mat& tvec, 
     const std::vector<cv::Point3f>& object_points_plane, const std::vector<cv::Point2f>& dest_image_points_plane, 
     cv::Mat& plane_transf, const std::string& config_folder){
-    //log
-    std::cout << "STUDENT FUNCTION - findPlaneTransform" << std::endl;
 
-    cv::Mat image_points;
-    cv::projectPoints(object_points_plane, rvec, tvec, cam_matrix, cv::Mat(), image_points);
-    plane_transf = cv::getPerspectiveTransform(image_points, dest_image_points_plane); 
+    my_findPlaneTransform(cam_matrix, rvec, tvec, object_points_plane, 
+    dest_image_points_plane, plane_transf, config_folder);
   }
 
   void unwarp(const cv::Mat& img_in, cv::Mat& img_out, const cv::Mat& transf, 
     const std::string& config_folder){
-    //log
-    std::cout << "STUDENT FUNCTION - unwarp" << std::endl;
 
-    cv::warpPerspective(img_in, img_out, transf, img_in.size());
+    my_unwarp(img_in, img_out, transf, config_folder);
   }
 
   bool processMap(const cv::Mat& img_in, const double scale, std::vector<Polygon>& obstacles_list, 
@@ -103,13 +77,17 @@ namespace student {
     return my_processMap(img_in, scale, obstacles_list, victims_list, gate, config_folder);
   }
 
-  bool findRobot(const cv::Mat& img_in, const double scale, Polygon& triangle, double& x, double& y, double& theta, const std::string& config_folder){
+  bool findRobot(const cv::Mat& img_in, const double scale, Polygon& triangle, 
+    double& x, double& y, double& theta, const std::string& config_folder){
     
     return my_findRobot(img_in, scale, triangle, x, y, theta, config_folder);  
   }
 
-  bool planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_list, const std::vector<std::pair<int,Polygon>>& victim_list, const Polygon& gate, const float x, const float y, const float theta, Path& path){
-    throw std::logic_error( "STUDENT FUNCTION - PLAN PATH - NOT IMPLEMENTED" );     
+  bool planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_list, 
+    const std::vector<std::pair<int,Polygon>>& victim_list, const Polygon& gate, 
+    const float x, const float y, const float theta, Path& path, const std::string& config_folder){
+
+    return my_planPath(borders, obstacle_list, victim_list, gate, x, y, theta, path, config_folder);
   }
 }
 

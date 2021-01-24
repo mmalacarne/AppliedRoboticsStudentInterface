@@ -2,7 +2,7 @@
 
 //#define DEBUG_PM
 //#define DEBUG_OBSTACLES
-#define DEBUG_VICTIMS_GATE
+//#define DEBUG_VICTIMS_GATE
 //#define DEBUG_VICTIMS_ID
 //#define DEBUG_getTemplateImgs
 //#define DEBUG_getTMDigit
