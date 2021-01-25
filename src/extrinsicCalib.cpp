@@ -144,7 +144,7 @@ bool my_extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_po
     if (!all_good) std::cerr << "FAILED SOLVE_PNP" << std::endl;
 
     return all_good;
-  }
+}
 
 void my_imageUndistort(const cv::Mat& img_in, cv::Mat& img_out, 
     const cv::Mat& cam_matrix, const cv::Mat& dist_coeffs, const std::string& config_folder){

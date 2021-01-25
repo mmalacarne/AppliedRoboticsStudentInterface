@@ -1,5 +1,7 @@
 #include "utils.hpp"
+#include "clipper.hpp"
 
+#include <cmath>
 #include <vector>
 #include <opencv2/opencv.hpp>
 

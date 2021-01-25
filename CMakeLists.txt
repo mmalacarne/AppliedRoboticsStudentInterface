@@ -24,6 +24,7 @@ add_library(student SHARED
    src/student_interface.cpp
    src/imageManager.cpp
    src/extrinsicCalib.cpp
+   src/clipper.cpp
    src/mapProcessing.cpp
    src/dubins.cpp
    src/pathPlanning.cpp
