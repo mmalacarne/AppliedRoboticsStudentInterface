@@ -28,6 +28,7 @@ add_library(student SHARED
    src/mapProcessing.cpp
    src/dubins.cpp
    src/pathPlanning.cpp
+   src/collisionDetectionModule.cpp
 )
 
 target_link_libraries(student

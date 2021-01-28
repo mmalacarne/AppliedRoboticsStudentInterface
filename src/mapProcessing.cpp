@@ -31,8 +31,8 @@ void removeNoise(cv::Mat& mask){
 * Retrieves the approximated contours of mask.
 * @param[in]  mask 				Denoised bitmap mask matrix for a certain color.
 * @param[in]  dist_accuracy 	Max distance between the original curve and its approximation.
-* @param[in]  scale 			Scale of the arena.
-* @param[out] obj_contour_list 	List of objs contours.
+* @param[in]  scale 			Scale of the arena (1px/scale = X meters).
+* @param[out] obj_contour_list 	List of objs contours (vertex in meters).
 */
 void getApproxMaskContours(cv::Mat& mask, int dist_accuracy, const double scale, std::vector<Polygon>& obj_contour_list){
 	std::vector<cv::Point> approx_curve;
@@ -45,7 +45,7 @@ void getApproxMaskContours(cv::Mat& mask, int dist_accuracy, const double scale,
 		// Create the contour poligon and populate it with verteces
 		Polygon obj_contour;
 		for (const auto& pt: approx_curve){
-			obj_contour.emplace_back(pt.x/scale, pt.y/scale);
+			obj_contour.emplace_back(pt.x/scale, pt.y/scale); // pts are in px --> pt/scale = meter
 		}
 		// Populate the obj contour vector
 		obj_contour_list.push_back(obj_contour);
@@ -71,7 +71,7 @@ void showRetrievedObjs(const cv::Mat& hsv_img, const double scale, std::vector<P
 
 		std::vector<cv::Point> contours;
 		for (const auto& pt: obj){
-			contours.emplace_back(pt.x*scale, pt.y*scale);
+			contours.emplace_back(pt.x*scale, pt.y*scale); // pts are in meter --> pt*scale = px
 		}
 		std::vector<std::vector<cv::Point>> drawable_contours = {contours};
 		// cv::Scalar(40,190,40) // green
@@ -101,7 +101,7 @@ void showRetrievedObjs(const cv::Mat& hsv_img, const double scale, std::vector<s
 
 		std::vector<cv::Point> contours;
 		for (const auto& pt: obj.second){
-			contours.emplace_back(pt.x*scale, pt.y*scale);
+			contours.emplace_back(pt.x*scale, pt.y*scale); // pts are in meter --> pt*scale = px
 		}
 		std::vector<std::vector<cv::Point>> drawable_contours = {contours};
 		// cv::Scalar(40,190,40) // green
@@ -120,9 +120,9 @@ void showRetrievedObjs(const cv::Mat& hsv_img, const double scale, std::vector<s
 
 /*!
 * Retrieves the radius of the circle that circumscribes the triangle.
-* @param[in]   hsv_img 		Original img in hsv space.
-* @param[in]   objs_list 	List of objects.
-* @param[out]  radius 		Retrieved radius.
+* @param[in]   hsv_img 	Original img in hsv space.
+* @param[in]   scale 	Scale of the arena (1px/scale = X meters).
+* @param[out]  radius 	Retrieved radius (in meters).
 */
 double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 	Polygon triangle;
@@ -144,7 +144,7 @@ double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 	if (approx_curve.size() == 3){
 		// Create the contour polygon and populate it with verteces
 		for (const auto& pt: approx_curve)
-			triangle.emplace_back(pt.x/scale, pt.y/scale);
+			triangle.emplace_back(pt.x/scale, pt.y/scale); // pts are in px --> pt/scale = meter
 	} else {
 		throw std::logic_error("getTriangleRadius() - Error! Robot with " + std::to_string(approx_curve.size()) + " edges");
 	}
@@ -185,34 +185,51 @@ double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 		cv::cvtColor(hsv_img, img_in, cv::COLOR_HSV2BGR);
 		double radius = std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
 
+		cv::line(img_in, cv::Point(baricenter_x*scale, baricenter_y*scale), 
+			cv::Point(top_vertex.x*scale, top_vertex.y*scale), cv::Scalar(0, 0, 0), 2);
 		cv::circle(img_in, cv::Point(baricenter_x*scale, baricenter_y*scale), radius*scale, cv::Scalar(255, 0, 0), 2);
 		std::string window_name = "Robot radius contours - r = " + std::to_string(radius);
 		cv::imshow(window_name, img_in);
-		cv::waitKey(0);
-		cv::destroyAllWindows();
+		//cv::waitKey(0);
+		//cv::destroyAllWindows();
 	#endif
 
-	return std::sqrt(std::pow(dx, 2) + std::pow(dy, 2));
+	return std::sqrt(std::pow(dx, 2) + std::pow(dy, 2)); // pts are in meter
+	//return std::sqrt(std::pow(dx, 2) + std::pow(dy, 2))*scale; // pts are in meter --> pt*scale = px
 }
 
 /*!
 * Inflates the obstacles of a list with a given offset by means of ClipperLib.
-* @param[in]   offset 			Offset to apply.
-* @param[in]   obstacles_list 	List of obstacles.
-* @param[out]  obstacles_list 	List of offsetted obstacles.
+* @param[in]   offset 			Offset to apply (in meters).
+* @param[in]   obstacles_list 	List of obstacles (vertex in meters).
+* @param[in]   scale 			Scale of the arena (1px/scale = X meters).
+* @param[out]  obstacles_list 	List of offsetted obstacles (vertex in meters).
 */
-void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list){
+void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list, const double scale){
 	clpr::Paths all_offset_obstacles;
 	clpr::ClipperOffset co;
-	co.MiterLimit = 4;
+	//co.MiterLimit = 4;
+
+	// ClipperLib offset is in px --> offset*scale = px
+	double px_offset = offset * scale;
+	#ifdef DEBUG_OFFSET_OBSTACLES
+		std::cout << "px_offset = offset*scale = " << offset << "*"<< scale << " = " << px_offset<< std::endl;
+	#endif
 
 	const double INT_ROUND = 1000.;
 	for (const auto& obstacle: obstacles_list){
 		clpr::Path clpr_obstacle;
-
 		for (const auto& pt: obstacle){
+			// Obstacle's pts are in meters --> pt*scale = px
+			//int x = pt.x * scale * INT_ROUND;
+			//int y = pt.y * scale * INT_ROUND;
 			int x = pt.x * INT_ROUND;
 			int y = pt.y * INT_ROUND;
+
+			#ifdef DEBUG_OFFSET_OBSTACLES
+				std::cout << "pt.x = " << pt.x << " x = " << x << std::endl;
+				std::cout << "pt.y = " << pt.y << " y = " << y << std::endl;
+			#endif
 
 			clpr_obstacle << clpr::IntPoint(x, y);
 		}
@@ -222,10 +239,10 @@ void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list){
 		else
 			co.AddPath(clpr_obstacle, clpr::jtSquare, clpr::etClosedPolygon);
 
-		co.AddPath(clpr_obstacle, clpr::jtMiter, clpr::etClosedPolygon);
+		//co.AddPath(clpr_obstacle, clpr::jtMiter, clpr::etClosedPolygon);
 	}
 
-	co.Execute(all_offset_obstacles, offset);
+	co.Execute(all_offset_obstacles, px_offset);
 
 	// Update obstacles_list with the new offsetted obstacles
 	obstacles_list.clear();
@@ -235,8 +252,16 @@ void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list){
 
 		if (clpr::Orientation(clpr_obstacle)){
 			for (const clpr::IntPoint& pt: clpr_obstacle){
+				// Clipper obstacle's pts are in px --> pt/scale = meters
+				//double x = (pt.X / scale) / INT_ROUND;
+				//double y = (pt.Y / scale) / INT_ROUND;
 				double x = pt.X / INT_ROUND;
 				double y = pt.Y / INT_ROUND;
+
+				/*#ifdef DEBUG_OFFSET_OBSTACLES
+					std::cout << "pt.X = " << pt.X << " x = " << x << std::endl;
+					std::cout << "pt.Y = " << pt.Y << " y = " << y << std::endl;
+				#endif*/
 
 				offsetted_obstacle.emplace_back(x, y);
 			}
@@ -249,8 +274,8 @@ void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list){
 /*!
 * Retrieves the obstacles.
 * @param[in]  hsv_img 			Original img in hsv space.
-* @param[in]  scale 			Scale of the arena.
-* @param[out] obstacles_list 	List of obstacles.
+* @param[in]  scale 			Scale of the arena (1px/scale = X meters).
+* @param[out] obstacles_list 	List of obstacles (vertex in meters).
 */
 void getObstacles(const cv::Mat& hsv_img, const double scale, std::vector<Polygon>& obstacles_list){
 	// Extract red color region [0°, 20°] & [340°, 360°] -> [0°, 10°] & [170°, 179°]
@@ -271,13 +296,22 @@ void getObstacles(const cv::Mat& hsv_img, const double scale, std::vector<Polygo
 		std::cout << "getObstacles()- get the triangle radius" << std::endl;
 	#endif
 
-	// Set the obstacle offset as the robot_radius+8 (better be safe than sorry)
-	double offset = getTriangleRadius(hsv_img, scale) + 8;
+	// Set the obstacle offset a little bit more than the robot_radius
+	double extra_margin = 0.05; // additional 5cm margin --> better be safe than sorry;)
+	//double offset = getTriangleRadius(hsv_img, scale) + extra_margin;
+	double offset = getTriangleRadius(hsv_img, scale);
 
 	// Offsetting the obstacles
-	offsetObstacles(offset, obstacles_list);
+	offsetObstacles(offset, obstacles_list, scale);
 
 	#ifdef DEBUG_OFFSET_OBSTACLES
+		//std::cout << "Radius = " << offset-extra_margin << " m" << std::endl;
+		//std::cout << "Radius = Radius + margin = " << offset << " m" << std::endl;
+		//std::cout << "Radius*scale = " << offset*scale << " px" << std::endl;
+
+		std::cout << "Radius = " << offset << " m" << std::endl;
+		std::cout << "Radius*scale = " << offset*scale << " px" << std::endl;
+
 		std::cout << "getObstacles()- triangle radius retrieved" << std::endl;
 		showRetrievedObjs(hsv_img, scale, obstacles_list, "Offsetted obstacle");
 		cv::waitKey(0);
@@ -515,7 +549,7 @@ void getTMDigit(cv::Mat& edited_ROI, std::vector<std::pair<int,cv::Mat>>& templa
 * Recognize and retrieves the victim's ID by means of tesserract.
 * @param[in]  hsv_img 			Original image in hsv space.
 * @param[in]  mask 				Green mask.
-* @param[in]  scale 			Scale of the arena.
+* @param[in]  scale 			Scale of the arena (1px/scale = X meters).
 * @param[in]  victim_contours 	Victim points which define the contours.
 * @param[in]  template_images 	Vector of template images.
 * @param[out] victim_id 		The retrieved victim id.
@@ -599,7 +633,7 @@ int getVictimID(const cv::Mat& hsv_img, const cv::Mat& mask, const double scale,
 /*!
 * Retrieves the victims and the gate. Victims and gate are discriminated by the number of verteces.
 * @param[in]  hsv_img 		Original img in hsv space.
-* @param[in]  scale 		Scale of the arena.
+* @param[in]  scale 		Scale of the arena (1px/scale = X meters).
 * @param[out] victims_list 	List of obstacles.
 * @param[out] gate 			Gate polygon.
 */
@@ -654,28 +688,6 @@ void getVictimsAndGate(const cv::Mat& hsv_img, const double scale,
 
 	#ifdef DEBUG_VICTIMS_GATE
 		// Draw victims
-		/*cv::Mat img_in;
-		cv::cvtColor(hsv_img, img_in, cv::COLOR_HSV2BGR);
-		//cv::imshow("Original img", img_in);
-		//cv::imshow("HSV", hsv_img);
-
-		// Draw victims
-		for (const auto& victim: victims_list){
-			cv::Mat contours_img = img_in.clone();
-			std::cout << "Approximated contour size: " << victim.second.size() << std::endl;
-
-			std::vector<cv::Point> contours;
-			for (const auto& pt: victim.second){
-				contours.emplace_back(pt.x*scale, pt.y*scale);
-			}
-			std::vector<std::vector<cv::Point>> drawable_contours = {contours};
-			// cv::Scalar(40,190,40) = green
-			// cv::Scalar(0,170,220) = yellow
-			drawContours(contours_img, drawable_contours, -1, cv::Scalar(0,170,220), 2, cv::LINE_AA);
-
-			std::string v_w = "Victim contours - id = " + std::to_string(victim.first);
-			cv::imshow(v_w, contours_img);
-		}*/
 		showRetrievedObjs(hsv_img, scale, victims_list, "Victims");
 
 		// Draw gate
@@ -689,7 +701,7 @@ void getVictimsAndGate(const cv::Mat& hsv_img, const double scale,
 /*!
 * Retrieves the robot/triangle.
 * @param[in]  hsv_img 	Original img in hsv space.
-* @param[in]  scale 	Scale of the arena.
+* @param[in]  scale 	Scale of the arena (1px/scale = X meters).
 * @param[out] triangle 	Robot/triangle polygon.
 */
 bool getRobot(const cv::Mat& hsv_img, const double scale, Polygon& triangle){

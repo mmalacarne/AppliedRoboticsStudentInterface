@@ -510,10 +510,10 @@ void plotDubins(curve c){
 	std::vector<double> arc1_x, arc1_y;
 	std::tie(arc1_x, arc1_y) = getPlottableArc(c.arc1);
     plt::named_plot("First arc", arc1_x, arc1_y, "r-");
-    double arc1_u = 0.1 * c.arc1.L * std::cos(c.arc1.th0);
+    /*double arc1_u = 0.1 * c.arc1.L * std::cos(c.arc1.th0);
     double arc1_v = 0.1 * c.arc1.L * std::sin(c.arc1.th0);
-    //plt::quiver(arc1_x[0], arc1_y[0], arc1_u, arc1_v);
-    /*std::vector<double> dir1_x, dir1_y;
+    plt::quiver(arc1_x[0], arc1_y[0], arc1_u, arc1_v);
+    std::vector<double> dir1_x, dir1_y;
     dir1_x.push_back(arc1_x[0]);
     dir1_x.push_back(arc1_u);
     dir1_y.push_back(arc1_y[0]);
@@ -529,10 +529,10 @@ void plotDubins(curve c){
 	std::vector<double> arc3_x, arc3_y;
 	std::tie(arc3_x, arc3_y) = getPlottableArc(c.arc3);
     plt::named_plot("Third arc", arc3_x, arc3_y, "b-");
-    double arc3_u = 0.1 * c.arc3.L * std::cos(c.arc3.th0);
+    /*double arc3_u = 0.1 * c.arc3.L * std::cos(c.arc3.th0);
     double arc3_v = 0.1 * c.arc3.L * std::sin(c.arc3.th0);
-    //plt::quiver(arc3_x[0], arc3_y[0], arc3_u, arc3_v);
-    /*std::vector<double> dir3_x, dir3_y;
+    plt::quiver(arc3_x[0], arc3_y[0], arc3_u, arc3_v);
+    std::vector<double> dir3_x, dir3_y;
     dir3_x.push_back(arc3_x[0]);
     dir3_x.push_back(arc3_u);
     dir3_y.push_back(arc3_y[0]);

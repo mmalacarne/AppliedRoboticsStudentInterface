@@ -1,3 +1,6 @@
+#ifndef __DUBINS_HPP__
+#define __DUBINS_HPP__
+
 #include <cmath>
 #include <tuple>
 #include <vector>
@@ -10,7 +13,7 @@
 //**********************************************************************
 // AUXILIARY UTILITY FUNCTION
 //**********************************************************************
-/*double sinc(double t);
+double sinc(double t);
 
 double mod2pi(double ang);
 
@@ -18,7 +21,7 @@ double rangeSymm(double ang);
 
 bool check(double s1, double k0, double s2, double k1, double s3, double k2, double th0, double thf);
 
-std::tuple<double, double, double> circline(double s, double x0, double y0, double th0, double k);*/
+std::tuple<double, double, double> circline(double s, double x0, double y0, double th0, double k);
 
 
 
@@ -113,3 +116,4 @@ public:
     void plot();
 };
 
+#endif

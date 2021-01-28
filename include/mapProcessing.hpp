@@ -1,3 +1,6 @@
+#ifndef __MAP_PROCESSING_HPP__
+#define __MAP_PROCESSING_HPP__
+
 #include "utils.hpp"
 #include "clipper.hpp"
 
@@ -13,3 +16,5 @@ bool my_processMap(const cv::Mat& img_in, const double scale,  std::vector<Polyg
 
 bool my_findRobot(const cv::Mat& img_in, const double scale, Polygon& triangle, double& x, double& y, 
 	double& theta, const std::string& config_folder);
+
+#endif

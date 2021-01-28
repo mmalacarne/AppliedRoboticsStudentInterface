@@ -6,7 +6,7 @@
 #define LOG_U
 
 //**********************************************************************
-// EXTRINSIC CALIBRATION FUNCTIONS - PRIVATE
+// PRIVATE EXTRINSIC CALIBRATION FUNCTIONS (from professor_interface)
 //**********************************************************************
 // Defintion of the function pickNPoints and the callback mouseCallback.
 // The function pickNPoints is used to display a window with a background
@@ -52,7 +52,7 @@ std::vector<cv::Point2f> pickNPoints(int n0, const cv::Mat& img){
 }
 
 //**********************************************************************
-// PRIVATE FUNCTION
+// SUPPORT FUNCTIONS - PRIVATE
 //**********************************************************************
 /*!
 * Support function which...

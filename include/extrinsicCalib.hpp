@@ -1,5 +1,5 @@
-//#ifndef __MY_EXTRINSIC_CALIB_H__
-//#define __MY_EXTRINSIC_CALIB_H__
+#ifndef __EXTRINSIC_CALIB_HPP__
+#define __EXTRINSIC_CALIB_HPP__
 
 #include <unistd.h>
 #include <vector>
@@ -25,4 +25,4 @@ void my_findPlaneTransform(const cv::Mat& cam_matrix, const cv::Mat& rvec, const
 void my_unwarp(const cv::Mat& img_in, cv::Mat& img_out, const cv::Mat& transf, 
     const std::string& config_folder);
 
-//#endif
+#endif
