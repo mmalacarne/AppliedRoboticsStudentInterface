@@ -40,3 +40,13 @@ src/camera_calibration.cpp
 
 # Shape detection
 src/demo_shape_detection
+
+# Dubins primitives
+include/dubinsPrimitives.hpp
+src/dubinsPrimitives.cpp
+
+# Test scripts
+src/path_plan_tests.cpp
+
+# Testing images folder
+src/testing_imgs
