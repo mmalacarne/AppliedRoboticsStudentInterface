@@ -479,7 +479,7 @@ std::pair<int, curve> dubins_shortest_path(double x0, double y0, double th0,
 
 
 //**********************************************************************
-// FUNCTIONS TO PLOT
+// PLOTTING FUNCTIONS
 //**********************************************************************
 /*!
 * Provides a tuple with the vectors of 2D plottable data.
@@ -578,7 +578,7 @@ void plotDubins(curve c){
 	std::string this_file_path = __FILE__;
 	std::string this_file_name = "dubins.cpp";
 	int upper_bound = this_file_path.length() - this_file_name.length();
-	std::string png_name = this_file_path.substr(0, upper_bound) + "dubins.png";
+	std::string png_name = this_file_path.substr(0, upper_bound) + "testing_imgs/dubins.png";
     plt::save(png_name);
 }
 
@@ -674,14 +674,14 @@ void plotMultiDubins(std::vector<std::pair<int, curve>> all_best_curves){
 	std::string this_file_path = __FILE__;
 	std::string this_file_name = "dubins.cpp";
 	int upper_bound = this_file_path.length() - this_file_name.length();
-	std::string png_name = this_file_path.substr(0, upper_bound) + "multi_dubins.png";
+	std::string png_name = this_file_path.substr(0, upper_bound) + "testing_imgs/multi_dubins.png";
     plt::save(png_name);
 }
 
 
 
 //**********************************************************************
-// DUBINS CLASS SUPPORT FUNCTIONS
+// DUBINS CLASS SUPPORT FUNCTIONS - PRIVATE
 //**********************************************************************
 /*!
 * Retrieves the k_thj possible theta_j angles that have to be tested in order 

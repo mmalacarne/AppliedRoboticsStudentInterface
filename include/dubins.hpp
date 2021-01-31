@@ -86,7 +86,7 @@ std::pair<int, curve> dubins_shortest_path(double x0, double y0, double th0, dou
 
 
 //**********************************************************************
-// FUNCTIONS TO PLOT
+// PLOTTING FUNCTIONS
 //**********************************************************************
 std::tuple<std::vector<double>, std::vector<double>> getPlottableArc(arc a);
 

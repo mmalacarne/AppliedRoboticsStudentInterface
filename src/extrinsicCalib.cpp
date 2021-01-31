@@ -4,6 +4,7 @@
 #define LOG_IU
 #define LOG_FPT
 #define LOG_U
+#define DIST_COEFFS_DEFAULT
 
 //**********************************************************************
 // PRIVATE EXTRINSIC CALIBRATION FUNCTIONS (from professor_interface)
@@ -55,9 +56,9 @@ std::vector<cv::Point2f> pickNPoints(int n0, const cv::Mat& img){
 // SUPPORT FUNCTIONS - PRIVATE
 //**********************************************************************
 /*!
-* Support function which...
-* @param[in]
-* @param[out] 
+* It writes points coordinates line per line in a csv file.
+* @param[in]  file_path     Path to the csv file.
+* @param[in]  img_points    Vector with the points.
 */
 void writePts2CSV(std::string file_path, std::vector<cv::Point2f>& img_points){
 	std::ofstream output(file_path);
@@ -72,9 +73,9 @@ void writePts2CSV(std::string file_path, std::vector<cv::Point2f>& img_points){
 }
 
 /*!
-* Support function which...
-* @param[in]
-* @param[out] 
+* It retrives points coordinates wrote line per line in a csv file.
+* @param[in]  file_path     Path to the csv file.
+* @param[out] img_points    Vector with the read points.
 */
 void readPtsFromCSV(std::string file_path, std::vector<cv::Point2f>& img_points){
 	std::ifstream input(file_path);
@@ -94,16 +95,31 @@ void readPtsFromCSV(std::string file_path, std::vector<cv::Point2f>& img_points)
 }
 
 /*!
-* Support function which...
-* @param[in]
-* @param[out] 
+* It reads the distortion coefficients from src/intrinsic_calibration.xml.
+* @param[out]  dist_coeffs  The distortion coefficients.
 */
-void getDistCoeffs(cv::Mat& dist_coeffs){
+/*void getDistCoeffs(cv::Mat& dist_coeffs){
 	std::cout << "getDistCoeffs is reading from intrinsic_calibration.xml" << std::endl;
-	std::string xml_path = "/home/workspace/project/intrinsic_calibration.xml";
 
-	//READ XML
-}
+    std::string this_file_path = __FILE__;
+    std::string this_file_name = "extrinsicCalib.cpp";
+    int upper_bound = this_file_path.length() - this_file_name.length();
+    std::string xml_path = this_file_path.substr(0, upper_bound) + "intrinsic_calibration.xml";
+
+    std::cout << "xml_path = " << xml_path << std::endl;
+
+    // Read xml
+    pugi::xml_document doc;
+    if (!doc.load_file(xml_path.c_str())) 
+        std::cerr << "pugixml - FILE NOT LOADED" << std::endl;
+
+    pugi::xml_node root = doc.document_element();
+    pugi::xml_node node = root.child("opencv_storage");
+    pugi::xml_node dc_node = node.child("distortion_coefficients");
+    pugi::xml_node data_node = dc_node.child("data");
+
+    std::cout << "dist_coeffs_node = " << data_node.text() << std::endl;
+}*/
 
 //**********************************************************************
 // PUBLIC FUNCTION
@@ -127,21 +143,33 @@ bool my_extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_po
     	readPtsFromCSV(file_path, img_points);
     }
     
-    // get rotational and transposal vectors
-    bool AS_IN_PROFESSOR_INTERFACE = true;
+    // Define the distortion coefficients
     cv::Mat dist_coeffs;
 
-    if (AS_IN_PROFESSOR_INTERFACE){
-    	dist_coeffs = (cv::Mat1d(1,4) << 0, 0, 0, 0, 0);
-    	std::cout << "dist_coeffs = [0,0,0,0,0]" << std::endl;
-    	std::cout << "Shouldn't I get dist_coeffs from intrinsic_calibration.xml???" << std::endl;
-    	std::cout << std::experimental::filesystem::current_path() << std::endl;
-    }
-    else getDistCoeffs(dist_coeffs);
+    #ifdef DIST_COEFFS_DEFAULT
+        dist_coeffs = cv::Mat1d::zeros(1, 4); // dist_coeffs = (cv::Mat1d(1,4) << 0, 0, 0, 0, 0);
+        // Look at mail reply
+        std::cout << "STUDENT FUNCTION - DIST_COEFFS_DEFAULT [0,0,0,0,0]" << std::endl;
+        //std::cout << "Shouldn't I get dist_coeffs from intrinsic_calibration.xml???" << std::endl;
+        //std::cout << std::experimental::filesystem::current_path() << std::endl;
+    #else
+        std::cout << "STUDENT FUNCTION - NO DIST_COEFFS_DEFAULT" << std::endl;
+        //getDistCoeffs(dist_coeffs);
 
+        // Copied & pasted dist coeffs value from intrinsic_calibration.xml
+        double dc_k1 = -3.8003887070277098e-01;
+        double dc_k2 = 1.6491942975982371e-01;
+        double dc_k3 = -7.2969848408770512e-04;
+        double dc_p1 = -8.3850307681785957e-04;
+        double dc_p2 = 0.;
+
+        dist_coeffs = (cv::Mat1d(1,4) << dc_k1, dc_k2, dc_k3, dc_p1, dc_p2);
+    #endif
+
+    // Get rotational and transposal vectors
     bool all_good = cv::solvePnP(object_points, img_points, camera_matrix, dist_coeffs, rvec, tvec);
 
-    if (!all_good) std::cerr << "FAILED SOLVE_PNP" << std::endl;
+    if (!all_good) std::cerr << "STUDENT FUNCTION - my_extrinsicCalib - solvePnP FAILED" << std::endl;
 
     return all_good;
 }

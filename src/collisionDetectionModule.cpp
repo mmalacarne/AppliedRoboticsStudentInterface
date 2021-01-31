@@ -1,6 +1,6 @@
 #include "collisionDetectionModule.hpp"
 
-#define DEBUG_IAL
+//#define DEBUG_IAL
 //#define DEBUG_GCFA
 
 namespace plt = matplotlibcpp;
