@@ -46,35 +46,29 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     dubins.printSolutionPts();
     dubins.plot();*/
 
-    // Arc and line intersection
-    double arc_x0 = 0, arc_y0 = 5, arc_th0 = 0; 	// initial robot position facing right
-    double arc_L = 5; 								// arc length
-    double min_r = 5; 								// min turning radius
-    double arc_k = -1/min_r; 						// min_r = 1/kmx -> kmx = 1/min_r
-    double arc_xf, arc_yf; 							// final robot pts
-    // final robot position
-    std::tie(arc_xf, arc_yf, std::ignore) = circline(arc_L, arc_x0, arc_y0, arc_th0, arc_k);
+    // Circle and line intersection test
+    // Define circle
+    double cx = 0, cy = 0, r = 5;
+    circle c = getCircle(cx, cy, r);
 
-    double L_x0 = -3, L_y0 = 5, L_xf = 3, L_yf = 5;
-    bool i_AL; 
-    double i_AL_x0, i_AL_y0, i_AL_x1, i_AL_y1;
+    // Define segment
+    double L_x0 = 3, L_y0 = 12, L_xf = -5, L_yf = -2;
+    segment L = getSegment(L_x0, L_y0, L_xf, L_yf);
 
-    std::tie(i_AL, i_AL_x0, i_AL_y0, i_AL_x1, i_AL_y1) = intersArcLine(arc_x0, arc_y0, arc_th0, 
-    	arc_xf, arc_yf, arc_L, arc_k, L_x0, L_y0, L_xf, L_yf);
+    bool i_CL;
+    double i_CL_x0, i_CL_y0, i_th0;
+    double i_CL_x1, i_CL_y1, i_th1;
 
-    if (i_AL){
-    	std::cout << "Intersection in ";
-    	if (! std::isnan(i_AL_x0))
-    		std::cout << "x1 = " << i_AL_x0 << " y1 = " << i_AL_y0;
-    	if (! std::isnan(i_AL_x1))
-    		std::cout << " and in x2 = " << i_AL_x1 << " y2 = " << i_AL_y1 << std::endl;
+    std::tie(i_CL, i_CL_x0, i_CL_y0, i_th0, i_CL_x1, i_CL_y1, i_th1) = intersCircleLine(c, L);
+
+    if (i_CL){
+    	std::cout << "Intersection in x1 = " << i_CL_x0 << " y1 = " << i_CL_y0;
+    	std::cout << " and in x2 = " << i_CL_x1 << " y2 = " << i_CL_y1 << std::endl;
     } else {
     	std::cout << "No intersection found" << std::endl;
-    	std::cout << "x1 = " << i_AL_x0 << " y1 = " << i_AL_y0;
-    	std::cout << " - x2 = " << i_AL_x1 << " y2 = " << i_AL_y1 << std::endl;
+    	std::cout << "x1 = " << i_CL_x0 << " y1 = " << i_CL_y0;
+    	std::cout << " - x2 = " << i_CL_x1 << " y2 = " << i_CL_y1 << std::endl;
     }
-
-    std::cout << "my_planPath - END" << std::endl;
 
     return true;
 }

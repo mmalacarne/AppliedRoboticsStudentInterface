@@ -14,17 +14,37 @@
 #include "matplotlibcpp.h"
 
 //**********************************************************************
+// PUBLIC DATA STRUCTURES AND GETTERS
+//**********************************************************************
+typedef struct{
+	double x0;
+	double y0;
+	double xf;
+	double yf;
+
+	/*segment(double x0, double y0, double xf, double yf):
+		x0(x), y0(y), xf(xf), yf(yf)
+	{}*/
+}segment;
+
+typedef struct{
+	double x;
+	double y;
+	double r;
+}circle;
+
+segment getSegment(double x0, double y0, double xf, double yf);
+
+circle getCircle(double x, double y, double r);
+
+//**********************************************************************
 // PUBLIC FUNCTION FOR COLLISION DETECTION
 //**********************************************************************
-std::tuple<bool, double, double> intersLineLine(double L1_x0, double L1_y0, double L1_xf, double L1_yf, 
-	double L2_x0, double L2_y0, double L2_xf, double L2_yf);
+std::tuple<bool, double, double> intersLineLine(segment L1, segment L2);
 
-std::tuple<bool, double, double, double, double, double, double> intersCircleLine(double cx, double cy, double r, 
-	double L_x0, double L_y0, double L_xf, double L_yf);
+std::tuple<bool, double, double, double, double, double, double> intersCircleLine(circle c, segment L);
 
-std::tuple<bool, double, double, double, double> intersArcLine(double arc_x0, double arc_y0, double arc_th0, 
-	double arc_xf, double arc_yf, double arc_L, double arc_k, 
-	double L_x0, double L_y0, double L_xf, double L_yf);
+std::tuple<bool, double, double, double, double> intersArcLine(arc a, segment L);
 
 //bool intersPtPolygon(double pt_x, double pt_y, Polygon p);
 

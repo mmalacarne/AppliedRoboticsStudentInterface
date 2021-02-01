@@ -118,24 +118,6 @@ bool check(double s1, double k0, double s2, double k1, double s3, double k2, dou
 //**********************************************************************
 // DATA STRUCTURES AND GETTERS
 //**********************************************************************
-/*typedef struct{
-	double x0;
-    double y0;
-    double th0;
-    double k;
-    double L;
-    double xf;
-    double yf;
-    double thf;
-}arc;
-
-typedef struct{
-	arc arc1;
-    arc arc2;
-    arc arc3;
-    double L;
-}curve;*/
-
 /*!
 * Create a structure representing an arc of a Dubins curve (straight or circular).
 * @param[in]  x0 	Initial x-coord.
@@ -502,7 +484,8 @@ std::tuple<std::vector<double>, std::vector<double>> getPlottableArc(arc a){
 }
 
 /*!
-* Plot a Dubins curve and save it as dubins.png in /home/user_name/workspace/project/src/ .
+* Plot a Dubins curve and save it as dubins.png in 
+* /home/user_name/workspace/project/src/testing_imgs .
 * @param[in]  c 	Dubins curve to plot.
 */
 void plotDubins(curve c){
