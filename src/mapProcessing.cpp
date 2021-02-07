@@ -17,7 +17,7 @@ namespace clpr = ClipperLib;
 //**********************************************************************
 /*!
 * Erode and dilate the mask with a 4x4 kernel.
-* @param[out] mask 	Bitmap mask matrix for a certain color. 
+* @param[out] 	mask 	Bitmap mask matrix for a certain color. 
 */
 void removeNoise(cv::Mat& mask){
 	cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(4, 4));
@@ -29,10 +29,10 @@ void removeNoise(cv::Mat& mask){
 
 /*!
 * Retrieves the approximated contours of mask.
-* @param[in]  mask 				Denoised bitmap mask matrix for a certain color.
-* @param[in]  dist_accuracy 	Max distance between the original curve and its approximation.
-* @param[in]  scale 			Scale of the arena (1px/scale = X meters).
-* @param[out] obj_contour_list 	List of objs contours (vertex in meters).
+* @param[in] 	mask 				Denoised bitmap mask matrix for a certain color.
+* @param[in] 	dist_accuracy 		Max distance between the original curve and its approximation.
+* @param[in] 	scale 				Scale of the arena (1px/scale = X meters).
+* @param[out] 	obj_contour_list 	List of objs contours (vertex in meters).
 */
 void getApproxMaskContours(cv::Mat& mask, int dist_accuracy, const double scale, std::vector<Polygon>& obj_contour_list){
 	std::vector<cv::Point> approx_curve;
@@ -120,13 +120,12 @@ void showRetrievedObjs(const cv::Mat& hsv_img, const double scale, std::vector<s
 
 /*!
 * Retrieves the radius of the circle that circumscribes the triangle.
-* @param[in]   hsv_img 	Original img in hsv space.
-* @param[in]   scale 	Scale of the arena (1px/scale = X meters).
-* @param[out]  radius 	Retrieved radius (in meters).
+* @param[in]   		hsv_img 	Original img in hsv space.
+* @param[in] 		scale 		Scale of the arena (1px/scale = X meters).
+* @return[double] 	radius 		Retrieved radius (in meters).
 */
 double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 	Polygon triangle;
-	double baricenter_x, baricenter_y;
 
 	// Here I can't use the function getRobot() due to scope problems while compiling.
 	// Dirty workaround --> Copy&Paste of getRobot()
@@ -152,7 +151,7 @@ double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 
 	// Here I can't use the function getBaricenter() due to scope problems while compiling.
 	// Dirty workaround --> Copy&Paste of getBaricenter()
-	baricenter_x = 0;
+	/*baricenter_x = 0;
 	baricenter_y = 0;
 
 	for (auto pt: triangle){
@@ -161,8 +160,13 @@ double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 	}
 
 	baricenter_x /= static_cast<double>(triangle.size());
-	baricenter_y /= static_cast<double>(triangle.size());
+	baricenter_y /= static_cast<double>(triangle.size());*/
 	// Dirty workaround end
+
+	// Get baricenter
+	double baricenter_x, baricenter_y;
+	getBaricenter(triangle, baricenter_x, baricenter_y);
+
 
 	// Get the top vertex of the triangle
 	Point top_vertex;
@@ -200,10 +204,10 @@ double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 
 /*!
 * Inflates the obstacles of a list with a given offset by means of ClipperLib.
-* @param[in]   offset 			Offset to apply (in meters).
-* @param[in]   obstacles_list 	List of obstacles (vertex in meters).
-* @param[in]   scale 			Scale of the arena (1px/scale = X meters).
-* @param[out]  obstacles_list 	List of offsetted obstacles (vertex in meters).
+* @param[in] 	offset 			Offset to apply (in meters).
+* @param[in] 	obstacles_list 	List of obstacles (vertex in meters).
+* @param[in] 	scale 			Scale of the arena (1px/scale = X meters).
+* @param[out] 	obstacles_list 	List of offsetted obstacles (vertex in meters).
 */
 void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list, const double scale){
 	clpr::Paths all_offset_obstacles;
@@ -273,9 +277,9 @@ void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list, const 
 
 /*!
 * Retrieves the obstacles.
-* @param[in]  hsv_img 			Original img in hsv space.
-* @param[in]  scale 			Scale of the arena (1px/scale = X meters).
-* @param[out] obstacles_list 	List of obstacles (vertex in meters).
+* @param[in] 	hsv_img 		Original img in hsv space.
+* @param[in] 	scale 			Scale of the arena (1px/scale = X meters).
+* @param[out] 	obstacles_list 	List of obstacles (vertex in meters).
 */
 void getObstacles(const cv::Mat& hsv_img, const double scale, std::vector<Polygon>& obstacles_list){
 	// Extract red color region [0°, 20°] & [340°, 360°] -> [0°, 10°] & [170°, 179°]
@@ -322,7 +326,7 @@ void getObstacles(const cv::Mat& hsv_img, const double scale, std::vector<Polygo
 
 /*!
 * Support function which retrives all the template images from src/template_images.
-* @param[out] template_img_list 	Vector of pairs <represented id, template image>.
+* @param[out] 	template_img_list 	Vector of pairs <represented id, template image>.
 */
 void getTemplateImgs(std::vector<std::pair<int,cv::Mat>>& template_img_list){
   std::string this_file_path = __FILE__;
@@ -497,11 +501,11 @@ std::string getOCRDigit(std::vector<std::vector<cv::Mat>>& all_ROI){
 /*!
 * Assuming all victims have been rotated and flipped in the same known way, it applies a series 
 * of modification in order to make orig_ROI readable/recognizable.
-* @param[in]  orig_ROI 		Original ROI.
-* @param[in]  angle 		Angle of rotation.
-* @param[in]  flag_x_flip 	Flag indicating whether the ROI has to be flipped on the x-axis.
-* @param[in]  flag_y_flip 	Flag indicating whether the ROI has to be flipped on the y-axis.
-* @param[out] edited_ROI 	Readable/recognizable ROI.
+* @param[in] 	orig_ROI 		Original ROI.
+* @param[in] 	angle 			Angle of rotation.
+* @param[in] 	flag_x_flip 	Flag indicating whether the ROI has to be flipped on the x-axis.
+* @param[in] 	flag_y_flip 	Flag indicating whether the ROI has to be flipped on the y-axis.
+* @param[out] 	edited_ROI 		Readable/recognizable ROI.
 */
 void getEditedROI(cv::Mat& orig_ROI, const double angle, bool flag_x_flip, bool flag_y_flip, cv::Mat& edited_ROI){
 	cv::Point2f ROI_center(orig_ROI.cols/2., orig_ROI.rows/2.);
@@ -519,9 +523,9 @@ void getEditedROI(cv::Mat& orig_ROI, const double angle, bool flag_x_flip, bool 
 
 /*!
 * Retrieves the best matching digit (a.k.a the victim's id).
-* @param[in]  edited_ROI 			Readable/recognizable ROI.
-* @param[in]  template_img_list 	Vector of pairs <represented id, template image>.
-* @param[out] victim_id 			Matched digit in edited_ROI.
+* @param[in] 	edited_ROI 			Readable/recognizable ROI.
+* @param[in] 	template_img_list 	Vector of pairs <represented id, template image>.
+* @param[out] 	victim_id 			Matched digit in edited_ROI.
 */
 void getTMDigit(cv::Mat& edited_ROI, std::vector<std::pair<int,cv::Mat>>& template_img_list, int& victim_id){
 	double best_score = 0;
@@ -547,12 +551,12 @@ void getTMDigit(cv::Mat& edited_ROI, std::vector<std::pair<int,cv::Mat>>& templa
 
 /*!
 * Recognize and retrieves the victim's ID by means of tesserract.
-* @param[in]  hsv_img 			Original image in hsv space.
-* @param[in]  mask 				Green mask.
-* @param[in]  scale 			Scale of the arena (1px/scale = X meters).
-* @param[in]  victim_contours 	Victim points which define the contours.
-* @param[in]  template_images 	Vector of template images.
-* @param[out] victim_id 		The retrieved victim id.
+* @param[in] 	hsv_img 			Original image in hsv space.
+* @param[in] 	mask 				Green mask.
+* @param[in] 	scale 				Scale of the arena (1px/scale = X meters).
+* @param[in] 	victim_contours 	Victim points which define the contours.
+* @param[in] 	template_images 	Vector of template images.
+* @return[int] 	victim_id 			The retrieved victim id.
 */
 int getVictimID(const cv::Mat& hsv_img, const cv::Mat& mask, const double scale, 
 	const Polygon& victim_contour, std::vector<std::pair<int,cv::Mat>>& template_images){
@@ -632,10 +636,10 @@ int getVictimID(const cv::Mat& hsv_img, const cv::Mat& mask, const double scale,
 
 /*!
 * Retrieves the victims and the gate. Victims and gate are discriminated by the number of verteces.
-* @param[in]  hsv_img 		Original img in hsv space.
-* @param[in]  scale 		Scale of the arena (1px/scale = X meters).
-* @param[out] victims_list 	List of obstacles.
-* @param[out] gate 			Gate polygon.
+* @param[in] 	hsv_img 		Original img in hsv space.
+* @param[in] 	scale 			Scale of the arena (1px/scale = X meters).
+* @param[out] 	victims_list 	List of obstacles.
+* @param[out] 	gate 			Gate polygon.
 */
 void getVictimsAndGate(const cv::Mat& hsv_img, const double scale, 
 	std::vector<std::pair<int,Polygon>>& victims_list, Polygon& gate){
@@ -700,9 +704,9 @@ void getVictimsAndGate(const cv::Mat& hsv_img, const double scale,
 
 /*!
 * Retrieves the robot/triangle.
-* @param[in]  hsv_img 	Original img in hsv space.
-* @param[in]  scale 	Scale of the arena (1px/scale = X meters).
-* @param[out] triangle 	Robot/triangle polygon.
+* @param[in] 	hsv_img 	Original img in hsv space.
+* @param[in] 	scale 		Scale of the arena (1px/scale = X meters).
+* @param[out] 	triangle 	Robot/triangle polygon.
 */
 bool getRobot(const cv::Mat& hsv_img, const double scale, Polygon& triangle){
 	// Extract blue color region [190°, 270°] -> [95°, 135°]
@@ -778,30 +782,11 @@ bool getRobot(const cv::Mat& hsv_img, const double scale, Polygon& triangle){
 }
 
 /*!
-* Retrieves the robot/trianlge's baricenter.
-* @param[in]  triangle 		Robot/triangle polygon.
-* @param[out] baricenter_x 	Baricenter's x coordinate.
-* @param[out] baricenter_y	Baricenter's y coordinate.
-*/
-void getBaricenter(Polygon& triangle, double& baricenter_x, double& baricenter_y){
-	baricenter_x = 0;
-	baricenter_y = 0;
-
-	for (auto pt: triangle){
-		baricenter_x += pt.x;
-		baricenter_y += pt.y;
-	}
-
-	baricenter_x /= static_cast<double>(triangle.size());
-	baricenter_y /= static_cast<double>(triangle.size());
-}
-
-/*!
 * Retrieves the robot/trianlge's orientation.
-* @param[in]  triangle 		Robot/triangle polygon.
-* @param[in]  baricenter_x 	Baricenter's x coordinate.
-* @param[in]  baricenter_y	Baricenter's y coordinate.
-* @param[out] theta			Robot/triangle's orientation.
+* @param[in] 	triangle 		Robot/triangle polygon.
+* @param[in] 	baricenter_x 	Baricenter's x coordinate.
+* @param[in] 	baricenter_y 	Baricenter's y coordinate.
+* @param[out] 	theta 			Robot/triangle's orientation.
 */
 void getOrientation(Polygon& triangle, double& baricenter_x, double& baricenter_y, double& theta){
 	// Find the top vertex (i.e. P3) -> the most distant from the baricenter

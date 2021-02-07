@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <iostream>
 
+#include "utils.hpp"
 #include "matplotlibcpp.h"
 
 //**********************************************************************
@@ -102,16 +103,17 @@ private:
     double x0, y0, th0, xf, yf, thf, kmax, k_thj, m;
     int pts_counter;
     std::vector<std::tuple<double, double, double>> all_pts_thj; // <pt_x, pt_y, th_j>
-    std::vector<std::pair<int, curve>> all_best_curves; // <pidx, curve>
+    std::vector<std::pair<int,curve>> all_best_curves; // <pidx, curve>
 public:
     DubinsProblem(double x0, double y0, double th0, double xf, double yf, double thf, double kmax);
     ~DubinsProblem();
     void setK_thj(double k_thj);
     void setM(double m);
     void addMiddlePt(double ptx, double pty);
+    void addMiddlePt(Point pt);
     void printInfo();
     void findShortestPath();
-    void solveDubins();
+    void solveDubins(std::vector<curve>& curves_result);
     void printSolutionPts();
     void plot();
 };

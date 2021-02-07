@@ -838,7 +838,25 @@ void DubinsProblem::addMiddlePt(double ptx, double pty){
 	std::vector<std::tuple<double, double, double>>::iterator apt_it;
 	apt_it = all_pts_thj.end()-1;
 
-	// Middle pt has an 
+	// Middle pt has nan theta
+	std::tuple<double, double, double> new_pt = std::make_tuple(ptx, pty, std::nan("1"));
+	apt_it = all_pts_thj.insert(apt_it, new_pt);
+	pts_counter += 1;
+}
+
+/*!
+* Add a middle pt to the Dubins problem. Middle pts have unknown angle 
+* direction hence the value is set to NaN.
+* @param[in]  pt 	Point to add.
+*/
+void DubinsProblem::addMiddlePt(Point pt){
+	double ptx = static_cast<double>(pt.x);
+	double pty = static_cast<double>(pt.y);
+
+	std::vector<std::tuple<double, double, double>>::iterator apt_it;
+	apt_it = all_pts_thj.end()-1;
+
+	// Middle pt has nan theta
 	std::tuple<double, double, double> new_pt = std::make_tuple(ptx, pty, std::nan("1"));
 	apt_it = all_pts_thj.insert(apt_it, new_pt);
 	pts_counter += 1;
@@ -883,7 +901,10 @@ void DubinsProblem::findShortestPath(){
 /*!
 * It finds the best Dubins path in a Multi Points Markov-Dubins Problem scenario.
 */
-void DubinsProblem::solveDubins(){
+void DubinsProblem::solveDubins(std::vector<curve>& curves_result){
+	// Clear all_best_curves from old results
+	all_best_curves.clear();
+
 	// Initialize vars
 	double last_pt_x, last_pt_y, last_thj; // pt with known theta_j
 	double prev_pt_x, prev_pt_y, prev_thj; // pt with (possible) unknown theta_j
@@ -938,6 +959,11 @@ void DubinsProblem::solveDubins(){
 			// Insert the result in all_best_curves
 			abc_it = all_best_curves.insert(abc_it, dubins_result);
 		}
+	}
+
+	// Populate the curves_result
+	for (const auto& pidx_curve: all_best_curves){
+		curves_result.push_back(pidx_curve.second);
 	}
 }
 

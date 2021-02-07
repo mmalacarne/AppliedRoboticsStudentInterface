@@ -22,6 +22,7 @@ add_executable(calibrate
 ## CREATE EXECUTABLE LIBRARY
 add_library(student SHARED
    src/student_interface.cpp
+   src/utils.cpp
    src/imageManager.cpp
    src/extrinsicCalib.cpp
    src/clipper.cpp
@@ -29,6 +30,7 @@ add_library(student SHARED
    src/dubins.cpp
    src/pathPlanning.cpp
    src/collisionDetectionModule.cpp
+   src/probabilisticRoadMap.cpp
 )
 
 target_link_libraries(student

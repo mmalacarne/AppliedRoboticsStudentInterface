@@ -464,7 +464,7 @@ std::tuple<bool, double, double> intersLineLine(segment L1, segment L2){
 	double L2_max_y = std::fmax(L2.y0, L2.yf);
 
 	// Position check
-	if (L2_max_x < L2_min_x || 	// L2 completely left of L1
+	if (L2_max_x < L1_min_x || 	// L2 completely left of L1
 		L2_min_x > L1_max_x || 	// L2 completely right of L1
 		L2_max_y < L1_min_y || 	// L2 completely below L1
 		L2_min_y > L1_max_y){ 	// L2 completely above L1
@@ -500,11 +500,18 @@ std::tuple<bool, double, double> intersLineLine(segment L1, segment L2){
 		double x = L1.x0; 				// x == L1.x0 == L1.xf
 		double y = L2_m * x + L2_q;
 
+		// Find out if the intersection point (x,y) belong to L1 and L2
+		bool pt_on_L1 = (x >= L1_min_x && x <= L1_max_x && y >= L1_min_y && y <= L1_max_y); // (x,y) is on L1
+		bool pt_on_L2 = (x >= L2_min_x && x <= L2_max_x && y >= L2_min_y && y <= L2_max_y); // (x,y) is on L2
+
 		#ifdef DEBUG_ILL
 			plotLL(L1, L2);
 		#endif
 
-		return std::make_tuple(true, x, y);
+		if (pt_on_L1 && pt_on_L2) 
+			return std::make_tuple(true, x, y);
+		else 
+			return std::make_tuple(false, std::nan("1"), std::nan("1"));
 	}
 	if (isHorizontal(L1)){
 		double L2_m = getAngularCoeff(L2);
@@ -514,11 +521,18 @@ std::tuple<bool, double, double> intersLineLine(segment L1, segment L2){
 		double y = L1.y0; 				// y == L1.y0 == L1.yf
 		double x = (y - L2_q) / L2_m; 	// y = m * x + q -> (x = y - q) / m
 
+		// Find out if the intersection point (x,y) belong to L1 and L2
+		bool pt_on_L1 = (x >= L1_min_x && x <= L1_max_x && y >= L1_min_y && y <= L1_max_y); // (x,y) is on L1
+		bool pt_on_L2 = (x >= L2_min_x && x <= L2_max_x && y >= L2_min_y && y <= L2_max_y); // (x,y) is on L2
+
 		#ifdef DEBUG_ILL
 			plotLL(L1, L2);
 		#endif
 
-		return std::make_tuple(true, x, y);
+		if (pt_on_L1 && pt_on_L2) 
+			return std::make_tuple(true, x, y);
+		else 
+			return std::make_tuple(false, std::nan("1"), std::nan("1"));
 	}
 	if (isVertical(L2)){
 		double L1_m = getAngularCoeff(L1);
@@ -528,11 +542,18 @@ std::tuple<bool, double, double> intersLineLine(segment L1, segment L2){
 		double x = L2.x0; 				// x == L2.x0 == L2.xf
 		double y = L1_m * x + L1_q;
 
+		// Find out if the intersection point (x,y) belong to L1 and L2
+		bool pt_on_L1 = (x >= L1_min_x && x <= L1_max_x && y >= L1_min_y && y <= L1_max_y); // (x,y) is on L1
+		bool pt_on_L2 = (x >= L2_min_x && x <= L2_max_x && y >= L2_min_y && y <= L2_max_y); // (x,y) is on L2
+
 		#ifdef DEBUG_ILL
 			plotLL(L1, L2);
 		#endif
 
-		return std::make_tuple(true, x, y);
+		if (pt_on_L1 && pt_on_L2) 
+			return std::make_tuple(true, x, y);
+		else 
+			return std::make_tuple(false, std::nan("1"), std::nan("1"));
 	}
 	if (isHorizontal(L2)){
 		double L1_m = getAngularCoeff(L1);
@@ -542,14 +563,21 @@ std::tuple<bool, double, double> intersLineLine(segment L1, segment L2){
 		double y = L2.y0; 				// y == L2.y0 == L2.yf
 		double x = (y - L1_q) / L1_m; 	// y = m * x + q -> (x = y - q) / m
 
+		// Find out if the intersection point (x,y) belong to L1 and L2
+		bool pt_on_L1 = (x >= L1_min_x && x <= L1_max_x && y >= L1_min_y && y <= L1_max_y); // (x,y) is on L1
+		bool pt_on_L2 = (x >= L2_min_x && x <= L2_max_x && y >= L2_min_y && y <= L2_max_y); // (x,y) is on L2
+
 		#ifdef DEBUG_ILL
 			plotLL(L1, L2);
 		#endif
 
-		return std::make_tuple(true, x, y);
+		if (pt_on_L1 && pt_on_L2) 
+			return std::make_tuple(true, x, y);
+		else 
+			return std::make_tuple(false, std::nan("1"), std::nan("1"));
 	}
 
-	// Classic case - Line eq. -> y = m * x + q
+	// "Classic" case - Line eq. -> y = m * x + q
 	double L1_m = getAngularCoeff(L1);
 	double L2_m = getAngularCoeff(L2);
 	double L1_q = getIntercept(L1, L1_m);
@@ -722,7 +750,5 @@ std::tuple<bool, double, double, double, double> intersArcLine(arc a, segment L)
 	// All previous checks have failed --> no intersection
 	return std::make_tuple(false, std::nan("1"), std::nan("1"), std::nan("1"), std::nan("1"));
 }
-
-//bool intersPtPolygon(double pt_x, double pt_y, Polygon p){}
 
 

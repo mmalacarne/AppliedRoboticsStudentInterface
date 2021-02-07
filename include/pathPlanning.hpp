@@ -4,7 +4,10 @@
 #include "utils.hpp"
 #include "dubins.hpp"
 #include "collisionDetectionModule.hpp"
+#include "probabilisticRoadMap.hpp"
+#include "matplotlibcpp.h"
 
+#include <map>
 #include <cmath>
 #include <vector>
 #include <tuple>

@@ -7,7 +7,6 @@
 #include <string>
 #include <stdlib.h> 
 #include <iostream>
-#include <opencv2/opencv.hpp>
 
 #include "dubins.hpp" // auxiliary utility functions required (i.e. circline..)
 //#include "utils.hpp"
@@ -46,6 +45,11 @@ std::tuple<bool, double, double, double, double, double, double> intersCircleLin
 
 std::tuple<bool, double, double, double, double> intersArcLine(arc a, segment L);
 
-//bool intersPtPolygon(double pt_x, double pt_y, Polygon p);
+//**********************************************************************
+// PUBLIC FUNCTION FOR PLOTTING
+//**********************************************************************
+void getPlottableSegment(segment L, std::vector<double>& L_x_data, std::vector<double>& L_y_data);
+
+void getPlottableCircle(circle c, std::vector<double>& cf_x, std::vector<double>& cf_y);
 
 #endif
