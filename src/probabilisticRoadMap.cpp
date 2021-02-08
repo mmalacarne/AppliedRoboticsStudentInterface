@@ -151,7 +151,7 @@ bool isClearEdge(const Point& node0, const Point& node1, const std::vector<Polyg
 }
 
 /*!
-* Returns true if the second element of the first pair is less or equal than the second 
+* Returns true if the second element of the first pair is less than the second 
 * element of the second pair.
 * @param[in] 	a 	First pair.
 * @param[in] 	b 	Second pair.
@@ -259,7 +259,7 @@ void getGraph(const Polygon& borders, const std::vector<Polygon>& obstacle_list,
 	//******************************************************************
     // "Offset" borders -> better be safe than sorry;)
     //******************************************************************
-	float offset = 0.015; // 1.5 cm
+	float offset = 0.03; // 3 cm
 	min_x += offset;
 	max_x -= offset;
 
