@@ -2,6 +2,8 @@
 
 //#define DEBUG_PIP
 
+#define B_OFFSET 0.04 // 4 cm
+
 namespace plt = matplotlibcpp;
 
 //**********************************************************************
@@ -259,12 +261,11 @@ void getGraph(const Polygon& borders, const std::vector<Polygon>& obstacle_list,
 	//******************************************************************
     // "Offset" borders -> better be safe than sorry;)
     //******************************************************************
-	float offset = 0.03; // 3 cm
-	min_x += offset;
-	max_x -= offset;
+	min_x += B_OFFSET;
+	max_x -= B_OFFSET;
 
-	min_y += offset;
-	max_y -= offset;
+	min_y += B_OFFSET;
+	max_y -= B_OFFSET;
 
 	//*********************************************************
 	// Initialize uniform_real_distribution class for both axis

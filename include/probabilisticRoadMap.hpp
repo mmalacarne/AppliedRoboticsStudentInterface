@@ -12,7 +12,6 @@
 #include <set>
 #include <assert.h>
 
-//#include "dubins.hpp"
 #include "collisionDetectionModule.hpp"
 #include "utils.hpp"
 #include "matplotlibcpp.h"

@@ -13,45 +13,8 @@
 namespace clpr = ClipperLib;
 
 //**********************************************************************
-// PRIVATE FUNCTIONS
+// PRIVATE DEBUGGING FUNCTIONS
 //**********************************************************************
-/*!
-* Erode and dilate the mask with a 4x4 kernel.
-* @param[out] 	mask 	Bitmap mask matrix for a certain color. 
-*/
-void removeNoise(cv::Mat& mask){
-	cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(4, 4));
-
-	cv::erode(mask, mask, kernel);
-	//cv::GaussianBlur(mask, mask, cv::Size(5, 5), 2, 2);
-	cv::dilate(mask, mask, kernel);
-}
-
-/*!
-* Retrieves the approximated contours of mask.
-* @param[in] 	mask 				Denoised bitmap mask matrix for a certain color.
-* @param[in] 	dist_accuracy 		Max distance between the original curve and its approximation.
-* @param[in] 	scale 				Scale of the arena (1px/scale = X meters).
-* @param[out] 	obj_contour_list 	List of objs contours (vertex in meters).
-*/
-void getApproxMaskContours(cv::Mat& mask, int dist_accuracy, const double scale, std::vector<Polygon>& obj_contour_list){
-	std::vector<cv::Point> approx_curve;
-	std::vector<std::vector<cv::Point>> contours;
-	cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-
-	for (int i = 0; i < contours.size(); ++i){
-		cv::approxPolyDP(contours[i], approx_curve, dist_accuracy, true);
-
-		// Create the contour poligon and populate it with verteces
-		Polygon obj_contour;
-		for (const auto& pt: approx_curve){
-			obj_contour.emplace_back(pt.x/scale, pt.y/scale); // pts are in px --> pt/scale = meter
-		}
-		// Populate the obj contour vector
-		obj_contour_list.push_back(obj_contour);
-	}
-}
-
 /*!
 * Debugging function: shows the contour of a list of polygons.
 * @param[in]  hsv_img 		Original img in hsv space.
@@ -118,6 +81,127 @@ void showRetrievedObjs(const cv::Mat& hsv_img, const double scale, std::vector<s
 	cv::destroyAllWindows();
 }
 
+
+
+//**********************************************************************
+// PRIVATE FUNCTIONS
+//**********************************************************************
+/*!
+* Erode and dilate the mask with a 4x4 kernel.
+* @param[out] 	mask 	Bitmap mask matrix for a certain color. 
+*/
+void removeNoise(cv::Mat& mask){
+	cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size(4, 4));
+
+	cv::erode(mask, mask, kernel);
+	//cv::GaussianBlur(mask, mask, cv::Size(5, 5), 2, 2);
+	cv::dilate(mask, mask, kernel);
+}
+
+/*!
+* Retrieves the approximated contours of mask.
+* @param[in] 	mask 				Denoised bitmap mask matrix for a certain color.
+* @param[in] 	dist_accuracy 		Max distance between the original curve and its approximation.
+* @param[in] 	scale 				Scale of the arena (1px/scale = X meters).
+* @param[out] 	obj_contour_list 	List of objs contours (vertex in meters).
+*/
+void getApproxMaskContours(cv::Mat& mask, int dist_accuracy, const double scale, std::vector<Polygon>& obj_contour_list){
+	std::vector<cv::Point> approx_curve;
+	std::vector<std::vector<cv::Point>> contours;
+	cv::findContours(mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+
+	for (int i = 0; i < contours.size(); ++i){
+		cv::approxPolyDP(contours[i], approx_curve, dist_accuracy, true);
+
+		// Create the contour poligon and populate it with verteces
+		Polygon obj_contour;
+		for (const auto& pt: approx_curve){
+			obj_contour.emplace_back(pt.x/scale, pt.y/scale); // pts are in px --> pt/scale = meter
+		}
+		// Populate the obj contour vector
+		obj_contour_list.push_back(obj_contour);
+	}
+}
+
+/*!
+* Retrieves the robot/triangle.
+* @param[in] 	hsv_img 	Original img in hsv space.
+* @param[in] 	scale 		Scale of the arena (1px/scale = X meters).
+* @param[out] 	triangle 	Robot/triangle polygon.
+*/
+bool getRobot(const cv::Mat& hsv_img, const double scale, Polygon& triangle){
+	// Extract blue color region [190°, 270°] -> [95°, 135°]
+	cv::Mat blue_mask;
+	cv::inRange(hsv_img, cv::Scalar(95, 30, 30), cv::Scalar(135, 255, 255), blue_mask);
+
+	// Get rid of noise via erode and dilate
+	removeNoise(blue_mask);
+
+	// Find blue mask contours
+	int dist_accuracy = 10;
+	std::vector<cv::Point> approx_curve;
+	std::vector<std::vector<cv::Point>> contours;
+	cv::findContours(blue_mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
+	cv::approxPolyDP(contours[0], approx_curve, dist_accuracy, true);
+
+	#ifdef DEBUG_FR
+		cv::Mat img_in;
+		cv::cvtColor(hsv_img, img_in, cv::COLOR_HSV2BGR);
+		cv::Mat contours_img = img_in.clone();
+
+		// cv::Scalar(40,190,40) = green
+		// cv::Scalar(0,170,220) = yellow
+		drawContours(contours_img, contours, -1, cv::Scalar(0,170,220), 2, cv::LINE_AA);
+	#endif
+
+	if (approx_curve.size() == 3){
+		// Create the contour polygon and populate it with verteces
+		for (const auto& pt: approx_curve)
+			triangle.emplace_back(pt.x/scale, pt.y/scale);
+
+		#ifdef DEBUG_FR
+			std::string window_name = "Robot contours - #edges = " + std::to_string(triangle.size());
+			cv::imshow(window_name, contours_img);
+			cv::waitKey(0);
+			cv::destroyWindow(window_name);
+		#endif
+
+		return true;
+	} else {
+		#ifdef DEBUG_FR
+			std::string window_name = "Robot contours - #edges = " + std::to_string(approx_curve.size());
+			cv::imshow(window_name, contours_img);
+			cv::waitKey(0);
+			cv::destroyWindow(window_name);
+		#endif
+
+		throw std::logic_error("ERROR - Robot with " + std::to_string(approx_curve.size()) + " edges");
+		return false;
+	}
+
+	/*// Create the contour poligon and populate it with verteces
+	for (const auto& pt: approx_curve) 
+		triangle.emplace_back(pt.x/scale, pt.y/scale);
+
+	#ifdef DEBUG_FR
+		cv::Mat img_in;
+		cv::cvtColor(hsv_img, img_in, cv::COLOR_HSV2BGR);
+		cv::Mat contours_img = img_in.clone();
+
+		// cv::Scalar(40,190,40) = green
+		// cv::Scalar(0,170,220) = yellow
+		drawContours(contours_img, contours, -1, cv::Scalar(0,170,220), 2, cv::LINE_AA);
+
+		std::string window_name = "Robot contours - #edges = " + std::to_string(triangle.size());
+		cv::imshow(window_name, contours_img);
+		cv::waitKey(0);
+		cv::destroyWindow(window_name);
+	#endif
+
+	if (triangle.size() != 3)
+		throw std::logic_error("Error! Robot with " + std::to_string(triangle.size()) + " edges");*/
+}
+
 /*!
 * Retrieves the radius of the circle that circumscribes the triangle.
 * @param[in]   		hsv_img 	Original img in hsv space.
@@ -127,46 +211,14 @@ void showRetrievedObjs(const cv::Mat& hsv_img, const double scale, std::vector<s
 double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 	Polygon triangle;
 
-	// Here I can't use the function getRobot() due to scope problems while compiling.
-	// Dirty workaround --> Copy&Paste of getRobot()
-	// Extract blue color region [190°, 270°] -> [95°, 135°]
-	cv::Mat blue_mask;
-	cv::inRange(hsv_img, cv::Scalar(95, 30, 30), cv::Scalar(135, 255, 255), blue_mask);
-	// Get rid of noise via erode and dilate
-	removeNoise(blue_mask);
-	// Find blue mask contours
-	int dist_accuracy = 10;
-	std::vector<cv::Point> approx_curve;
-	std::vector<std::vector<cv::Point>> contours;
-	cv::findContours(blue_mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-	cv::approxPolyDP(contours[0], approx_curve, dist_accuracy, true);
-	if (approx_curve.size() == 3){
-		// Create the contour polygon and populate it with verteces
-		for (const auto& pt: approx_curve)
-			triangle.emplace_back(pt.x/scale, pt.y/scale); // pts are in px --> pt/scale = meter
-	} else {
-		throw std::logic_error("getTriangleRadius() - Error! Robot with " + std::to_string(approx_curve.size()) + " edges");
-	}
-	// Dirty workaround end
+	bool robot_ok = getRobot(hsv_img, scale, triangle);
 
-	// Here I can't use the function getBaricenter() due to scope problems while compiling.
-	// Dirty workaround --> Copy&Paste of getBaricenter()
-	/*baricenter_x = 0;
-	baricenter_y = 0;
-
-	for (auto pt: triangle){
-		baricenter_x += pt.x;
-		baricenter_y += pt.y;
-	}
-
-	baricenter_x /= static_cast<double>(triangle.size());
-	baricenter_y /= static_cast<double>(triangle.size());*/
-	// Dirty workaround end
+	if (!robot_ok)
+		std::cout << "ERROR - getRobot failed in getTriangleRadius" << std::endl;
 
 	// Get baricenter
 	double baricenter_x, baricenter_y;
 	getBaricenter(triangle, baricenter_x, baricenter_y);
-
 
 	// Get the top vertex of the triangle
 	Point top_vertex;
@@ -301,9 +353,9 @@ void getObstacles(const cv::Mat& hsv_img, const double scale, std::vector<Polygo
 	#endif
 
 	// Set the obstacle offset a little bit more than the robot_radius
-	double extra_margin = 0.05; // additional 5cm margin --> better be safe than sorry;)
-	//double offset = getTriangleRadius(hsv_img, scale) + extra_margin;
-	double offset = getTriangleRadius(hsv_img, scale);
+	double extra_margin = 0.02; // obstacles additional margin of 2cm -> better be safe than sorry;)
+	double offset = getTriangleRadius(hsv_img, scale) + extra_margin;
+	//double offset = getTriangleRadius(hsv_img, scale);
 
 	// Offsetting the obstacles
 	offsetObstacles(offset, obstacles_list, scale);
@@ -703,85 +755,6 @@ void getVictimsAndGate(const cv::Mat& hsv_img, const double scale,
 }
 
 /*!
-* Retrieves the robot/triangle.
-* @param[in] 	hsv_img 	Original img in hsv space.
-* @param[in] 	scale 		Scale of the arena (1px/scale = X meters).
-* @param[out] 	triangle 	Robot/triangle polygon.
-*/
-bool getRobot(const cv::Mat& hsv_img, const double scale, Polygon& triangle){
-	// Extract blue color region [190°, 270°] -> [95°, 135°]
-	cv::Mat blue_mask;
-	cv::inRange(hsv_img, cv::Scalar(95, 30, 30), cv::Scalar(135, 255, 255), blue_mask);
-
-	// Get rid of noise via erode and dilate
-	removeNoise(blue_mask);
-
-	// Find blue mask contours
-	int dist_accuracy = 10;
-	std::vector<cv::Point> approx_curve;
-	std::vector<std::vector<cv::Point>> contours;
-	cv::findContours(blue_mask, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
-	cv::approxPolyDP(contours[0], approx_curve, dist_accuracy, true);
-
-	#ifdef DEBUG_FR
-		cv::Mat img_in;
-		cv::cvtColor(hsv_img, img_in, cv::COLOR_HSV2BGR);
-		cv::Mat contours_img = img_in.clone();
-
-		// cv::Scalar(40,190,40) = green
-		// cv::Scalar(0,170,220) = yellow
-		drawContours(contours_img, contours, -1, cv::Scalar(0,170,220), 2, cv::LINE_AA);
-	#endif
-
-	if (approx_curve.size() == 3){
-		// Create the contour polygon and populate it with verteces
-		for (const auto& pt: approx_curve)
-			triangle.emplace_back(pt.x/scale, pt.y/scale);
-
-		#ifdef DEBUG_FR
-			std::string window_name = "Robot contours - #edges = " + std::to_string(triangle.size());
-			cv::imshow(window_name, contours_img);
-			cv::waitKey(0);
-			cv::destroyWindow(window_name);
-		#endif
-
-		return true;
-	} else {
-		#ifdef DEBUG_FR
-			std::string window_name = "Robot contours - #edges = " + std::to_string(approx_curve.size());
-			cv::imshow(window_name, contours_img);
-			cv::waitKey(0);
-			cv::destroyWindow(window_name);
-		#endif
-
-		throw std::logic_error("Error! Robot with " + std::to_string(approx_curve.size()) + " edges");
-		return false;
-	}
-
-	/*// Create the contour poligon and populate it with verteces
-	for (const auto& pt: approx_curve) 
-		triangle.emplace_back(pt.x/scale, pt.y/scale);
-
-	#ifdef DEBUG_FR
-		cv::Mat img_in;
-		cv::cvtColor(hsv_img, img_in, cv::COLOR_HSV2BGR);
-		cv::Mat contours_img = img_in.clone();
-
-		// cv::Scalar(40,190,40) = green
-		// cv::Scalar(0,170,220) = yellow
-		drawContours(contours_img, contours, -1, cv::Scalar(0,170,220), 2, cv::LINE_AA);
-
-		std::string window_name = "Robot contours - #edges = " + std::to_string(triangle.size());
-		cv::imshow(window_name, contours_img);
-		cv::waitKey(0);
-		cv::destroyWindow(window_name);
-	#endif
-
-	if (triangle.size() != 3)
-		throw std::logic_error("Error! Robot with " + std::to_string(triangle.size()) + " edges");*/
-}
-
-/*!
 * Retrieves the robot/trianlge's orientation.
 * @param[in] 	triangle 		Robot/triangle polygon.
 * @param[in] 	baricenter_x 	Baricenter's x coordinate.
@@ -809,6 +782,8 @@ void getOrientation(Polygon& triangle, double& baricenter_x, double& baricenter_
 	// Retrieve theta
 	theta = std::atan2(best_dy, best_dx);
 }
+
+
 
 //**********************************************************************
 // PUBLIC FUNCTIONS
@@ -846,6 +821,8 @@ bool my_findRobot(const cv::Mat& img_in, const double scale, Polygon& triangle, 
     if (robot_ok){
     	getBaricenter(triangle, x, y);
     	getOrientation(triangle, x, y, theta);
+    } else {
+    	std::cout << "ERROR - getRobot failed in my_findRobot" << std::endl;
     }
 
     #ifdef DEBUG_FR

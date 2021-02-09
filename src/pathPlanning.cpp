@@ -10,7 +10,7 @@
 #define KNN 10
 
 #ifndef MISSION_1
-#define INCREASE 0.3 // 30%
+#define INCREASE 0.3 // 40%
 #endif
 
 namespace plt = matplotlibcpp;
@@ -285,35 +285,13 @@ bool sortVictimsByID(const std::pair<int, Point>& i, const std::pair<int, Point>
 }
 
 /*!
-* Provided a Dubins path, it returns true if there is collision, flase otherwise.
-* In case of collision it populate a vector of tuples made with dubins curve initial 
-* pt, collision pt, Dubins curve final pt.
-* @param[in] 	curves_result 		Vector with Dubins curves.
-* @param[in] 	obstacle_list 		Vector with obstacles polygon.
-* @param[in] 	victim_list 		Vector with pairs of ID and victims' baricenter.
-* @param[out] 	collisions_list 	List with tuples made of Dubins curve initila pt, collision pt, Dubins curve final pt.
-* @return[bool] 					True if there is any collision, false otherwise.
-*/
-/*bool checkCollisions(const std::vector<curve>& curves_result, 
-	const std::vector<Polygon>& obstacle_list, 
-	const std::vector<std::pair<int,Polygon>>& victim_list, 
-	std::vector<std::tuple<Point,Point,Point>>& collisions_list){
-	// Collision detected
-	// Get path via Dijkstra and smooth the graph path
-	// Update curves_result
-}*/
-
-/*!
-* Given a victim's id it populates a vector with all the obstacles in the map and 
-* all the victims with bigger id.
+* Given a victim's id it populates a vector of obstacles with all the victims with bigger id.
 * @param[in] 	id 				Victim's id.
 * @param[in] 	victim_list 	Vector with pairs of victim ID and polygon.
-* @param[in] 	obstacle_list 	Vector with obstacles polygon.
 * @param[out] 	expanded_list 	Vector with obstacles and all victims polygon with bigger id.
 */
-void getExpandedList(const int id, const std::vector<std::pair<int,Polygon>>& victim_list, 
-	const std::vector<Polygon>& obstacle_list, std::vector<Polygon>& expanded_list){
-	expanded_list = obstacle_list;
+void expandObstacleList(const int id, const std::vector<std::pair<int,Polygon>>& victim_list, 
+	std::vector<Polygon>& expanded_list){
 
 	for (const auto& id_pol: victim_list){
 		if (id_pol.first > id) 
@@ -343,7 +321,6 @@ void createArcPath(const arc& a, Path& path){
 		_k = static_cast<float>(a.k);
 
 		path.points.emplace_back(_l, _xf, _yf, _thf, _k);
-		//path.points.push_back(_l, _xf, _yf, _thf, _k);
 	}
 
 	// TODELETE
@@ -369,39 +346,6 @@ void createPath(const std::vector<curve>& dubins_path, Path& path){
 		createArcPath(c.arc3, path);
 	}
 }
-
-/*! // TODELETE
-* Given a vector of point, it populates another vector with vectors representing 
-* all possible points permutations. (Heaps algorithm)
-* @param[in] 	orig_vec 			Vector of points to permutate.
-* @param[in] 	size 				Dimension of the subvector that has to be permuted.
-* @param[in] 	tot 				Total number of points. // TODELETE this argument
-* @param[out] 	all_permutations 	Vector with all possible permutations.
-*/
-/*void getAllPermutation(std::vector<Point>& orig_vec, int size, //int tot, 
-	std::vector<Point>& all_permutations){
-	if (size == 1){
-		all_permutations.push_back(orig_vec);
-		return;
-	}
-
-	for (int i = 0; i < size; i++){
-		findAllPermutation(orig_vec, size-1, tot);
-
-		// If size is even, swap ith and (size-1)th element
-		if (size % 2 == 0){
-			Point tmp = orig_vec[i];
-			orig_vec[i] = orig_vec[size-1];
-			orig_vec[size-1] = tmp;
-		} else {
-			// If size is odd, swap 0th and (size-1)th element
-			Point tmp = orig_vec[0];
-			orig_vec[0] = orig_vec[size-1];
-			orig_vec[size-1] = tmp;
-
-		}
-	}
-}*/
 
 /*!
 * Given a vector of point representing a path, it reurns the total length.
@@ -437,10 +381,11 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     #endif
 
     //******************************************************************
-    // Get gate baricenter
+    // Get gate and robot baricenters
     //******************************************************************
     Point gate_bc;
     getBaricenter(gate, gate_bc);
+    Point robot_bc = Point(x,y);
 
     //******************************************************************
     // Define arrival theta (i.e. gate thf)
@@ -449,7 +394,6 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     //float theta_f = - M_PI / 2; 	// DOWN
     //float theta_f = 0.; 				// RIGHT
     //float theta_f = M_PI; 			// LEFT
-
 
     //******************************************************************
     // Get victims baricenter
@@ -466,15 +410,12 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     //******************************************************************
     // Preprocessing phase
     // Create a prm graph (i.e. find all graph's verteces and edges) 
-    // based on: borders, obstacles, victims and gate
+    // based on: borders, obstacles, victims, gate and robot position
     //******************************************************************
-    Point robot_bc = Point(x,y);
     std::map<Point,std::vector<Point>> graph;
     getGraph(borders, obstacle_list, victim_list, gate, robot_bc, N_PTS, KNN, graph);
 
     #ifdef DEBUG_MAP_G
-    	//std::cout << "graph.size() = 150 + 5 = " << graph.size() << std::endl;
-
     	getPlottableBorders(borders);
     	getPlottableObstacles(obstacle_list);
     	getPlottableVictims(victim_list);
@@ -521,55 +462,45 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     // Mission 1
     //******************************************************************
     #ifdef MISSION_1
-    	// Sort victims by ID
-    	std::sort(new_victim_list.begin(), new_victim_list.end(), sortVictimsByID);
+		// Sort victims by ID
+        std::sort(new_victim_list.begin(), new_victim_list.end(), sortVictimsByID);
 
-    	// Initialize a victim map <baricenter,ID>
-    	std::map<Point,int> bc_id_victim_map;
+        // Create a temporary path (i.e. a list of known path pts)
+        std::vector<std::pair<Point,int>> tmp_path_pts; // <baricenter,ID>
 
-    	// Create a temporary path - list of known middle pts
-    	std::vector<Point> tmp_path_pts;
+        tmp_path_pts.push_back({robot_bc, -1}); // Add robot initial position with place holder ID
 
-    	tmp_path_pts.push_back(robot_bc); // Add robot initial position
+        for (const auto& ib: new_victim_list){ tmp_path_pts.push_back({ib.second, ib.first}); }
 
-    	for (const auto& ib: new_victim_list){
+        tmp_path_pts.push_back({gate_bc, -1}); // Add gate baricenter with place holder ID
 
-    		tmp_path_pts.push_back(ib.second); // Add victims baricenter
+        // Initialize path search structures
+        Point qi, qf;
+        int qf_id;
+        std::vector<Point> dijkstra_path, smoothed_path, all_mid_pts;
+        std::vector<Polygon> expanded_list;
 
-    		bc_id_victim_map.insert({ib.second, ib.first}); // Populate map
-    	}
+        for (int i = 0; i < tmp_path_pts.size()-1; i++){
+            // Initial and final query points
+            qi = tmp_path_pts[i].first;
+            qf = tmp_path_pts[i+1].first;
+            qf_id = tmp_path_pts[i+1].second;
 
-    	tmp_path_pts.push_back(gate_bc); // Add gate baricenter
+            // Deal with obstacles
+            expanded_list = obstacle_list;
 
-    	// Initialize path search structures
-    	std::vector<Point> dijkstra_path;
-    	std::vector<Point> smoothed_path;
-    	std::vector<Point> all_mid_pts;
-    	std::vector<Polygon> expanded_list;
+            if (qf_id >= 0)
+                expandObstacleList(qf_id, victim_list, expanded_list);
 
-    	for (int i = 0; i < tmp_path_pts.size()-1; i++){
-    		// Initial and final query points
-    		Point q_i = tmp_path_pts[i];
-    		Point q_f = tmp_path_pts[i+1];
+            // Get the dijkstra path
+            getDijkstraPath(qi, qf, graph, expanded_list, dijkstra_path);
 
-    		// Deal with obstacles
-    		bool is_victim = (bc_id_victim_map.count(q_f) > 0);
-    		if (is_victim){
-    			int v_id = bc_id_victim_map.find(q_f)->second;
-    			getExpandedList(v_id, victim_list, obstacle_list, expanded_list);
-    		} else {
-    			expanded_list = obstacle_list;
-    		}
+            // Get dijkstra smoothed path
+            pathSmoother(dijkstra_path, expanded_list, smoothed_path);
 
-    		// Get the dijkstra path
-    		getDijkstraPath(q_i, q_f, graph, expanded_list, dijkstra_path);
-
-    		// Get dijkstra smoothed path
-    		pathSmoother(dijkstra_path, expanded_list, smoothed_path);
-
-	        // Add to all_mid_pts all smoothed_path pts
-	        // But exclude the first one (i.e. robot_bc in the first step)
-	        for (int j = 1; j < smoothed_path.size(); j++){ all_mid_pts.push_back(smoothed_path[j]); }
+            // Add to all_mid_pts all smoothed_path pts
+            // But exclude the first one (i.e. robot_bc in the first step)
+            for (int j = 1; j < smoothed_path.size(); j++){ all_mid_pts.push_back(smoothed_path[j]); }
 
             #ifdef DEBUG_MAP_G
                 getPlottableGraphPath(dijkstra_path);
@@ -580,46 +511,23 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
             expanded_list.clear();
             dijkstra_path.clear();
             smoothed_path.clear();
-    	}
+        }
 
-    	// Remove from all_mid_pts the last point (i.e. gate_bc)
-    	all_mid_pts.erase(all_mid_pts.end());
+        // Remove from all_mid_pts the last point (i.e. gate_bc)
+        all_mid_pts.erase(all_mid_pts.end());
 
-    	// All middle points must be added to the Dubins problem
-    	for (const auto& pt: all_mid_pts){ dubins.addMiddlePt(pt); }
-
-    	#ifdef DEBUG_MAP_G
-    		// Set x-axis and y-axis to [xmin-1, xmax+1] and [ymin-1, ymax+1] respectively
-            double x_min_max[2] = {plt::xlim()[0], plt::xlim()[1]};
-            double y_min_max[2] = {plt::ylim()[0], plt::ylim()[1]};
-            plt::xlim(x_min_max[0] - 0.1, x_min_max[1] + 0.1);
-            plt::ylim(y_min_max[0] - 0.1, y_min_max[1] + 0.1);
-
-            plt::title("Mission 1");
-
-            // Save png
-            std::string this_file_path = __FILE__;
-            std::string this_file_name = "pathPlanning.cpp";
-            int upper_bound = this_file_path.length() - this_file_name.length();
-            std::string png_name = this_file_path.substr(0, upper_bound) + "testing_imgs/Mission_1.png";
-            plt::save(png_name);
-
-            // Print dubins info
-            dubins.printInfo();
-        #endif
+        // All middle points must be added to the Dubins problem
+        for (const auto& pt: all_mid_pts){ dubins.addMiddlePt(pt); }
     #else
     //******************************************************************
-    // Mission 2 // TODO
+    // Mission 2
     //******************************************************************
     	// Create a temporary path - list of known pts
     	std::vector<Point> tmp_path_pts;
 
     	tmp_path_pts.push_back(robot_bc); // Add robot initial position
 
-    	for (const auto& ib: new_victim_list){
-
-    		tmp_path_pts.push_back(ib.second); // Add victims baricenter
-    	}
+    	for (const auto& ib: new_victim_list){ tmp_path_pts.push_back(ib.second); } // Add victims baricenter
 
     	tmp_path_pts.push_back(gate_bc); // Add gate baricenter
 
@@ -659,23 +567,28 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     	}
 
     	// Set the maximum path length w.r.t. the shortest robot-gate path
-    	float robot_gate_len = paths_dist[0][tot_pts-1];
-    	float max_length = robot_gate_len + (robot_gate_len * INCREASE);
+    	float rg_len = paths_dist[0][tot_pts-1]; // len of shortest path robot - gate 
+    	float max_len = rg_len + (rg_len * INCREASE);
+    	#ifdef DEBUG_MAP_G
+    		std::cout << "Len robot-gate: " << rg_len << std::endl;
+    		std::cout << "Max len: " << max_len << std::endl;
+    	#endif
 
     	// Find the best increased path (kind of backtracking)
     	std::vector<Point> approx_rescue_path;
     	approx_rescue_path.push_back(robot_bc); // Add robot initial position
 
-    	float current_length = 0.; 			// path len after every step
+    	float current_len = 0.; 			// path len after every step
     	int current_node_idx = 0; 			// initial index (i.e. robot position)
     	int next_node_idx;					// next nearest node index
     	std::set<int> visited_idx = { 0 }; 	// set of visited indexes
     	float len_ij, len_jg, len_ijg;
+    	int counter = 0;
 
-    	while (current_length <= max_length){
+    	while (counter < tot_pts){
     		len_ij = INFINITY;
 
-    		for (int j = 0; j < tot_pts; j++){
+    		for (int j = 0; j < tot_pts-1; j++){
     			if (visited_idx.count(j) == 0 && current_node_idx != j && paths_dist[current_node_idx][j] < len_ij){
     				// Path length from node i to nearest node j
     				len_ij = paths_dist[current_node_idx][j];
@@ -691,18 +604,27 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     			}
     		}
 
-    		// Update current length in order to keep track for th next step
-			current_length += len_ijg;
-
 			// If path lenght is valid, add points
-			if (current_length <= max_length){
+			if ((current_len + len_ijg) <= max_len){
+				// Update current length up to node j
+				current_len += len_ij;
+
 				// Add node_j as middle point
 				approx_rescue_path.push_back(tmp_path_pts[next_node_idx]);
 
 				// Update current_node_idx for next step
 				current_node_idx = next_node_idx;
 				visited_idx.insert(next_node_idx);
+
+				#ifdef DEBUG_MAP_G
+					std::cout << "Point added: (" << tmp_path_pts[next_node_idx].x;
+					std::cout << ", " << tmp_path_pts[next_node_idx].y << ")" << std::endl;
+					std::cout << "Current len: " << current_len << std::endl;
+				#endif
 			}
+
+			// Update the counter of visited nodes
+			counter += 1;
     	}
 
     	approx_rescue_path.push_back(gate_bc); // Add the gate
