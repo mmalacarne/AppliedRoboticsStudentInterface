@@ -1,0 +1,252 @@
+\hypertarget{namespacestudent}{}\section{student Namespace Reference}
+\label{namespacestudent}\index{student@{student}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespacestudent_a3117c968a47bf95f86bdb813a3b64e56}{load\+Image} (cv\+::\+Mat \&img\+\_\+out, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_a3b726e7af03a643c06dcde23057a82ea}{generic\+Image\+Listener} (const cv\+::\+Mat \&img\+\_\+in, std\+::string topic, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_a6103f938ce28f8820c48c089d5f95098}{extrinsic\+Calib} (const cv\+::\+Mat \&img\+\_\+in, std\+::vector$<$ cv\+::\+Point3f $>$ object\+\_\+points, const cv\+::\+Mat \&camera\+\_\+matrix, cv\+::\+Mat \&rvec, cv\+::\+Mat \&tvec, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_aceb2a29362b8223a9d3601d9496e1c98}{image\+Undistort} (const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&dist\+\_\+coeffs, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_a528d33658d0d4d982a46f18b7abb4a70}{find\+Plane\+Transform} (const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&rvec, const cv\+::\+Mat \&tvec, const std\+::vector$<$ cv\+::\+Point3f $>$ \&object\+\_\+points\+\_\+plane, const std\+::vector$<$ cv\+::\+Point2f $>$ \&dest\+\_\+image\+\_\+points\+\_\+plane, cv\+::\+Mat \&plane\+\_\+transf, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_a6b8caf348979f55e58a75193233c219d}{unwarp} (const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&transf, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_a684c71c41ce1327ab90152b661ee1e8a}{process\+Map} (const cv\+::\+Mat \&img\+\_\+in, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_afd56b779672a672e15ac45dc927b8a6b}{find\+Robot} (const cv\+::\+Mat \&img\+\_\+in, const double scale, Polygon \&triangle, double \&x, double \&y, double \&theta, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_acfe62076a49d23bb083f2f880fd24c77}{plan\+Path} (const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const float x, const float y, const float theta, Path \&path, const std\+::string \&config\+\_\+folder)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{student@{student}!extrinsic\+Calib@{extrinsic\+Calib}}
+\index{extrinsic\+Calib@{extrinsic\+Calib}!student@{student}}
+\subsubsection[{\texorpdfstring{extrinsic\+Calib(const cv\+::\+Mat \&img\+\_\+in, std\+::vector$<$ cv\+::\+Point3f $>$ object\+\_\+points, const cv\+::\+Mat \&camera\+\_\+matrix, cv\+::\+Mat \&rvec, cv\+::\+Mat \&tvec, const std\+::string \&config\+\_\+folder)}{extrinsicCalib(const cv::Mat &img_in, std::vector< cv::Point3f > object_points, const cv::Mat &camera_matrix, cv::Mat &rvec, cv::Mat &tvec, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool student\+::extrinsic\+Calib (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{std\+::vector$<$ cv\+::\+Point3f $>$}]{object\+\_\+points, }
+\item[{const cv\+::\+Mat \&}]{camera\+\_\+matrix, }
+\item[{cv\+::\+Mat \&}]{rvec, }
+\item[{cv\+::\+Mat \&}]{tvec, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_a6103f938ce28f8820c48c089d5f95098}{}\label{namespacestudent_a6103f938ce28f8820c48c089d5f95098}
+Finds arena pose from 3D(object\+\_\+points)-\/2D(image\+\_\+in) point correspondences. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em image\+\_\+in} & Input image to store \\
+\hline
+\mbox{\tt in}  & {\em object\+\_\+points} & 3D position of the 4 corners of the arena, following a counterclockwise order starting from the one near the red line. \\
+\hline
+\mbox{\tt in}  & {\em camera\+\_\+matrix} & 3x3 floating-\/point camera matrix \\
+\hline
+\mbox{\tt out}  & {\em rvec} & Rotation vectors estimated linking the camera and the arena \\
+\hline
+\mbox{\tt out}  & {\em tvec} & Translation vectors estimated for the arena \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!find\+Plane\+Transform@{find\+Plane\+Transform}}
+\index{find\+Plane\+Transform@{find\+Plane\+Transform}!student@{student}}
+\subsubsection[{\texorpdfstring{find\+Plane\+Transform(const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&rvec, const cv\+::\+Mat \&tvec, const std\+::vector$<$ cv\+::\+Point3f $>$ \&object\+\_\+points\+\_\+plane, const std\+::vector$<$ cv\+::\+Point2f $>$ \&dest\+\_\+image\+\_\+points\+\_\+plane, cv\+::\+Mat \&plane\+\_\+transf, const std\+::string \&config\+\_\+folder)}{findPlaneTransform(const cv::Mat &cam_matrix, const cv::Mat &rvec, const cv::Mat &tvec, const std::vector< cv::Point3f > &object_points_plane, const std::vector< cv::Point2f > &dest_image_points_plane, cv::Mat &plane_transf, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void student\+::find\+Plane\+Transform (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{cam\+\_\+matrix, }
+\item[{const cv\+::\+Mat \&}]{rvec, }
+\item[{const cv\+::\+Mat \&}]{tvec, }
+\item[{const std\+::vector$<$ cv\+::\+Point3f $>$ \&}]{object\+\_\+points\+\_\+plane, }
+\item[{const std\+::vector$<$ cv\+::\+Point2f $>$ \&}]{dest\+\_\+image\+\_\+points\+\_\+plane, }
+\item[{cv\+::\+Mat \&}]{plane\+\_\+transf, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_a528d33658d0d4d982a46f18b7abb4a70}{}\label{namespacestudent_a528d33658d0d4d982a46f18b7abb4a70}
+Calculates a perspective transform from four pairs of the corresponding points. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em camera\+\_\+matrix} & 3x3 floating-\/point camera matrix \\
+\hline
+\mbox{\tt in}  & {\em rvec} & Rotation vectors estimated linking the camera and the arena \\
+\hline
+\mbox{\tt in}  & {\em tvec} & Translation vectors estimated for the arena \\
+\hline
+\mbox{\tt in}  & {\em object\+\_\+points\+\_\+plane} & 3D position of the 4 corners of the arena, following a counterclockwise order starting from the one near the red line. \\
+\hline
+\mbox{\tt in}  & {\em dest\+\_\+image\+\_\+points\+\_\+plane} & destinatino point in px of the object\+\_\+points\+\_\+plane \\
+\hline
+\mbox{\tt out}  & {\em plane\+\_\+transf} & plane perspective trasform (3x3 matrix) \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!find\+Robot@{find\+Robot}}
+\index{find\+Robot@{find\+Robot}!student@{student}}
+\subsubsection[{\texorpdfstring{find\+Robot(const cv\+::\+Mat \&img\+\_\+in, const double scale, Polygon \&triangle, double \&x, double \&y, double \&theta, const std\+::string \&config\+\_\+folder)}{findRobot(const cv::Mat &img_in, const double scale, Polygon &triangle, double &x, double &y, double &theta, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool student\+::find\+Robot (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{const double}]{scale, }
+\item[{Polygon \&}]{triangle, }
+\item[{double \&}]{x, }
+\item[{double \&}]{y, }
+\item[{double \&}]{theta, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_afd56b779672a672e15ac45dc927b8a6b}{}\label{namespacestudent_afd56b779672a672e15ac45dc927b8a6b}
+Process the image to detect the robot pose 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em image\+\_\+in} & input image \\
+\hline
+\mbox{\tt in}  & {\em scale} & 1px/scale = X meters \\
+\hline
+\mbox{\tt out}  & {\em triangle} & polygon defined from triangle corners \\
+\hline
+\mbox{\tt out}  & {\em x} & x position of the robot (i.\+e. the baricenter of the triangle) in the arena reference system \\
+\hline
+\mbox{\tt out}  & {\em y} & y position of the robot (i.\+e. the baricenter of the triangle) in the arena reference system \\
+\hline
+\mbox{\tt out}  & {\em theta} & yaw of the robot in the arena reference system \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!generic\+Image\+Listener@{generic\+Image\+Listener}}
+\index{generic\+Image\+Listener@{generic\+Image\+Listener}!student@{student}}
+\subsubsection[{\texorpdfstring{generic\+Image\+Listener(const cv\+::\+Mat \&img\+\_\+in, std\+::string topic, const std\+::string \&config\+\_\+folder)}{genericImageListener(const cv::Mat &img_in, std::string topic, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void student\+::generic\+Image\+Listener (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{std\+::string}]{topic, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_a3b726e7af03a643c06dcde23057a82ea}{}\label{namespacestudent_a3b726e7af03a643c06dcde23057a82ea}
+Generic listener used from the image listener node. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em image\+\_\+in} & Input image to store \\
+\hline
+\mbox{\tt in}  & {\em topic} & Topic from where the image is taken \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!image\+Undistort@{image\+Undistort}}
+\index{image\+Undistort@{image\+Undistort}!student@{student}}
+\subsubsection[{\texorpdfstring{image\+Undistort(const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&dist\+\_\+coeffs, const std\+::string \&config\+\_\+folder)}{imageUndistort(const cv::Mat &img_in, cv::Mat &img_out, const cv::Mat &cam_matrix, const cv::Mat &dist_coeffs, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void student\+::image\+Undistort (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{cv\+::\+Mat \&}]{img\+\_\+out, }
+\item[{const cv\+::\+Mat \&}]{cam\+\_\+matrix, }
+\item[{const cv\+::\+Mat \&}]{dist\+\_\+coeffs, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_aceb2a29362b8223a9d3601d9496e1c98}{}\label{namespacestudent_aceb2a29362b8223a9d3601d9496e1c98}
+Transforms an image to compensate for lens distortion. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em image\+\_\+in} & distorted image \\
+\hline
+\mbox{\tt out}  & {\em image\+\_\+out} & undistorted image \\
+\hline
+\mbox{\tt in}  & {\em camera\+\_\+matrix} & 3x3 floating-\/point camera matrix \\
+\hline
+\mbox{\tt out}  & {\em dist\+\_\+coeffs} & distortion coefficients \mbox{[}k1,k2,p1,p2,k3\mbox{]} \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!load\+Image@{load\+Image}}
+\index{load\+Image@{load\+Image}!student@{student}}
+\subsubsection[{\texorpdfstring{load\+Image(cv\+::\+Mat \&img\+\_\+out, const std\+::string \&config\+\_\+folder)}{loadImage(cv::Mat &img_out, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void student\+::load\+Image (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat \&}]{img\+\_\+out, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_a3117c968a47bf95f86bdb813a3b64e56}{}\label{namespacestudent_a3117c968a47bf95f86bdb813a3b64e56}
+This function can be used to replace the simulator camera and test the developed pipeline on a set of custom image 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em image\+\_\+out} & The loaded raw image \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!plan\+Path@{plan\+Path}}
+\index{plan\+Path@{plan\+Path}!student@{student}}
+\subsubsection[{\texorpdfstring{plan\+Path(const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const float x, const float y, const float theta, Path \&path, const std\+::string \&config\+\_\+folder)}{planPath(const Polygon &borders, const std::vector< Polygon > &obstacle_list, const std::vector< std::pair< int, Polygon >> &victim_list, const Polygon &gate, const float x, const float y, const float theta, Path &path, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool student\+::plan\+Path (
+\begin{DoxyParamCaption}
+\item[{const Polygon \&}]{borders, }
+\item[{const std\+::vector$<$ Polygon $>$ \&}]{obstacle\+\_\+list, }
+\item[{const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&}]{victim\+\_\+list, }
+\item[{const Polygon \&}]{gate, }
+\item[{const float}]{x, }
+\item[{const float}]{y, }
+\item[{const float}]{theta, }
+\item[{Path \&}]{path, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_acfe62076a49d23bb083f2f880fd24c77}{}\label{namespacestudent_acfe62076a49d23bb083f2f880fd24c77}
+Plan a safe and fast path in the arena 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em borders} & border of the arena \mbox{[}m\mbox{]} \\
+\hline
+\mbox{\tt out}  & {\em obstacle\+\_\+list} & list of obstacle polygon \mbox{[}m\mbox{]} \\
+\hline
+\mbox{\tt out}  & {\em victim\+\_\+list} & list of pair victim\+\_\+id and polygon \mbox{[}m\mbox{]} \\
+\hline
+\mbox{\tt out}  & {\em gate} & polygon representing the gate \mbox{[}m\mbox{]} \\
+\hline
+\mbox{\tt out}  & {\em x} & x position of the robot in the arena reference system \\
+\hline
+\mbox{\tt out}  & {\em y} & y position of the robot in the arena reference system \\
+\hline
+\mbox{\tt out}  & {\em theta} & yaw of the robot in the arena reference system \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!process\+Map@{process\+Map}}
+\index{process\+Map@{process\+Map}!student@{student}}
+\subsubsection[{\texorpdfstring{process\+Map(const cv\+::\+Mat \&img\+\_\+in, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate, const std\+::string \&config\+\_\+folder)}{processMap(const cv::Mat &img_in, const double scale, std::vector< Polygon > &obstacles_list, std::vector< std::pair< int, Polygon >> &victims_list, Polygon &gate, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool student\+::process\+Map (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{const double}]{scale, }
+\item[{std\+::vector$<$ Polygon $>$ \&}]{obstacles\+\_\+list, }
+\item[{std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&}]{victims\+\_\+list, }
+\item[{Polygon \&}]{gate, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_a684c71c41ce1327ab90152b661ee1e8a}{}\label{namespacestudent_a684c71c41ce1327ab90152b661ee1e8a}
+Process the image to detect victims, obtacles and the gate 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em image\+\_\+in} & input image \\
+\hline
+\mbox{\tt in}  & {\em scale} & 1px/scale = X meters \\
+\hline
+\mbox{\tt out}  & {\em obstacle\+\_\+list} & list of obstacle polygon (vertex in meters) \\
+\hline
+\mbox{\tt out}  & {\em victim\+\_\+list} & list of pair victim\+\_\+id and polygon (vertex in meters) \\
+\hline
+\mbox{\tt out}  & {\em gate} & polygon representing the gate (vertex in meters) \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}
+\index{student@{student}!unwarp@{unwarp}}
+\index{unwarp@{unwarp}!student@{student}}
+\subsubsection[{\texorpdfstring{unwarp(const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&transf, const std\+::string \&config\+\_\+folder)}{unwarp(const cv::Mat &img_in, cv::Mat &img_out, const cv::Mat &transf, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void student\+::unwarp (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{cv\+::\+Mat \&}]{img\+\_\+out, }
+\item[{const cv\+::\+Mat \&}]{transf, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacestudent_a6b8caf348979f55e58a75193233c219d}{}\label{namespacestudent_a6b8caf348979f55e58a75193233c219d}
+Applies a perspective transformation to an image. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em image\+\_\+in} & input image \\
+\hline
+\mbox{\tt out}  & {\em image\+\_\+out} & unwarped image \\
+\hline
+\mbox{\tt in}  & {\em transf} & plane perspective trasform (3x3 matrix) \\
+\hline
+\mbox{\tt in}  & {\em config\+\_\+folder} & A custom string from config file. \\
+\hline
+\end{DoxyParams}

@@ -4,13 +4,28 @@
 //#define DEBUG_MAP
 #define DEBUG_MAP_G
 
+/*!
+* When defined it compile the logic for the mission 1, otherwise mission 2.
+*/
 //#define MISSION_1
 
+/*!
+* Number of points to sample for the randmo sampling map.
+*/
 #define N_PTS 150
+
+/*!
+* Number of K Nearest Neighbors.
+*/
 #define KNN 10
 
 #ifndef MISSION_1
-#define INCREASE 0.3 // 40%
+
+/*!
+* Allowed percentage of increased path.
+*/
+#define INCREASE 0.3 // 30%
+
 #endif
 
 namespace plt = matplotlibcpp;
@@ -306,7 +321,7 @@ void expandObstacleList(const int id, const std::vector<std::pair<int,Polygon>>&
 * @param[out] 	path 	Path object for the robot.
 */
 void createArcPath(const arc& a, Path& path){
-	double ds = 0.05;
+	double ds = 0.05; // 5 cm
 
 	double xf, yf, thf;
 	float _l, _xf, _yf, _thf, _k;
@@ -373,6 +388,9 @@ float getPathDistance(const std::vector<Point> path){
 //**********************************************************************
 // PUBLIC FUNCTIONS
 //**********************************************************************
+/*!
+* "Mask" for planPath. For more info look in student::planPath docs.
+*/
 bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_list, 
 	const std::vector<std::pair<int,Polygon>>& victim_list, const Polygon& gate, 
 	const float x, const float y, const float theta, Path& path, const std::string& config_folder){
@@ -518,6 +536,26 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
 
         // All middle points must be added to the Dubins problem
         for (const auto& pt: all_mid_pts){ dubins.addMiddlePt(pt); }
+
+        #ifdef DEBUG_MAP_G
+    		// Set x-axis and y-axis to [xmin-1, xmax+1] and [ymin-1, ymax+1] respectively
+            double x_min_max[2] = {plt::xlim()[0], plt::xlim()[1]};
+            double y_min_max[2] = {plt::ylim()[0], plt::ylim()[1]};
+            plt::xlim(x_min_max[0] - 0.1, x_min_max[1] + 0.1);
+            plt::ylim(y_min_max[0] - 0.1, y_min_max[1] + 0.1);
+
+            plt::title("Mission 1");
+
+            // Save png
+            std::string this_file_path = __FILE__;
+            std::string this_file_name = "pathPlanning.cpp";
+            int upper_bound = this_file_path.length() - this_file_name.length();
+            std::string png_name = this_file_path.substr(0, upper_bound) + "testing_imgs/Mission_1.png";
+            plt::save(png_name);
+
+            // Print dubins info
+            dubins.printInfo();
+    	#endif
     #else
     //******************************************************************
     // Mission 2
@@ -583,9 +621,8 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     	int next_node_idx;					// next nearest node index
     	std::set<int> visited_idx = { 0 }; 	// set of visited indexes
     	float len_ij, len_jg, len_ijg;
-    	int counter = 0;
 
-    	while (counter < tot_pts){
+    	while (current_len <= max_len ){
     		len_ij = INFINITY;
 
     		for (int j = 0; j < tot_pts-1; j++){
@@ -621,10 +658,9 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
 					std::cout << ", " << tmp_path_pts[next_node_idx].y << ")" << std::endl;
 					std::cout << "Current len: " << current_len << std::endl;
 				#endif
+			} else {
+				current_len += len_ijg; // current_len will be > max_len -> it will stop while loop
 			}
-
-			// Update the counter of visited nodes
-			counter += 1;
     	}
 
     	approx_rescue_path.push_back(gate_bc); // Add the gate

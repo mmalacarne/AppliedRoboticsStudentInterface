@@ -1,0 +1,115 @@
+\hypertarget{extrinsicCalib_8cpp}{}\section{src/extrinsic\+Calib.cpp File Reference}
+\label{extrinsicCalib_8cpp}\index{src/extrinsic\+Calib.\+cpp@{src/extrinsic\+Calib.\+cpp}}
+{\ttfamily \#include \char`\"{}extrinsic\+Calib.\+hpp\char`\"{}}\\*
+Include dependency graph for extrinsic\+Calib.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=191pt]{extrinsicCalib_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{extrinsicCalib_8cpp_a588fdde889749bd17e99a8daf595ed57}{D\+I\+S\+T\+\_\+\+C\+O\+E\+F\+F\+S\+\_\+\+D\+E\+F\+A\+U\+LT}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{extrinsicCalib_8cpp_a93131970ac4c0e657309ebd9e216f9ee}{write\+Pts2\+C\+SV} (std\+::string file\+\_\+path, std\+::vector$<$ cv\+::\+Point2f $>$ \&img\+\_\+points)
+\item 
+void \hyperlink{extrinsicCalib_8cpp_adf527c067b4e8a3172c2b9d404aadc08}{read\+Pts\+From\+C\+SV} (std\+::string file\+\_\+path, std\+::vector$<$ cv\+::\+Point2f $>$ \&img\+\_\+points)
+\item 
+bool \hyperlink{extrinsicCalib_8cpp_a1ee829d0a0e05af2d8888be5e78b457c}{my\+\_\+extrinsic\+Calib} (const cv\+::\+Mat \&img\+\_\+in, std\+::vector$<$ cv\+::\+Point3f $>$ object\+\_\+points, const cv\+::\+Mat \&camera\+\_\+matrix, cv\+::\+Mat \&rvec, cv\+::\+Mat \&tvec, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{extrinsicCalib_8cpp_ab271f0495d7510ec99bba8c78254aac4}{my\+\_\+image\+Undistort} (const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&dist\+\_\+coeffs, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{extrinsicCalib_8cpp_a48abeda23404e75a75ac77fae135e010}{my\+\_\+find\+Plane\+Transform} (const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&rvec, const cv\+::\+Mat \&tvec, const std\+::vector$<$ cv\+::\+Point3f $>$ \&object\+\_\+points\+\_\+plane, const std\+::vector$<$ cv\+::\+Point2f $>$ \&dest\+\_\+image\+\_\+points\+\_\+plane, cv\+::\+Mat \&plane\+\_\+transf, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{extrinsicCalib_8cpp_a660d426d048ff9a6ea0076a34ebde64e}{my\+\_\+unwarp} (const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&transf, const std\+::string \&config\+\_\+folder)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}!D\+I\+S\+T\+\_\+\+C\+O\+E\+F\+F\+S\+\_\+\+D\+E\+F\+A\+U\+LT@{D\+I\+S\+T\+\_\+\+C\+O\+E\+F\+F\+S\+\_\+\+D\+E\+F\+A\+U\+LT}}
+\index{D\+I\+S\+T\+\_\+\+C\+O\+E\+F\+F\+S\+\_\+\+D\+E\+F\+A\+U\+LT@{D\+I\+S\+T\+\_\+\+C\+O\+E\+F\+F\+S\+\_\+\+D\+E\+F\+A\+U\+LT}!extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}}
+\subsubsection[{\texorpdfstring{D\+I\+S\+T\+\_\+\+C\+O\+E\+F\+F\+S\+\_\+\+D\+E\+F\+A\+U\+LT}{DIST_COEFFS_DEFAULT}}]{\setlength{\rightskip}{0pt plus 5cm}\#define D\+I\+S\+T\+\_\+\+C\+O\+E\+F\+F\+S\+\_\+\+D\+E\+F\+A\+U\+LT}\hypertarget{extrinsicCalib_8cpp_a588fdde889749bd17e99a8daf595ed57}{}\label{extrinsicCalib_8cpp_a588fdde889749bd17e99a8daf595ed57}
+Flag to determine dist\+\_\+coeffs values. If def -\/$>$ dist\+\_\+coeffs = \mbox{[}0,0,0,0,0\mbox{]} 
+
+\subsection{Function Documentation}
+\index{extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}!my\+\_\+extrinsic\+Calib@{my\+\_\+extrinsic\+Calib}}
+\index{my\+\_\+extrinsic\+Calib@{my\+\_\+extrinsic\+Calib}!extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+extrinsic\+Calib(const cv\+::\+Mat \&img\+\_\+in, std\+::vector$<$ cv\+::\+Point3f $>$ object\+\_\+points, const cv\+::\+Mat \&camera\+\_\+matrix, cv\+::\+Mat \&rvec, cv\+::\+Mat \&tvec, const std\+::string \&config\+\_\+folder)}{my_extrinsicCalib(const cv::Mat &img_in, std::vector< cv::Point3f > object_points, const cv::Mat &camera_matrix, cv::Mat &rvec, cv::Mat &tvec, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool my\+\_\+extrinsic\+Calib (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{std\+::vector$<$ cv\+::\+Point3f $>$}]{object\+\_\+points, }
+\item[{const cv\+::\+Mat \&}]{camera\+\_\+matrix, }
+\item[{cv\+::\+Mat \&}]{rvec, }
+\item[{cv\+::\+Mat \&}]{tvec, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{extrinsicCalib_8cpp_a1ee829d0a0e05af2d8888be5e78b457c}{}\label{extrinsicCalib_8cpp_a1ee829d0a0e05af2d8888be5e78b457c}
+\char`\"{}\+Mask\char`\"{} for extrinsic\+Calib. For more info look in \hyperlink{namespacestudent_a6103f938ce28f8820c48c089d5f95098}{student\+::extrinsic\+Calib} docs. \index{extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}!my\+\_\+find\+Plane\+Transform@{my\+\_\+find\+Plane\+Transform}}
+\index{my\+\_\+find\+Plane\+Transform@{my\+\_\+find\+Plane\+Transform}!extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+find\+Plane\+Transform(const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&rvec, const cv\+::\+Mat \&tvec, const std\+::vector$<$ cv\+::\+Point3f $>$ \&object\+\_\+points\+\_\+plane, const std\+::vector$<$ cv\+::\+Point2f $>$ \&dest\+\_\+image\+\_\+points\+\_\+plane, cv\+::\+Mat \&plane\+\_\+transf, const std\+::string \&config\+\_\+folder)}{my_findPlaneTransform(const cv::Mat &cam_matrix, const cv::Mat &rvec, const cv::Mat &tvec, const std::vector< cv::Point3f > &object_points_plane, const std::vector< cv::Point2f > &dest_image_points_plane, cv::Mat &plane_transf, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void my\+\_\+find\+Plane\+Transform (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{cam\+\_\+matrix, }
+\item[{const cv\+::\+Mat \&}]{rvec, }
+\item[{const cv\+::\+Mat \&}]{tvec, }
+\item[{const std\+::vector$<$ cv\+::\+Point3f $>$ \&}]{object\+\_\+points\+\_\+plane, }
+\item[{const std\+::vector$<$ cv\+::\+Point2f $>$ \&}]{dest\+\_\+image\+\_\+points\+\_\+plane, }
+\item[{cv\+::\+Mat \&}]{plane\+\_\+transf, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{extrinsicCalib_8cpp_a48abeda23404e75a75ac77fae135e010}{}\label{extrinsicCalib_8cpp_a48abeda23404e75a75ac77fae135e010}
+\char`\"{}\+Mask\char`\"{} for find\+Plane\+Transform. For more info look in \hyperlink{namespacestudent_a528d33658d0d4d982a46f18b7abb4a70}{student\+::find\+Plane\+Transform} docs. \index{extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}!my\+\_\+image\+Undistort@{my\+\_\+image\+Undistort}}
+\index{my\+\_\+image\+Undistort@{my\+\_\+image\+Undistort}!extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+image\+Undistort(const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&dist\+\_\+coeffs, const std\+::string \&config\+\_\+folder)}{my_imageUndistort(const cv::Mat &img_in, cv::Mat &img_out, const cv::Mat &cam_matrix, const cv::Mat &dist_coeffs, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void my\+\_\+image\+Undistort (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{cv\+::\+Mat \&}]{img\+\_\+out, }
+\item[{const cv\+::\+Mat \&}]{cam\+\_\+matrix, }
+\item[{const cv\+::\+Mat \&}]{dist\+\_\+coeffs, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{extrinsicCalib_8cpp_ab271f0495d7510ec99bba8c78254aac4}{}\label{extrinsicCalib_8cpp_ab271f0495d7510ec99bba8c78254aac4}
+\char`\"{}\+Mask\char`\"{} for image\+Undistort. For more info look in \hyperlink{namespacestudent_aceb2a29362b8223a9d3601d9496e1c98}{student\+::image\+Undistort} docs. \index{extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}!my\+\_\+unwarp@{my\+\_\+unwarp}}
+\index{my\+\_\+unwarp@{my\+\_\+unwarp}!extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+unwarp(const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&transf, const std\+::string \&config\+\_\+folder)}{my_unwarp(const cv::Mat &img_in, cv::Mat &img_out, const cv::Mat &transf, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}void my\+\_\+unwarp (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{cv\+::\+Mat \&}]{img\+\_\+out, }
+\item[{const cv\+::\+Mat \&}]{transf, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{extrinsicCalib_8cpp_a660d426d048ff9a6ea0076a34ebde64e}{}\label{extrinsicCalib_8cpp_a660d426d048ff9a6ea0076a34ebde64e}
+\char`\"{}\+Mask\char`\"{} for unwarp. For more info look in \hyperlink{namespacestudent_a6b8caf348979f55e58a75193233c219d}{student\+::unwarp} docs. \index{extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}!read\+Pts\+From\+C\+SV@{read\+Pts\+From\+C\+SV}}
+\index{read\+Pts\+From\+C\+SV@{read\+Pts\+From\+C\+SV}!extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}}
+\subsubsection[{\texorpdfstring{read\+Pts\+From\+C\+S\+V(std\+::string file\+\_\+path, std\+::vector$<$ cv\+::\+Point2f $>$ \&img\+\_\+points)}{readPtsFromCSV(std::string file_path, std::vector< cv::Point2f > &img_points)}}]{\setlength{\rightskip}{0pt plus 5cm}void read\+Pts\+From\+C\+SV (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{file\+\_\+path, }
+\item[{std\+::vector$<$ cv\+::\+Point2f $>$ \&}]{img\+\_\+points}
+\end{DoxyParamCaption}
+)}\hypertarget{extrinsicCalib_8cpp_adf527c067b4e8a3172c2b9d404aadc08}{}\label{extrinsicCalib_8cpp_adf527c067b4e8a3172c2b9d404aadc08}
+It retrives points coordinates wrote line per line in a csv file. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file\+\_\+path} & Path to the csv file. \\
+\hline
+\mbox{\tt out}  & {\em img\+\_\+points} & Vector with the read points. \\
+\hline
+\end{DoxyParams}
+\index{extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}!write\+Pts2\+C\+SV@{write\+Pts2\+C\+SV}}
+\index{write\+Pts2\+C\+SV@{write\+Pts2\+C\+SV}!extrinsic\+Calib.\+cpp@{extrinsic\+Calib.\+cpp}}
+\subsubsection[{\texorpdfstring{write\+Pts2\+C\+S\+V(std\+::string file\+\_\+path, std\+::vector$<$ cv\+::\+Point2f $>$ \&img\+\_\+points)}{writePts2CSV(std::string file_path, std::vector< cv::Point2f > &img_points)}}]{\setlength{\rightskip}{0pt plus 5cm}void write\+Pts2\+C\+SV (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{file\+\_\+path, }
+\item[{std\+::vector$<$ cv\+::\+Point2f $>$ \&}]{img\+\_\+points}
+\end{DoxyParamCaption}
+)}\hypertarget{extrinsicCalib_8cpp_a93131970ac4c0e657309ebd9e216f9ee}{}\label{extrinsicCalib_8cpp_a93131970ac4c0e657309ebd9e216f9ee}
+It writes points coordinates line per line in a csv file. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em file\+\_\+path} & Path to the csv file. \\
+\hline
+\mbox{\tt in}  & {\em img\+\_\+points} & Vector with the points. \\
+\hline
+\end{DoxyParams}

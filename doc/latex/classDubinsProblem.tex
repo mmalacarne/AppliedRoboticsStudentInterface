@@ -1,0 +1,166 @@
+\hypertarget{classDubinsProblem}{}\section{Dubins\+Problem Class Reference}
+\label{classDubinsProblem}\index{Dubins\+Problem@{Dubins\+Problem}}
+
+
+{\ttfamily \#include $<$dubins.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDubinsProblem_a8db789eb32e4e037fc83ba9d9c022c71}{Dubins\+Problem} (double x0, double y0, double th0, double xf, double yf, double thf, double kmax)
+\item 
+\hyperlink{classDubinsProblem_a2b7c66d216680dad6e620e58cb42d6a0}{$\sim$\+Dubins\+Problem} ()
+\item 
+void \hyperlink{classDubinsProblem_a1d51536aca57d3abd2bb1ee2700dd190}{set\+K\+\_\+thj} (double k\+\_\+thj)
+\item 
+void \hyperlink{classDubinsProblem_a60fd252945b094bb75769e8bd4b36a0a}{setM} (double m)
+\item 
+void \hyperlink{classDubinsProblem_a375b20e20c195abd0ed114a16ab9537b}{add\+Middle\+Pt} (double ptx, double pty)
+\item 
+void \hyperlink{classDubinsProblem_ac44f2f05af23a259de0efa91a4c201bd}{add\+Middle\+Pt} (\hyperlink{structPoint}{Point} pt)
+\item 
+void \hyperlink{classDubinsProblem_a2323a0a9fa590bbf006f3b2dea2bac7b}{print\+Info} ()
+\item 
+void \hyperlink{classDubinsProblem_a8a76818b50367c97f53f6f19c3b6d262}{find\+Shortest\+Path} ()
+\item 
+void \hyperlink{classDubinsProblem_afd0ad92fe743f54fccff590d68551973}{solve\+Dubins} (std\+::vector$<$ \hyperlink{structcurve}{curve} $>$ \&curves\+\_\+result)
+\item 
+void \hyperlink{classDubinsProblem_afc8c56102f493d8513f9e5d2d97b4f6c}{print\+Solution\+Pts} ()
+\item 
+void \hyperlink{classDubinsProblem_a1e80812da8fb88a10ae948c2ed784e58}{plot} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Dubins\+Problem@{Dubins\+Problem}!Dubins\+Problem@{Dubins\+Problem}}
+\index{Dubins\+Problem@{Dubins\+Problem}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{Dubins\+Problem(double x0, double y0, double th0, double xf, double yf, double thf, double kmax)}{DubinsProblem(double x0, double y0, double th0, double xf, double yf, double thf, double kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}Dubins\+Problem\+::\+Dubins\+Problem (
+\begin{DoxyParamCaption}
+\item[{double}]{x0, }
+\item[{double}]{y0, }
+\item[{double}]{th0, }
+\item[{double}]{xf, }
+\item[{double}]{yf, }
+\item[{double}]{thf, }
+\item[{double}]{kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a8db789eb32e4e037fc83ba9d9c022c71}{}\label{classDubinsProblem_a8db789eb32e4e037fc83ba9d9c022c71}
+Parametrized class constructor\+: it takes initial and final points. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x0} & Initial x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y0} & Initial y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th0} & Initial angle direction. \\
+\hline
+\mbox{\tt in}  & {\em xf} & Final x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em yf} & Final y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em thf} & Final angle direction. \\
+\hline
+\mbox{\tt in}  & {\em kmax} & Maximum curvature. \\
+\hline
+\end{DoxyParams}
+\index{Dubins\+Problem@{Dubins\+Problem}!````~Dubins\+Problem@{$\sim$\+Dubins\+Problem}}
+\index{````~Dubins\+Problem@{$\sim$\+Dubins\+Problem}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{$\sim$\+Dubins\+Problem()}{~DubinsProblem()}}]{\setlength{\rightskip}{0pt plus 5cm}Dubins\+Problem\+::$\sim$\+Dubins\+Problem (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a2b7c66d216680dad6e620e58cb42d6a0}{}\label{classDubinsProblem_a2b7c66d216680dad6e620e58cb42d6a0}
+Class destructor. 
+
+\subsection{Member Function Documentation}
+\index{Dubins\+Problem@{Dubins\+Problem}!add\+Middle\+Pt@{add\+Middle\+Pt}}
+\index{add\+Middle\+Pt@{add\+Middle\+Pt}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{add\+Middle\+Pt(double ptx, double pty)}{addMiddlePt(double ptx, double pty)}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::add\+Middle\+Pt (
+\begin{DoxyParamCaption}
+\item[{double}]{ptx, }
+\item[{double}]{pty}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a375b20e20c195abd0ed114a16ab9537b}{}\label{classDubinsProblem_a375b20e20c195abd0ed114a16ab9537b}
+Add a middle pt to the Dubins problem. Middle pts have unknown angle direction hence the value is set to NaN. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ptx} & Middle point X-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em pty} & Middle point Y-\/coord. \\
+\hline
+\end{DoxyParams}
+\index{Dubins\+Problem@{Dubins\+Problem}!add\+Middle\+Pt@{add\+Middle\+Pt}}
+\index{add\+Middle\+Pt@{add\+Middle\+Pt}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{add\+Middle\+Pt(\+Point pt)}{addMiddlePt(Point pt)}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::add\+Middle\+Pt (
+\begin{DoxyParamCaption}
+\item[{{\bf Point}}]{pt}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_ac44f2f05af23a259de0efa91a4c201bd}{}\label{classDubinsProblem_ac44f2f05af23a259de0efa91a4c201bd}
+Add a middle pt to the Dubins problem. Middle pts have unknown angle direction hence the value is set to NaN. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em pt} & \hyperlink{structPoint}{Point} to add. \\
+\hline
+\end{DoxyParams}
+\index{Dubins\+Problem@{Dubins\+Problem}!find\+Shortest\+Path@{find\+Shortest\+Path}}
+\index{find\+Shortest\+Path@{find\+Shortest\+Path}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{find\+Shortest\+Path()}{findShortestPath()}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::find\+Shortest\+Path (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a8a76818b50367c97f53f6f19c3b6d262}{}\label{classDubinsProblem_a8a76818b50367c97f53f6f19c3b6d262}
+It finds the best/shortest Dubins path for a basic problem wit two known points. It is the \hyperlink{classDubinsProblem}{Dubins\+Problem} class method equivalent of the function \hyperlink{dubins_8hpp_a7caccbbd59a4d324e59e9e19e00b38af}{dubins\+\_\+shortest\+\_\+path()}. \index{Dubins\+Problem@{Dubins\+Problem}!plot@{plot}}
+\index{plot@{plot}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{plot()}{plot()}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::plot (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a1e80812da8fb88a10ae948c2ed784e58}{}\label{classDubinsProblem_a1e80812da8fb88a10ae948c2ed784e58}
+It plots and save dubins.\+png in /home/user\+\_\+name/workspace/project/src/ . \index{Dubins\+Problem@{Dubins\+Problem}!print\+Info@{print\+Info}}
+\index{print\+Info@{print\+Info}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{print\+Info()}{printInfo()}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::print\+Info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a2323a0a9fa590bbf006f3b2dea2bac7b}{}\label{classDubinsProblem_a2323a0a9fa590bbf006f3b2dea2bac7b}
+Prints the parameters of the Dubins problem. \index{Dubins\+Problem@{Dubins\+Problem}!print\+Solution\+Pts@{print\+Solution\+Pts}}
+\index{print\+Solution\+Pts@{print\+Solution\+Pts}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{print\+Solution\+Pts()}{printSolutionPts()}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::print\+Solution\+Pts (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_afc8c56102f493d8513f9e5d2d97b4f6c}{}\label{classDubinsProblem_afc8c56102f493d8513f9e5d2d97b4f6c}
+Prints the points that solve the Dubins problem. \index{Dubins\+Problem@{Dubins\+Problem}!set\+K\+\_\+thj@{set\+K\+\_\+thj}}
+\index{set\+K\+\_\+thj@{set\+K\+\_\+thj}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{set\+K\+\_\+thj(double k\+\_\+thj)}{setK_thj(double k_thj)}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::set\+K\+\_\+thj (
+\begin{DoxyParamCaption}
+\item[{double}]{k\+\_\+thj}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a1d51536aca57d3abd2bb1ee2700dd190}{}\label{classDubinsProblem_a1d51536aca57d3abd2bb1ee2700dd190}
+Set the granularity of the discretization for the search of best theta\+\_\+j. It is initialized to 4 by default. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+thj} & Granularity of angle discretization\+: number of theta\+\_\+j. \\
+\hline
+\end{DoxyParams}
+\index{Dubins\+Problem@{Dubins\+Problem}!setM@{setM}}
+\index{setM@{setM}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{set\+M(double m)}{setM(double m)}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::setM (
+\begin{DoxyParamCaption}
+\item[{double}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_a60fd252945b094bb75769e8bd4b36a0a}{}\label{classDubinsProblem_a60fd252945b094bb75769e8bd4b36a0a}
+Set the number of required refinement step for the search of best theta\+\_\+j. It is initialized to 4 by default. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em m} & Number of refinement steps. \\
+\hline
+\end{DoxyParams}
+\index{Dubins\+Problem@{Dubins\+Problem}!solve\+Dubins@{solve\+Dubins}}
+\index{solve\+Dubins@{solve\+Dubins}!Dubins\+Problem@{Dubins\+Problem}}
+\subsubsection[{\texorpdfstring{solve\+Dubins(std\+::vector$<$ curve $>$ \&curves\+\_\+result)}{solveDubins(std::vector< curve > &curves_result)}}]{\setlength{\rightskip}{0pt plus 5cm}void Dubins\+Problem\+::solve\+Dubins (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf curve} $>$ \&}]{curves\+\_\+result}
+\end{DoxyParamCaption}
+)}\hypertarget{classDubinsProblem_afd0ad92fe743f54fccff590d68551973}{}\label{classDubinsProblem_afd0ad92fe743f54fccff590d68551973}
+It finds the best Dubins path in a Multi Points Markov-\/\+Dubins Problem scenario. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+include/\hyperlink{dubins_8hpp}{dubins.\+hpp}\item 
+src/\hyperlink{dubins_8cpp}{dubins.\+cpp}\end{DoxyCompactItemize}

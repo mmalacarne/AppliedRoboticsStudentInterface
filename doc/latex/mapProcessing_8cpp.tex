@@ -1,0 +1,320 @@
+\hypertarget{mapProcessing_8cpp}{}\section{src/map\+Processing.cpp File Reference}
+\label{mapProcessing_8cpp}\index{src/map\+Processing.\+cpp@{src/map\+Processing.\+cpp}}
+{\ttfamily \#include \char`\"{}map\+Processing.\+hpp\char`\"{}}\\*
+Include dependency graph for map\+Processing.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{mapProcessing_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{mapProcessing_8cpp_a8a7f485573c16394fc0792a66bd02c7a}{A\+N\+G\+LE}~90
+\item 
+\#define \hyperlink{mapProcessing_8cpp_a891296e8a86925e86dd7d2b270c95871}{X\+\_\+\+F\+L\+IP}~false
+\item 
+\#define \hyperlink{mapProcessing_8cpp_abebd71c1327d2cadd1de7f3989995338}{Y\+\_\+\+F\+L\+IP}~true
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mapProcessing_8cpp_a883e6e6ffba02aa8042022efc6e44adf}{remove\+Noise} (cv\+::\+Mat \&mask)
+\item 
+void \hyperlink{mapProcessing_8cpp_a017a9b7bedb7eec7b62d9339ff2dae5e}{get\+Approx\+Mask\+Contours} (cv\+::\+Mat \&mask, int dist\+\_\+accuracy, const double scale, std\+::vector$<$ Polygon $>$ \&obj\+\_\+contour\+\_\+list)
+\item 
+bool \hyperlink{mapProcessing_8cpp_a2e9e3940aeb6118fba848bca7d58e179}{get\+Robot} (const cv\+::\+Mat \&hsv\+\_\+img, const double scale, Polygon \&triangle)
+\item 
+double \hyperlink{mapProcessing_8cpp_abd6a9dabd3cd316d9e00f5d907b1256c}{get\+Triangle\+Radius} (const cv\+::\+Mat \&hsv\+\_\+img, const double scale)
+\item 
+void \hyperlink{mapProcessing_8cpp_a17d6433f7da39cb4562c1f6c8dc104ba}{offset\+Obstacles} (double offset, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, const double scale)
+\item 
+void \hyperlink{mapProcessing_8cpp_afc86389fd87c790523b63d42edbe7564}{get\+Obstacles} (const cv\+::\+Mat \&hsv\+\_\+img, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list)
+\item 
+void \hyperlink{mapProcessing_8cpp_a03dfaf7cb1df6ee0ebfa1b2e37bd4c20}{get\+Template\+Imgs} (std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&template\+\_\+img\+\_\+list)
+\item 
+void \hyperlink{mapProcessing_8cpp_a98d90ce213a536d6c50b58246bee3928}{get\+Edited\+R\+OI} (cv\+::\+Mat \&orig\+\_\+\+R\+OI, const double angle, bool flag\+\_\+x\+\_\+flip, bool flag\+\_\+y\+\_\+flip, cv\+::\+Mat \&edited\+\_\+\+R\+OI)
+\item 
+void \hyperlink{mapProcessing_8cpp_af800f64ebf6cfe01f6c2c220ecfeb305}{get\+T\+M\+Digit} (cv\+::\+Mat \&edited\+\_\+\+R\+OI, std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&template\+\_\+img\+\_\+list, int \&victim\+\_\+id)
+\item 
+int \hyperlink{mapProcessing_8cpp_a62195cf4f3f756fed379cbc39c178027}{get\+Victim\+ID} (const cv\+::\+Mat \&hsv\+\_\+img, const cv\+::\+Mat \&mask, const double scale, const Polygon \&victim\+\_\+contour, std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&template\+\_\+images)
+\item 
+void \hyperlink{mapProcessing_8cpp_adbfc86d4dbb2c1a18b57542a5b983893}{get\+Victims\+And\+Gate} (const cv\+::\+Mat \&hsv\+\_\+img, const double scale, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate)
+\item 
+void \hyperlink{mapProcessing_8cpp_a0fc4f08db177646fe611eee737434b05}{get\+Orientation} (Polygon \&triangle, double \&baricenter\+\_\+x, double \&baricenter\+\_\+y, double \&theta)
+\item 
+bool \hyperlink{mapProcessing_8cpp_ace488fd56a8a7af5f51cd0e2d0e1f64e}{my\+\_\+process\+Map} (const cv\+::\+Mat \&img\+\_\+in, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{mapProcessing_8cpp_a7ef6c7ca3985fcd74c63ddd4f00f2f04}{my\+\_\+find\+Robot} (const cv\+::\+Mat \&img\+\_\+in, const double scale, Polygon \&triangle, double \&x, double \&y, double \&theta, const std\+::string \&config\+\_\+folder)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!A\+N\+G\+LE@{A\+N\+G\+LE}}
+\index{A\+N\+G\+LE@{A\+N\+G\+LE}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{A\+N\+G\+LE}{ANGLE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define A\+N\+G\+LE~90}\hypertarget{mapProcessing_8cpp_a8a7f485573c16394fc0792a66bd02c7a}{}\label{mapProcessing_8cpp_a8a7f485573c16394fc0792a66bd02c7a}
+Rotation angle to apply to the R\+OI of a detected digit. \index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!X\+\_\+\+F\+L\+IP@{X\+\_\+\+F\+L\+IP}}
+\index{X\+\_\+\+F\+L\+IP@{X\+\_\+\+F\+L\+IP}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{X\+\_\+\+F\+L\+IP}{X_FLIP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define X\+\_\+\+F\+L\+IP~false}\hypertarget{mapProcessing_8cpp_a891296e8a86925e86dd7d2b270c95871}{}\label{mapProcessing_8cpp_a891296e8a86925e86dd7d2b270c95871}
+True if the R\+OI has to be flipped on the x axis, false otherwise. \index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!Y\+\_\+\+F\+L\+IP@{Y\+\_\+\+F\+L\+IP}}
+\index{Y\+\_\+\+F\+L\+IP@{Y\+\_\+\+F\+L\+IP}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{Y\+\_\+\+F\+L\+IP}{Y_FLIP}}]{\setlength{\rightskip}{0pt plus 5cm}\#define Y\+\_\+\+F\+L\+IP~true}\hypertarget{mapProcessing_8cpp_abebd71c1327d2cadd1de7f3989995338}{}\label{mapProcessing_8cpp_abebd71c1327d2cadd1de7f3989995338}
+True if the R\+OI has to be flipped on the y axis, false otherwise. 
+
+\subsection{Function Documentation}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Approx\+Mask\+Contours@{get\+Approx\+Mask\+Contours}}
+\index{get\+Approx\+Mask\+Contours@{get\+Approx\+Mask\+Contours}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Approx\+Mask\+Contours(cv\+::\+Mat \&mask, int dist\+\_\+accuracy, const double scale, std\+::vector$<$ Polygon $>$ \&obj\+\_\+contour\+\_\+list)}{getApproxMaskContours(cv::Mat &mask, int dist_accuracy, const double scale, std::vector< Polygon > &obj_contour_list)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Approx\+Mask\+Contours (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat \&}]{mask, }
+\item[{int}]{dist\+\_\+accuracy, }
+\item[{const double}]{scale, }
+\item[{std\+::vector$<$ Polygon $>$ \&}]{obj\+\_\+contour\+\_\+list}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a017a9b7bedb7eec7b62d9339ff2dae5e}{}\label{mapProcessing_8cpp_a017a9b7bedb7eec7b62d9339ff2dae5e}
+Retrieves the approximated contours of mask. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em mask} & Denoised bitmap mask matrix for a certain color. \\
+\hline
+\mbox{\tt in}  & {\em dist\+\_\+accuracy} & Max distance between the original curve and its approximation. \\
+\hline
+\mbox{\tt in}  & {\em scale} & Scale of the arena (1px/scale = X meters). \\
+\hline
+\mbox{\tt out}  & {\em obj\+\_\+contour\+\_\+list} & List of objs contours (vertex in meters). \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Edited\+R\+OI@{get\+Edited\+R\+OI}}
+\index{get\+Edited\+R\+OI@{get\+Edited\+R\+OI}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Edited\+R\+O\+I(cv\+::\+Mat \&orig\+\_\+\+R\+O\+I, const double angle, bool flag\+\_\+x\+\_\+flip, bool flag\+\_\+y\+\_\+flip, cv\+::\+Mat \&edited\+\_\+\+R\+O\+I)}{getEditedROI(cv::Mat &orig_ROI, const double angle, bool flag_x_flip, bool flag_y_flip, cv::Mat &edited_ROI)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Edited\+R\+OI (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat \&}]{orig\+\_\+\+R\+OI, }
+\item[{const double}]{angle, }
+\item[{bool}]{flag\+\_\+x\+\_\+flip, }
+\item[{bool}]{flag\+\_\+y\+\_\+flip, }
+\item[{cv\+::\+Mat \&}]{edited\+\_\+\+R\+OI}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a98d90ce213a536d6c50b58246bee3928}{}\label{mapProcessing_8cpp_a98d90ce213a536d6c50b58246bee3928}
+Assuming all victims have been rotated and flipped in the same known way, it applies a series of modification in order to make orig\+\_\+\+R\+OI readable/recognizable. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em orig\+\_\+\+R\+OI} & Original R\+OI. \\
+\hline
+\mbox{\tt in}  & {\em angle} & Angle of rotation. \\
+\hline
+\mbox{\tt in}  & {\em flag\+\_\+x\+\_\+flip} & Flag indicating whether the R\+OI has to be flipped on the x-\/axis. \\
+\hline
+\mbox{\tt in}  & {\em flag\+\_\+y\+\_\+flip} & Flag indicating whether the R\+OI has to be flipped on the y-\/axis. \\
+\hline
+\mbox{\tt out}  & {\em edited\+\_\+\+R\+OI} & Readable/recognizable R\+OI. \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Obstacles@{get\+Obstacles}}
+\index{get\+Obstacles@{get\+Obstacles}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Obstacles(const cv\+::\+Mat \&hsv\+\_\+img, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list)}{getObstacles(const cv::Mat &hsv_img, const double scale, std::vector< Polygon > &obstacles_list)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Obstacles (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{hsv\+\_\+img, }
+\item[{const double}]{scale, }
+\item[{std\+::vector$<$ Polygon $>$ \&}]{obstacles\+\_\+list}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_afc86389fd87c790523b63d42edbe7564}{}\label{mapProcessing_8cpp_afc86389fd87c790523b63d42edbe7564}
+Retrieves the obstacles. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hsv\+\_\+img} & Original img in hsv space. \\
+\hline
+\mbox{\tt in}  & {\em scale} & Scale of the arena (1px/scale = X meters). \\
+\hline
+\mbox{\tt out}  & {\em obstacles\+\_\+list} & List of obstacles (vertex in meters). \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Orientation@{get\+Orientation}}
+\index{get\+Orientation@{get\+Orientation}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Orientation(\+Polygon \&triangle, double \&baricenter\+\_\+x, double \&baricenter\+\_\+y, double \&theta)}{getOrientation(Polygon &triangle, double &baricenter_x, double &baricenter_y, double &theta)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Orientation (
+\begin{DoxyParamCaption}
+\item[{Polygon \&}]{triangle, }
+\item[{double \&}]{baricenter\+\_\+x, }
+\item[{double \&}]{baricenter\+\_\+y, }
+\item[{double \&}]{theta}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a0fc4f08db177646fe611eee737434b05}{}\label{mapProcessing_8cpp_a0fc4f08db177646fe611eee737434b05}
+Retrieves the robot/trianlge\textquotesingle{}s orientation. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em triangle} & Robot/triangle polygon. \\
+\hline
+\mbox{\tt in}  & {\em baricenter\+\_\+x} & Baricenter\textquotesingle{}s x coordinate. \\
+\hline
+\mbox{\tt in}  & {\em baricenter\+\_\+y} & Baricenter\textquotesingle{}s y coordinate. \\
+\hline
+\mbox{\tt out}  & {\em theta} & Robot/triangle\textquotesingle{}s orientation. \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Robot@{get\+Robot}}
+\index{get\+Robot@{get\+Robot}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Robot(const cv\+::\+Mat \&hsv\+\_\+img, const double scale, Polygon \&triangle)}{getRobot(const cv::Mat &hsv_img, const double scale, Polygon &triangle)}}]{\setlength{\rightskip}{0pt plus 5cm}bool get\+Robot (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{hsv\+\_\+img, }
+\item[{const double}]{scale, }
+\item[{Polygon \&}]{triangle}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a2e9e3940aeb6118fba848bca7d58e179}{}\label{mapProcessing_8cpp_a2e9e3940aeb6118fba848bca7d58e179}
+Retrieves the robot/triangle. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hsv\+\_\+img} & Original img in hsv space. \\
+\hline
+\mbox{\tt in}  & {\em scale} & Scale of the arena (1px/scale = X meters). \\
+\hline
+\mbox{\tt out}  & {\em triangle} & Robot/triangle polygon. \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Template\+Imgs@{get\+Template\+Imgs}}
+\index{get\+Template\+Imgs@{get\+Template\+Imgs}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Template\+Imgs(std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&template\+\_\+img\+\_\+list)}{getTemplateImgs(std::vector< std::pair< int, cv::Mat >> &template_img_list)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Template\+Imgs (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&}]{template\+\_\+img\+\_\+list}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a03dfaf7cb1df6ee0ebfa1b2e37bd4c20}{}\label{mapProcessing_8cpp_a03dfaf7cb1df6ee0ebfa1b2e37bd4c20}
+Support function which retrives all the template images from src/template\+\_\+images. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em template\+\_\+img\+\_\+list} & Vector of pairs $<$represented id, template image$>$. \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+T\+M\+Digit@{get\+T\+M\+Digit}}
+\index{get\+T\+M\+Digit@{get\+T\+M\+Digit}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+T\+M\+Digit(cv\+::\+Mat \&edited\+\_\+\+R\+O\+I, std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&template\+\_\+img\+\_\+list, int \&victim\+\_\+id)}{getTMDigit(cv::Mat &edited_ROI, std::vector< std::pair< int, cv::Mat >> &template_img_list, int &victim_id)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+T\+M\+Digit (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat \&}]{edited\+\_\+\+R\+OI, }
+\item[{std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&}]{template\+\_\+img\+\_\+list, }
+\item[{int \&}]{victim\+\_\+id}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_af800f64ebf6cfe01f6c2c220ecfeb305}{}\label{mapProcessing_8cpp_af800f64ebf6cfe01f6c2c220ecfeb305}
+Retrieves the best matching digit (a.\+k.\+a the victim\textquotesingle{}s id). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em edited\+\_\+\+R\+OI} & Readable/recognizable R\+OI. \\
+\hline
+\mbox{\tt in}  & {\em template\+\_\+img\+\_\+list} & Vector of pairs $<$represented id, template image$>$. \\
+\hline
+\mbox{\tt out}  & {\em victim\+\_\+id} & Matched digit in edited\+\_\+\+R\+OI. \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Triangle\+Radius@{get\+Triangle\+Radius}}
+\index{get\+Triangle\+Radius@{get\+Triangle\+Radius}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Triangle\+Radius(const cv\+::\+Mat \&hsv\+\_\+img, const double scale)}{getTriangleRadius(const cv::Mat &hsv_img, const double scale)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Triangle\+Radius (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{hsv\+\_\+img, }
+\item[{const double}]{scale}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_abd6a9dabd3cd316d9e00f5d907b1256c}{}\label{mapProcessing_8cpp_abd6a9dabd3cd316d9e00f5d907b1256c}
+Retrieves the radius of the circle that circumscribes the triangle. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hsv\+\_\+img} & Original img in hsv space. \\
+\hline
+\mbox{\tt in}  & {\em scale} & Scale of the arena (1px/scale = X meters). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}double\mbox{]} radius Retrieved radius (in meters). 
+\end{DoxyReturn}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Victim\+ID@{get\+Victim\+ID}}
+\index{get\+Victim\+ID@{get\+Victim\+ID}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Victim\+I\+D(const cv\+::\+Mat \&hsv\+\_\+img, const cv\+::\+Mat \&mask, const double scale, const Polygon \&victim\+\_\+contour, std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&template\+\_\+images)}{getVictimID(const cv::Mat &hsv_img, const cv::Mat &mask, const double scale, const Polygon &victim_contour, std::vector< std::pair< int, cv::Mat >> &template_images)}}]{\setlength{\rightskip}{0pt plus 5cm}int get\+Victim\+ID (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{hsv\+\_\+img, }
+\item[{const cv\+::\+Mat \&}]{mask, }
+\item[{const double}]{scale, }
+\item[{const Polygon \&}]{victim\+\_\+contour, }
+\item[{std\+::vector$<$ std\+::pair$<$ int, cv\+::\+Mat $>$$>$ \&}]{template\+\_\+images}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a62195cf4f3f756fed379cbc39c178027}{}\label{mapProcessing_8cpp_a62195cf4f3f756fed379cbc39c178027}
+Recognize and retrieves the victim\textquotesingle{}s ID by means of tesserract. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hsv\+\_\+img} & Original image in hsv space. \\
+\hline
+\mbox{\tt in}  & {\em mask} & Green mask. \\
+\hline
+\mbox{\tt in}  & {\em scale} & Scale of the arena (1px/scale = X meters). \\
+\hline
+\mbox{\tt in}  & {\em victim\+\_\+contours} & Victim points which define the contours. \\
+\hline
+\mbox{\tt in}  & {\em template\+\_\+images} & Vector of template images. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}int\mbox{]} victim\+\_\+id The retrieved victim id. 
+\end{DoxyReturn}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!get\+Victims\+And\+Gate@{get\+Victims\+And\+Gate}}
+\index{get\+Victims\+And\+Gate@{get\+Victims\+And\+Gate}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Victims\+And\+Gate(const cv\+::\+Mat \&hsv\+\_\+img, const double scale, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate)}{getVictimsAndGate(const cv::Mat &hsv_img, const double scale, std::vector< std::pair< int, Polygon >> &victims_list, Polygon &gate)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Victims\+And\+Gate (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{hsv\+\_\+img, }
+\item[{const double}]{scale, }
+\item[{std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&}]{victims\+\_\+list, }
+\item[{Polygon \&}]{gate}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_adbfc86d4dbb2c1a18b57542a5b983893}{}\label{mapProcessing_8cpp_adbfc86d4dbb2c1a18b57542a5b983893}
+Retrieves the victims and the gate. Victims and gate are discriminated by the number of verteces. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em hsv\+\_\+img} & Original img in hsv space. \\
+\hline
+\mbox{\tt in}  & {\em scale} & Scale of the arena (1px/scale = X meters). \\
+\hline
+\mbox{\tt out}  & {\em victims\+\_\+list} & List of obstacles. \\
+\hline
+\mbox{\tt out}  & {\em gate} & Gate polygon. \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!my\+\_\+find\+Robot@{my\+\_\+find\+Robot}}
+\index{my\+\_\+find\+Robot@{my\+\_\+find\+Robot}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+find\+Robot(const cv\+::\+Mat \&img\+\_\+in, const double scale, Polygon \&triangle, double \&x, double \&y, double \&theta, const std\+::string \&config\+\_\+folder)}{my_findRobot(const cv::Mat &img_in, const double scale, Polygon &triangle, double &x, double &y, double &theta, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool my\+\_\+find\+Robot (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{const double}]{scale, }
+\item[{Polygon \&}]{triangle, }
+\item[{double \&}]{x, }
+\item[{double \&}]{y, }
+\item[{double \&}]{theta, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a7ef6c7ca3985fcd74c63ddd4f00f2f04}{}\label{mapProcessing_8cpp_a7ef6c7ca3985fcd74c63ddd4f00f2f04}
+\char`\"{}\+Mask\char`\"{} for find\+Robot. For more info look in \hyperlink{namespacestudent_afd56b779672a672e15ac45dc927b8a6b}{student\+::find\+Robot} docs. \index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!my\+\_\+process\+Map@{my\+\_\+process\+Map}}
+\index{my\+\_\+process\+Map@{my\+\_\+process\+Map}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+process\+Map(const cv\+::\+Mat \&img\+\_\+in, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate, const std\+::string \&config\+\_\+folder)}{my_processMap(const cv::Mat &img_in, const double scale, std::vector< Polygon > &obstacles_list, std::vector< std::pair< int, Polygon >> &victims_list, Polygon &gate, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool my\+\_\+process\+Map (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{const double}]{scale, }
+\item[{std\+::vector$<$ Polygon $>$ \&}]{obstacles\+\_\+list, }
+\item[{std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&}]{victims\+\_\+list, }
+\item[{Polygon \&}]{gate, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_ace488fd56a8a7af5f51cd0e2d0e1f64e}{}\label{mapProcessing_8cpp_ace488fd56a8a7af5f51cd0e2d0e1f64e}
+\char`\"{}\+Mask\char`\"{} for process\+Map. For more info look in \hyperlink{namespacestudent_a684c71c41ce1327ab90152b661ee1e8a}{student\+::process\+Map} docs. \index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!offset\+Obstacles@{offset\+Obstacles}}
+\index{offset\+Obstacles@{offset\+Obstacles}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{offset\+Obstacles(double offset, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, const double scale)}{offsetObstacles(double offset, std::vector< Polygon > &obstacles_list, const double scale)}}]{\setlength{\rightskip}{0pt plus 5cm}void offset\+Obstacles (
+\begin{DoxyParamCaption}
+\item[{double}]{offset, }
+\item[{std\+::vector$<$ Polygon $>$ \&}]{obstacles\+\_\+list, }
+\item[{const double}]{scale}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a17d6433f7da39cb4562c1f6c8dc104ba}{}\label{mapProcessing_8cpp_a17d6433f7da39cb4562c1f6c8dc104ba}
+Inflates the obstacles of a list with a given offset by means of Clipper\+Lib. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em offset} & Offset to apply (in meters). \\
+\hline
+\mbox{\tt in}  & {\em obstacles\+\_\+list} & List of obstacles (vertex in meters). \\
+\hline
+\mbox{\tt in}  & {\em scale} & Scale of the arena (1px/scale = X meters). \\
+\hline
+\mbox{\tt out}  & {\em obstacles\+\_\+list} & List of offsetted obstacles (vertex in meters). \\
+\hline
+\end{DoxyParams}
+\index{map\+Processing.\+cpp@{map\+Processing.\+cpp}!remove\+Noise@{remove\+Noise}}
+\index{remove\+Noise@{remove\+Noise}!map\+Processing.\+cpp@{map\+Processing.\+cpp}}
+\subsubsection[{\texorpdfstring{remove\+Noise(cv\+::\+Mat \&mask)}{removeNoise(cv::Mat &mask)}}]{\setlength{\rightskip}{0pt plus 5cm}void remove\+Noise (
+\begin{DoxyParamCaption}
+\item[{cv\+::\+Mat \&}]{mask}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8cpp_a883e6e6ffba02aa8042022efc6e44adf}{}\label{mapProcessing_8cpp_a883e6e6ffba02aa8042022efc6e44adf}
+Erode and dilate the mask with a 4x4 kernel. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em mask} & Bitmap mask matrix for a certain color. \\
+\hline
+\end{DoxyParams}

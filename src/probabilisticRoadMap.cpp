@@ -2,7 +2,7 @@
 
 //#define DEBUG_PIP
 
-#define B_OFFSET 0.04 // 4 cm
+#define B_OFFSET 0.05 // 5 cm
 
 namespace plt = matplotlibcpp;
 
@@ -213,7 +213,6 @@ void getGraph(const Polygon& borders, const std::vector<Polygon>& obstacle_list,
 	// Then, get victims and gate baricenters and add them to pt_idx_map
 	// Add also robot_bc to pt_idx_map
     //******************************************************************
-    // TODO - convert pt_idx_map to std::set
     std::vector<Polygon> expanded_list;
 	std::map<Point,int> pt_idx_map;
     int idx = 0;

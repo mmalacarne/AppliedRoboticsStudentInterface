@@ -11,8 +11,8 @@ namespace plt = matplotlibcpp;
 //**********************************************************************
 /*!
 * Implementation of function sinc(t), returning 1 for t==0, and sin(t)/t otherwise.
-* @param[in]  t
-* @param[out] s
+* @param[in]  t 		Input.
+* @return[double] s 	The sinc function value.
 */
 double sinc(double t){
 	double s;
@@ -587,13 +587,6 @@ void plotMultiDubins(std::vector<std::pair<int, curve>> all_best_curves){
 	    plt::named_plot("First arc", arc1_x, arc1_y, "r-");
 	    double arc1_u = 0.1 * c.arc1.L * std::cos(c.arc1.th0);
 	    double arc1_v = 0.1 * c.arc1.L * std::sin(c.arc1.th0);
-	    //plt::quiver(arc1_x[0], arc1_y[0], arc1_u, arc1_v);
-	    /*std::vector<double> dir1_x, dir1_y;
-	    dir1_x.push_back(arc1_x[0]);
-	    dir1_x.push_back(arc1_u);
-	    dir1_y.push_back(arc1_y[0]);
-	    dir1_y.push_back(arc1_v);
-	    plt::plot(dir1_x, dir1_y, "black -");*/
 
 	    // Plot second arc - green line
 		std::vector<double> arc2_x, arc2_y;
@@ -606,13 +599,6 @@ void plotMultiDubins(std::vector<std::pair<int, curve>> all_best_curves){
 	    plt::named_plot("Third arc", arc3_x, arc3_y, "b-");
 	    double arc3_u = 0.1 * c.arc3.L * std::cos(c.arc3.th0);
 	    double arc3_v = 0.1 * c.arc3.L * std::sin(c.arc3.th0);
-	    //plt::quiver(arc3_x[0], arc3_y[0], arc3_u, arc3_v);
-	    /*std::vector<double> dir3_x, dir3_y;
-	    dir3_x.push_back(arc3_x[0]);
-	    dir3_x.push_back(arc3_u);
-	    dir3_y.push_back(arc3_y[0]);
-	    dir3_y.push_back(arc3_v);
-	    plt::plot(dir3_x, dir3_y, "black -");*/
 
 
 	    #ifdef DEBUG_PLOTMULTIDUBINS
@@ -823,9 +809,9 @@ void DubinsProblem::setK_thj(double k_thj){
 * It is initialized to 4 by default.
 * @param[in]  m 	Number of refinement steps.
 */
-void DubinsProblem::setM(double k_thj){
+void DubinsProblem::setM(double m){
 	
-	this->k_thj = k_thj;
+	this->m = m;
 }
 
 /*!
@@ -891,11 +877,6 @@ void DubinsProblem::printInfo(){
 void DubinsProblem::findShortestPath(){
 	std::pair<int, curve> dubin_result = dubins_shortest_path(x0,y0, th0, xf, yf, thf, kmax);
 	all_best_curves.push_back(dubin_result);
-
-	// Create an iterator for all_best_curves result and insert the result
-	/*std::vector<std::pair<int, curve>>::iterator abc_it;
-	abc_it = all_best_curves.begin();
-	abc_it = all_best_curves.insert(abc_it, dubin_result);*/
 }
 
 /*!
@@ -974,29 +955,12 @@ void DubinsProblem::printSolutionPts(){
 	double x0, y0, th0, xf, yf, thf;
 	int pidx;
 	curve c;
-	//std::string primitives[6] = {"LSL", "LSR", "RSL", "RSR", "LRL", "RLR"};
 	char primitives[6][4] = {"LSL", "LSR", "RSL", "RSR", "LRL", "RLR"};
 
 	int tot_c = all_best_curves.size();
 	std::printf("The solution is made of %d Dubins curves, in particular:\n", tot_c);
 
 	for (int i = 0; i < pts_counter-1; i++){
-		/*// Print first pt info
-		x0 = std::get<0>(all_pts_thj[i]);
-		y0 = std::get<1>(all_pts_thj[i]);
-		th0 = std::get<2>(all_pts_thj[i]);
-		std::printf("Initial point: x0 = %.2f, y0 = %.2f, th0 = %.2f\n", x0, y0, th0);
-
-		// Print second pt info
-		xf = std::get<0>(all_pts_thj[i+1]);
-		yf = std::get<1>(all_pts_thj[i+1]);
-		thf = std::get<2>(all_pts_thj[i+1]);
-		std::printf("Final point: xf = %.2f, yf = %.2f, thf = %.2f\n", xf, yf, thf);
-
-		// Print Dubins curve info between the two pts
-		std::tie(pidx, c) = all_best_curves[i];
-		std::printf("Dubins curve details: %s primitive, L = %.2f, s1 = %.2f, s2 = %.2f, s3 = %.2f \n", 
-			primitives[pidx], c.L, c.arc1.L, c.arc2.L, c.arc3.L);*/
 		std::tie(pidx, c) = all_best_curves[i];
 		std::printf("%s primitive, L = %.2f, s1 = %.2f, s2 = %.2f, s3 = %.2f \n", 
 			primitives[pidx], c.L, c.arc1.L, c.arc2.L, c.arc3.L);

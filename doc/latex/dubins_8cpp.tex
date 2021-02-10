@@ -1,0 +1,582 @@
+\hypertarget{dubins_8cpp}{}\section{src/dubins.cpp File Reference}
+\label{dubins_8cpp}\index{src/dubins.\+cpp@{src/dubins.\+cpp}}
+{\ttfamily \#include \char`\"{}dubins.\+hpp\char`\"{}}\\*
+Include dependency graph for dubins.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{dubins_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{dubins_8cpp_a2678c9ac5e8585534a9c5a2385169324}{sinc} (double t)
+\item 
+double \hyperlink{dubins_8cpp_a2c708c33a19d61b2cdb44cc19fc6b0d9}{mod2pi} (double ang)
+\item 
+double \hyperlink{dubins_8cpp_a994d30c469683c4818f820919609fc84}{range\+Symm} (double ang)
+\item 
+std\+::tuple$<$ double, double, double $>$ \hyperlink{dubins_8cpp_a7553fe315735742bcf80b97dd915df85}{circline} (double s, double x0, double y0, double th0, double k)
+\item 
+bool \hyperlink{dubins_8cpp_ae399651dd05d7ddca1755495526568b2}{check} (double s1, double k0, double s2, double k1, double s3, double k2, double th0, double thf)
+\item 
+arc \hyperlink{dubins_8cpp_a6427aadaeacca9d1b07f6244aa3180b9}{get\+Dubins\+Arc} (double x0, double y0, double th0, double k, double L)
+\item 
+curve \hyperlink{dubins_8cpp_a1c265c884e9666b566b125499516c297}{get\+Dubins\+Curve} (double x0, double y0, double th0, double s1, double s2, double s3, double k0, double k1, double k2)
+\item 
+std\+::tuple$<$ double, double, double, double $>$ \hyperlink{dubins_8cpp_a494897b7ad240d3f473773ad5e75e3b2}{scale\+Orig2\+Std} (double x0, double y0, double th0, double xf, double yf, double thf, double Kmax)
+\item 
+std\+::tuple$<$ double, double, double $>$ \hyperlink{dubins_8cpp_aea31016ab837046cbd5a783dc363e727}{scale\+Std2\+Orig} (double lambda, double sc\+\_\+s1, double sc\+\_\+s2, double sc\+\_\+s3)
+\item 
+std\+::tuple$<$ bool, double, double, double $>$ \hyperlink{dubins_8cpp_ac4b7ba8f16b5e9bcac53b64de87d3b58}{L\+SL} (double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)
+\item 
+std\+::tuple$<$ bool, double, double, double $>$ \hyperlink{dubins_8cpp_a0b8a278bd4f3c3dcdaa39e1303802c75}{R\+SR} (double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)
+\item 
+std\+::tuple$<$ bool, double, double, double $>$ \hyperlink{dubins_8cpp_aefe1b61b500009a2142e4247d831b1e5}{L\+SR} (double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)
+\item 
+std\+::tuple$<$ bool, double, double, double $>$ \hyperlink{dubins_8cpp_ad6625b8d3efc7ec0beb9e2fb5b040566}{R\+SL} (double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)
+\item 
+std\+::tuple$<$ bool, double, double, double $>$ \hyperlink{dubins_8cpp_a56275bfea544ace5891df19f92b97551}{R\+LR} (double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)
+\item 
+std\+::tuple$<$ bool, double, double, double $>$ \hyperlink{dubins_8cpp_a0a1120a592fbc3c932d8530d56aa794a}{L\+RL} (double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)
+\item 
+std\+::pair$<$ int, curve $>$ \hyperlink{dubins_8cpp_a7caccbbd59a4d324e59e9e19e00b38af}{dubins\+\_\+shortest\+\_\+path} (double x0, double y0, double th0, double xf, double yf, double thf, double Kmax)
+\item 
+std\+::tuple$<$ std\+::vector$<$ double $>$, std\+::vector$<$ double $>$ $>$ \hyperlink{dubins_8cpp_afaea347e8dd6b21dd770f8b67b85763f}{get\+Plottable\+Arc} (arc a)
+\item 
+void \hyperlink{dubins_8cpp_a75e4caf509feca2e1dfa379cecea9744}{plot\+Dubins} (curve c)
+\item 
+void \hyperlink{dubins_8cpp_a283f1c1d10ae03dbfc3a03ceaabf08e8}{plot\+Multi\+Dubins} (std\+::vector$<$ std\+::pair$<$ int, curve $>$$>$ all\+\_\+best\+\_\+curves)
+\item 
+void \hyperlink{dubins_8cpp_a7e9cda9b85a07e92a80003c84c5cccb0}{get\+Angles} (double k\+\_\+thj, std\+::vector$<$ double $>$ \&all\+\_\+thj)
+\item 
+void \hyperlink{dubins_8cpp_afc4d12795d09ee2032a41fe8b255b61c}{get\+Angles\+RS} (double m, double k\+\_\+thj, double prev\+\_\+thj, std\+::vector$<$ double $>$ \&all\+\_\+thj\+\_\+rs)
+\item 
+void \hyperlink{dubins_8cpp_a151abe27330eb4577f8b09bc7f7be6f7}{min\+Dj} (double x\+\_\+prev, double y\+\_\+prev, std\+::vector$<$ double $>$ \&all\+\_\+thj, double x\+\_\+last, double y\+\_\+last, double th\+\_\+last, double Kmax, std\+::tuple$<$ double, int, curve $>$ \&min\+Dj\+\_\+result)
+\item 
+void \hyperlink{dubins_8cpp_adbcb267c908e72a53312ff0fd21e56b2}{refinement\+Steps} (double m, double k\+\_\+thj, double x\+\_\+prev, double y\+\_\+prev, double x\+\_\+last, double y\+\_\+last, double th\+\_\+last, double Kmax, std\+::tuple$<$ double, int, curve $>$ \&min\+Dj\+\_\+result)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{dubins.\+cpp@{dubins.\+cpp}!check@{check}}
+\index{check@{check}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{check(double s1, double k0, double s2, double k1, double s3, double k2, double th0, double thf)}{check(double s1, double k0, double s2, double k1, double s3, double k2, double th0, double thf)}}]{\setlength{\rightskip}{0pt plus 5cm}bool check (
+\begin{DoxyParamCaption}
+\item[{double}]{s1, }
+\item[{double}]{k0, }
+\item[{double}]{s2, }
+\item[{double}]{k1, }
+\item[{double}]{s3, }
+\item[{double}]{k2, }
+\item[{double}]{th0, }
+\item[{double}]{thf}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_ae399651dd05d7ddca1755495526568b2}{}\label{dubins_8cpp_ae399651dd05d7ddca1755495526568b2}
+Check validity of a solution by evaluating explicitly the 3 equations defining a Dubins problem (in standard form). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em s1} & First arc length. \\
+\hline
+\mbox{\tt in}  & {\em k0} & First arc max curvature. \\
+\hline
+\mbox{\tt in}  & {\em s2} & Second arc length. \\
+\hline
+\mbox{\tt in}  & {\em k1} & Second arc max curvature. \\
+\hline
+\mbox{\tt in}  & {\em s3} & Third arc length. \\
+\hline
+\mbox{\tt in}  & {\em k2} & Third arc max curvature. \\
+\hline
+\mbox{\tt in}  & {\em th0} & Initial angle direction. \\
+\hline
+\mbox{\tt in}  & {\em thf} & Final angle direction. \\
+\hline
+\mbox{\tt out}  & {\em check\+\_\+val} & True if the 3 equations are satisfied. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!circline@{circline}}
+\index{circline@{circline}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{circline(double s, double x0, double y0, double th0, double k)}{circline(double s, double x0, double y0, double th0, double k)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$double, double, double$>$ circline (
+\begin{DoxyParamCaption}
+\item[{double}]{s, }
+\item[{double}]{x0, }
+\item[{double}]{y0, }
+\item[{double}]{th0, }
+\item[{double}]{k}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a7553fe315735742bcf80b97dd915df85}{}\label{dubins_8cpp_a7553fe315735742bcf80b97dd915df85}
+Evaluate an arc (circular or straight) composing a Dubins curve, at a given arc-\/length s. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em s} & Arc length. \\
+\hline
+\mbox{\tt in}  & {\em x0} & Initial x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y0} & Initial y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th0} & Initial angle direction. \\
+\hline
+\mbox{\tt in}  & {\em k} & Max curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$x,y,th$>$} & Final position and direction. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!dubins\+\_\+shortest\+\_\+path@{dubins\+\_\+shortest\+\_\+path}}
+\index{dubins\+\_\+shortest\+\_\+path@{dubins\+\_\+shortest\+\_\+path}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{dubins\+\_\+shortest\+\_\+path(double x0, double y0, double th0, double xf, double yf, double thf, double Kmax)}{dubins_shortest_path(double x0, double y0, double th0, double xf, double yf, double thf, double Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::pair$<$int, curve$>$ dubins\+\_\+shortest\+\_\+path (
+\begin{DoxyParamCaption}
+\item[{double}]{x0, }
+\item[{double}]{y0, }
+\item[{double}]{th0, }
+\item[{double}]{xf, }
+\item[{double}]{yf, }
+\item[{double}]{thf, }
+\item[{double}]{Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a7caccbbd59a4d324e59e9e19e00b38af}{}\label{dubins_8cpp_a7caccbbd59a4d324e59e9e19e00b38af}
+Solve the Dubins problem for the given input parameters. Return the type and the parameters of the optimal curve. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x0} & Initial x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y0} & Initial y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th0} & Initial angle direction. \\
+\hline
+\mbox{\tt in}  & {\em xf} & Final x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em yf} & Final y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em thf} & Final angle direction. \\
+\hline
+\mbox{\tt in}  & {\em Kmax} & Maximum curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$pidx,c$>$} & Pair with best primitive idx and best curve. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!get\+Angles@{get\+Angles}}
+\index{get\+Angles@{get\+Angles}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Angles(double k\+\_\+thj, std\+::vector$<$ double $>$ \&all\+\_\+thj)}{getAngles(double k_thj, std::vector< double > &all_thj)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Angles (
+\begin{DoxyParamCaption}
+\item[{double}]{k\+\_\+thj, }
+\item[{std\+::vector$<$ double $>$ \&}]{all\+\_\+thj}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a7e9cda9b85a07e92a80003c84c5cccb0}{}\label{dubins_8cpp_a7e9cda9b85a07e92a80003c84c5cccb0}
+Retrieves the k\+\_\+thj possible theta\+\_\+j angles that have to be tested in order to find the shortest Dubins path. All theta\+\_\+j are normalized in range \mbox{[}0, 2$\ast$\+M\+\_\+\+PI). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em k\+\_\+thj} & Granularity of angle discretization\+: number of theta\+\_\+j. \\
+\hline
+\mbox{\tt out}  & {\em all\+\_\+thj} & Vector with all angles in the discretized interval. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!get\+Angles\+RS@{get\+Angles\+RS}}
+\index{get\+Angles\+RS@{get\+Angles\+RS}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Angles\+R\+S(double m, double k\+\_\+thj, double prev\+\_\+thj, std\+::vector$<$ double $>$ \&all\+\_\+thj\+\_\+rs)}{getAnglesRS(double m, double k_thj, double prev_thj, std::vector< double > &all_thj_rs)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Angles\+RS (
+\begin{DoxyParamCaption}
+\item[{double}]{m, }
+\item[{double}]{k\+\_\+thj, }
+\item[{double}]{prev\+\_\+thj, }
+\item[{std\+::vector$<$ double $>$ \&}]{all\+\_\+thj\+\_\+rs}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_afc4d12795d09ee2032a41fe8b255b61c}{}\label{dubins_8cpp_afc4d12795d09ee2032a41fe8b255b61c}
+Given the current refinement step m, it retrieves all the angles in the discretized interval \mbox{[}theta\+\_\+j -\/ 3/2$\ast$h, theta\+\_\+j + 3/2$\ast$h\mbox{]}. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em m} & Number of refinement steps. \\
+\hline
+\mbox{\tt in}  & {\em k\+\_\+thj} & Granularity of angle discretization\+: number of theta\+\_\+j. \\
+\hline
+\mbox{\tt in}  & {\em prev\+\_\+thj} & Best theta in the previous shortest path solution. \\
+\hline
+\mbox{\tt out}  & {\em all\+\_\+thj\+\_\+rs} & Vector with all angles in the discretized interval. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!get\+Dubins\+Arc@{get\+Dubins\+Arc}}
+\index{get\+Dubins\+Arc@{get\+Dubins\+Arc}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Dubins\+Arc(double x0, double y0, double th0, double k, double L)}{getDubinsArc(double x0, double y0, double th0, double k, double L)}}]{\setlength{\rightskip}{0pt plus 5cm}arc get\+Dubins\+Arc (
+\begin{DoxyParamCaption}
+\item[{double}]{x0, }
+\item[{double}]{y0, }
+\item[{double}]{th0, }
+\item[{double}]{k, }
+\item[{double}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a6427aadaeacca9d1b07f6244aa3180b9}{}\label{dubins_8cpp_a6427aadaeacca9d1b07f6244aa3180b9}
+Create a structure representing an arc of a Dubins curve (straight or circular). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x0} & Initial x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y0} & Initial y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th0} & Initial angle direction. \\
+\hline
+\mbox{\tt in}  & {\em k} & Max curvature. \\
+\hline
+\mbox{\tt in}  & {\em L} & Arc length. \\
+\hline
+\mbox{\tt out}  & {\em a} & Arc type. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!get\+Dubins\+Curve@{get\+Dubins\+Curve}}
+\index{get\+Dubins\+Curve@{get\+Dubins\+Curve}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Dubins\+Curve(double x0, double y0, double th0, double s1, double s2, double s3, double k0, double k1, double k2)}{getDubinsCurve(double x0, double y0, double th0, double s1, double s2, double s3, double k0, double k1, double k2)}}]{\setlength{\rightskip}{0pt plus 5cm}curve get\+Dubins\+Curve (
+\begin{DoxyParamCaption}
+\item[{double}]{x0, }
+\item[{double}]{y0, }
+\item[{double}]{th0, }
+\item[{double}]{s1, }
+\item[{double}]{s2, }
+\item[{double}]{s3, }
+\item[{double}]{k0, }
+\item[{double}]{k1, }
+\item[{double}]{k2}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a1c265c884e9666b566b125499516c297}{}\label{dubins_8cpp_a1c265c884e9666b566b125499516c297}
+Create a structure representing a Dubins curve (composed by three arcs). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x0} & Initial x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y0} & Initial y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th0} & Initial angle direction. \\
+\hline
+\mbox{\tt in}  & {\em s1} & First arc length. \\
+\hline
+\mbox{\tt in}  & {\em s2} & Second arc length. \\
+\hline
+\mbox{\tt in}  & {\em s3} & Third arc length. \\
+\hline
+\mbox{\tt in}  & {\em k0} & First arc max curvature. \\
+\hline
+\mbox{\tt in}  & {\em k1} & Second arc max curvature. \\
+\hline
+\mbox{\tt in}  & {\em k2} & Third arc max curvature. \\
+\hline
+\mbox{\tt out}  & {\em c} & Dubins curve made of three arcs. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!get\+Plottable\+Arc@{get\+Plottable\+Arc}}
+\index{get\+Plottable\+Arc@{get\+Plottable\+Arc}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Plottable\+Arc(arc a)}{getPlottableArc(arc a)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$std\+::vector$<$double$>$, std\+::vector$<$double$>$ $>$ get\+Plottable\+Arc (
+\begin{DoxyParamCaption}
+\item[{arc}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_afaea347e8dd6b21dd770f8b67b85763f}{}\label{dubins_8cpp_afaea347e8dd6b21dd770f8b67b85763f}
+Provides a tuple with the vectors of 2D plottable data. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Arc. \\
+\hline
+\mbox{\tt out}  & {\em $<$vec\+\_\+data\+\_\+x,vec\+\_\+data\+\_\+y$>$} & Plottable vectors of 2D data. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!L\+RL@{L\+RL}}
+\index{L\+RL@{L\+RL}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{L\+R\+L(double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)}{LRL(double sc_th0, double sc_thf, double sc_Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double$>$ L\+RL (
+\begin{DoxyParamCaption}
+\item[{double}]{sc\+\_\+th0, }
+\item[{double}]{sc\+\_\+thf, }
+\item[{double}]{sc\+\_\+\+Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a0a1120a592fbc3c932d8530d56aa794a}{}\label{dubins_8cpp_a0a1120a592fbc3c932d8530d56aa794a}
+Retrieves sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3 that define the L\+RL Dubins curves. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sc\+\_\+th0} & Scaled initial theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+thf} & Scaled final theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+\+Kmax} & Scaled max curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$flag,sc\+\_\+s1,sc\+\_\+s2,sc\+\_\+s3$>$} & Tuple with bool and sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!L\+SL@{L\+SL}}
+\index{L\+SL@{L\+SL}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{L\+S\+L(double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)}{LSL(double sc_th0, double sc_thf, double sc_Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double$>$ L\+SL (
+\begin{DoxyParamCaption}
+\item[{double}]{sc\+\_\+th0, }
+\item[{double}]{sc\+\_\+thf, }
+\item[{double}]{sc\+\_\+\+Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_ac4b7ba8f16b5e9bcac53b64de87d3b58}{}\label{dubins_8cpp_ac4b7ba8f16b5e9bcac53b64de87d3b58}
+Retrieves sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3 that define the L\+SL Dubins curves. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sc\+\_\+th0} & Scaled initial theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+thf} & Scaled final theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+\+Kmax} & Scaled max curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$flag,sc\+\_\+s1,sc\+\_\+s2,sc\+\_\+s3$>$} & Tuple with bool and sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!L\+SR@{L\+SR}}
+\index{L\+SR@{L\+SR}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{L\+S\+R(double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)}{LSR(double sc_th0, double sc_thf, double sc_Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double$>$ L\+SR (
+\begin{DoxyParamCaption}
+\item[{double}]{sc\+\_\+th0, }
+\item[{double}]{sc\+\_\+thf, }
+\item[{double}]{sc\+\_\+\+Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_aefe1b61b500009a2142e4247d831b1e5}{}\label{dubins_8cpp_aefe1b61b500009a2142e4247d831b1e5}
+Retrieves sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3 that define the L\+SR Dubins curves. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sc\+\_\+th0} & Scaled initial theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+thf} & Scaled final theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+\+Kmax} & Scaled max curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$flag,sc\+\_\+s1,sc\+\_\+s2,sc\+\_\+s3$>$} & Tuple with bool and sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!min\+Dj@{min\+Dj}}
+\index{min\+Dj@{min\+Dj}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{min\+Dj(double x\+\_\+prev, double y\+\_\+prev, std\+::vector$<$ double $>$ \&all\+\_\+thj, double x\+\_\+last, double y\+\_\+last, double th\+\_\+last, double Kmax, std\+::tuple$<$ double, int, curve $>$ \&min\+Dj\+\_\+result)}{minDj(double x_prev, double y_prev, std::vector< double > &all_thj, double x_last, double y_last, double th_last, double Kmax, std::tuple< double, int, curve > &minDj_result)}}]{\setlength{\rightskip}{0pt plus 5cm}void min\+Dj (
+\begin{DoxyParamCaption}
+\item[{double}]{x\+\_\+prev, }
+\item[{double}]{y\+\_\+prev, }
+\item[{std\+::vector$<$ double $>$ \&}]{all\+\_\+thj, }
+\item[{double}]{x\+\_\+last, }
+\item[{double}]{y\+\_\+last, }
+\item[{double}]{th\+\_\+last, }
+\item[{double}]{Kmax, }
+\item[{std\+::tuple$<$ double, int, curve $>$ \&}]{min\+Dj\+\_\+result}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a151abe27330eb4577f8b09bc7f7be6f7}{}\label{dubins_8cpp_a151abe27330eb4577f8b09bc7f7be6f7}
+Retrieves the best Dubins path between two points with an unknown theta\+\_\+j. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x\+\_\+prev} & Previous point x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y\+\_\+prev} & Previous point y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em all\+\_\+thj} & Vector with all angles in the discretized interval. \\
+\hline
+\mbox{\tt in}  & {\em x\+\_\+last} & Last point x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y\+\_\+last} & Last point y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th\+\_\+last} & Last point angle direction. \\
+\hline
+\mbox{\tt in}  & {\em Kmax} & Maximum curvature. \\
+\hline
+\mbox{\tt out}  & {\em min\+Dj\+\_\+result} & Tuple with best theta\+\_\+j, best primitve idx and best Dubins curve. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!mod2pi@{mod2pi}}
+\index{mod2pi@{mod2pi}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{mod2pi(double ang)}{mod2pi(double ang)}}]{\setlength{\rightskip}{0pt plus 5cm}double mod2pi (
+\begin{DoxyParamCaption}
+\item[{double}]{ang}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a2c708c33a19d61b2cdb44cc19fc6b0d9}{}\label{dubins_8cpp_a2c708c33a19d61b2cdb44cc19fc6b0d9}
+Normalize an angle (in range \mbox{[}0,2$\ast$pi)). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ang} & Initial angle. \\
+\hline
+\mbox{\tt out}  & {\em out} & Final angle. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!plot\+Dubins@{plot\+Dubins}}
+\index{plot\+Dubins@{plot\+Dubins}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{plot\+Dubins(curve c)}{plotDubins(curve c)}}]{\setlength{\rightskip}{0pt plus 5cm}void plot\+Dubins (
+\begin{DoxyParamCaption}
+\item[{curve}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a75e4caf509feca2e1dfa379cecea9744}{}\label{dubins_8cpp_a75e4caf509feca2e1dfa379cecea9744}
+Plot a Dubins curve and save it as dubins.\+png in /home/user\+\_\+name/workspace/project/src/testing\+\_\+imgs . 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em c} & Dubins curve to plot. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!plot\+Multi\+Dubins@{plot\+Multi\+Dubins}}
+\index{plot\+Multi\+Dubins@{plot\+Multi\+Dubins}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{plot\+Multi\+Dubins(std\+::vector$<$ std\+::pair$<$ int, curve $>$$>$ all\+\_\+best\+\_\+curves)}{plotMultiDubins(std::vector< std::pair< int, curve >> all_best_curves)}}]{\setlength{\rightskip}{0pt plus 5cm}void plot\+Multi\+Dubins (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ std\+::pair$<$ int, curve $>$$>$}]{all\+\_\+best\+\_\+curves}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a283f1c1d10ae03dbfc3a03ceaabf08e8}{}\label{dubins_8cpp_a283f1c1d10ae03dbfc3a03ceaabf08e8}
+Plot a multiple Dubins curves and save it as multi\+\_\+dubins.\+png in /home/user\+\_\+name/workspace/project/src/ . 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em all\+\_\+best\+\_\+curves} & Multi Dubins curves to plot. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!range\+Symm@{range\+Symm}}
+\index{range\+Symm@{range\+Symm}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{range\+Symm(double ang)}{rangeSymm(double ang)}}]{\setlength{\rightskip}{0pt plus 5cm}double range\+Symm (
+\begin{DoxyParamCaption}
+\item[{double}]{ang}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a994d30c469683c4818f820919609fc84}{}\label{dubins_8cpp_a994d30c469683c4818f820919609fc84}
+Normalize an angular difference (range (-\/pi, pi\mbox{]}). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em ang} & Initial angle. \\
+\hline
+\mbox{\tt out}  & {\em out} & Final angle. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!refinement\+Steps@{refinement\+Steps}}
+\index{refinement\+Steps@{refinement\+Steps}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{refinement\+Steps(double m, double k\+\_\+thj, double x\+\_\+prev, double y\+\_\+prev, double x\+\_\+last, double y\+\_\+last, double th\+\_\+last, double Kmax, std\+::tuple$<$ double, int, curve $>$ \&min\+Dj\+\_\+result)}{refinementSteps(double m, double k_thj, double x_prev, double y_prev, double x_last, double y_last, double th_last, double Kmax, std::tuple< double, int, curve > &minDj_result)}}]{\setlength{\rightskip}{0pt plus 5cm}void refinement\+Steps (
+\begin{DoxyParamCaption}
+\item[{double}]{m, }
+\item[{double}]{k\+\_\+thj, }
+\item[{double}]{x\+\_\+prev, }
+\item[{double}]{y\+\_\+prev, }
+\item[{double}]{x\+\_\+last, }
+\item[{double}]{y\+\_\+last, }
+\item[{double}]{th\+\_\+last, }
+\item[{double}]{Kmax, }
+\item[{std\+::tuple$<$ double, int, curve $>$ \&}]{min\+Dj\+\_\+result}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_adbcb267c908e72a53312ff0fd21e56b2}{}\label{dubins_8cpp_adbcb267c908e72a53312ff0fd21e56b2}
+It finds the best theta\+\_\+j and Dubins path given a prev\+\_\+thj and the current step m. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em m} & Number of refinement steps. \\
+\hline
+\mbox{\tt in}  & {\em k\+\_\+thj} & Granularity of angle discretization\+: number of theta\+\_\+j. \\
+\hline
+\mbox{\tt in}  & {\em x\+\_\+prev} & Previous discovered point x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y\+\_\+prev} & Previous discovered point y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em all\+\_\+thj\+\_\+rs} & Vector with all angles in the discretized interval (in the m step). // T\+O\+D\+E\+L\+E\+TE \\
+\hline
+\mbox{\tt in}  & {\em x\+\_\+last} & Last known point x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y\+\_\+last} & Last known point y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th\+\_\+last} & Last known point angle direction. \\
+\hline
+\mbox{\tt in}  & {\em Kmax} & Maximum curvature. \\
+\hline
+\mbox{\tt out}  & {\em min\+Dj\+\_\+result} & Tuple with best theta\+\_\+j, best primitve idx and best Dubins curve (for the current step). \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!R\+LR@{R\+LR}}
+\index{R\+LR@{R\+LR}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{R\+L\+R(double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)}{RLR(double sc_th0, double sc_thf, double sc_Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double$>$ R\+LR (
+\begin{DoxyParamCaption}
+\item[{double}]{sc\+\_\+th0, }
+\item[{double}]{sc\+\_\+thf, }
+\item[{double}]{sc\+\_\+\+Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a56275bfea544ace5891df19f92b97551}{}\label{dubins_8cpp_a56275bfea544ace5891df19f92b97551}
+Retrieves sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3 that define the R\+LR Dubins curves. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sc\+\_\+th0} & Scaled initial theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+thf} & Scaled final theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+\+Kmax} & Scaled max curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$flag,sc\+\_\+s1,sc\+\_\+s2,sc\+\_\+s3$>$} & Tuple with bool and sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!R\+SL@{R\+SL}}
+\index{R\+SL@{R\+SL}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{R\+S\+L(double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)}{RSL(double sc_th0, double sc_thf, double sc_Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double$>$ R\+SL (
+\begin{DoxyParamCaption}
+\item[{double}]{sc\+\_\+th0, }
+\item[{double}]{sc\+\_\+thf, }
+\item[{double}]{sc\+\_\+\+Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_ad6625b8d3efc7ec0beb9e2fb5b040566}{}\label{dubins_8cpp_ad6625b8d3efc7ec0beb9e2fb5b040566}
+Retrieves sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3 that define the R\+SL Dubins curves. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sc\+\_\+th0} & Scaled initial theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+thf} & Scaled final theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+\+Kmax} & Scaled max curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$flag,sc\+\_\+s1,sc\+\_\+s2,sc\+\_\+s3$>$} & Tuple with bool and sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!R\+SR@{R\+SR}}
+\index{R\+SR@{R\+SR}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{R\+S\+R(double sc\+\_\+th0, double sc\+\_\+thf, double sc\+\_\+\+Kmax)}{RSR(double sc_th0, double sc_thf, double sc_Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double$>$ R\+SR (
+\begin{DoxyParamCaption}
+\item[{double}]{sc\+\_\+th0, }
+\item[{double}]{sc\+\_\+thf, }
+\item[{double}]{sc\+\_\+\+Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a0b8a278bd4f3c3dcdaa39e1303802c75}{}\label{dubins_8cpp_a0b8a278bd4f3c3dcdaa39e1303802c75}
+Retrieves sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3 that define the R\+SR Dubins curves. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sc\+\_\+th0} & Scaled initial theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+thf} & Scaled final theta. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+\+Kmax} & Scaled max curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$flag,sc\+\_\+s1,sc\+\_\+s2,sc\+\_\+s3$>$} & Tuple with bool and sc\+\_\+s1, sc\+\_\+s2, sc\+\_\+s3. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!scale\+Orig2\+Std@{scale\+Orig2\+Std}}
+\index{scale\+Orig2\+Std@{scale\+Orig2\+Std}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{scale\+Orig2\+Std(double x0, double y0, double th0, double xf, double yf, double thf, double Kmax)}{scaleOrig2Std(double x0, double y0, double th0, double xf, double yf, double thf, double Kmax)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$double, double, double, double$>$ scale\+Orig2\+Std (
+\begin{DoxyParamCaption}
+\item[{double}]{x0, }
+\item[{double}]{y0, }
+\item[{double}]{th0, }
+\item[{double}]{xf, }
+\item[{double}]{yf, }
+\item[{double}]{thf, }
+\item[{double}]{Kmax}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a494897b7ad240d3f473773ad5e75e3b2}{}\label{dubins_8cpp_a494897b7ad240d3f473773ad5e75e3b2}
+Scale the input problem to standard form (x0\+: -\/1, y0\+: 0, xf\+: 1, yf\+: 0). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x0} & Initial x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y0} & Initial y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em th0} & Initial angle direction. \\
+\hline
+\mbox{\tt in}  & {\em xf} & Final x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em yf} & Final y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em thf} & Final angle direction. \\
+\hline
+\mbox{\tt in}  & {\em Kmax} & Maximum curvature. \\
+\hline
+\mbox{\tt out}  & {\em $<$sc\+\_\+th0,sc\+\_\+thf,sc\+\_\+\+Kmax,lambda$>$} & Tuple with the scaled initial and final theta, scaled max curvature and conversion factor. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!scale\+Std2\+Orig@{scale\+Std2\+Orig}}
+\index{scale\+Std2\+Orig@{scale\+Std2\+Orig}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{scale\+Std2\+Orig(double lambda, double sc\+\_\+s1, double sc\+\_\+s2, double sc\+\_\+s3)}{scaleStd2Orig(double lambda, double sc_s1, double sc_s2, double sc_s3)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$double, double, double$>$ scale\+Std2\+Orig (
+\begin{DoxyParamCaption}
+\item[{double}]{lambda, }
+\item[{double}]{sc\+\_\+s1, }
+\item[{double}]{sc\+\_\+s2, }
+\item[{double}]{sc\+\_\+s3}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_aea31016ab837046cbd5a783dc363e727}{}\label{dubins_8cpp_aea31016ab837046cbd5a783dc363e727}
+Scale the solution to the standard problem back to the original problem. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em lambda} & Conversion factor. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+s1} & First arc scaled length. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+s2} & Second arc scaled length. \\
+\hline
+\mbox{\tt in}  & {\em sc\+\_\+s3} & Third arc scaled length. \\
+\hline
+\mbox{\tt out}  & {\em $<$s1,s2,s3$>$} & Tuple with the 3 arcs original length. \\
+\hline
+\end{DoxyParams}
+\index{dubins.\+cpp@{dubins.\+cpp}!sinc@{sinc}}
+\index{sinc@{sinc}!dubins.\+cpp@{dubins.\+cpp}}
+\subsubsection[{\texorpdfstring{sinc(double t)}{sinc(double t)}}]{\setlength{\rightskip}{0pt plus 5cm}double sinc (
+\begin{DoxyParamCaption}
+\item[{double}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{dubins_8cpp_a2678c9ac5e8585534a9c5a2385169324}{}\label{dubins_8cpp_a2678c9ac5e8585534a9c5a2385169324}
+Implementation of function sinc(t), returning 1 for t==0, and sin(t)/t otherwise. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em t} & Input. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}double\mbox{]} s The sinc function value. 
+\end{DoxyReturn}

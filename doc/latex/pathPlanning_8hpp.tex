@@ -1,0 +1,53 @@
+\hypertarget{pathPlanning_8hpp}{}\section{include/path\+Planning.hpp File Reference}
+\label{pathPlanning_8hpp}\index{include/path\+Planning.\+hpp@{include/path\+Planning.\+hpp}}
+{\ttfamily \#include \char`\"{}utils.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dubins.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}collision\+Detection\+Module.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}probabilistic\+Road\+Map.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}matplotlibcpp.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$tuple$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$opencv2/opencv.\+hpp$>$}\\*
+Include dependency graph for path\+Planning.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{pathPlanning_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{pathPlanning_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{pathPlanning_8hpp_a1167a1806905a9b2df3591f4e3821dca}{my\+\_\+plan\+Path} (const \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} \&borders, const std\+::vector$<$ \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$$>$ \&victim\+\_\+list, const \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} \&gate, const float x, const float y, const float theta, \hyperlink{structPath}{Path} \&path, const std\+::string \&config\+\_\+folder)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{path\+Planning.\+hpp@{path\+Planning.\+hpp}!my\+\_\+plan\+Path@{my\+\_\+plan\+Path}}
+\index{my\+\_\+plan\+Path@{my\+\_\+plan\+Path}!path\+Planning.\+hpp@{path\+Planning.\+hpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+plan\+Path(const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const float x, const float y, const float theta, Path \&path, const std\+::string \&config\+\_\+folder)}{my_planPath(const Polygon &borders, const std::vector< Polygon > &obstacle_list, const std::vector< std::pair< int, Polygon >> &victim_list, const Polygon &gate, const float x, const float y, const float theta, Path &path, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool my\+\_\+plan\+Path (
+\begin{DoxyParamCaption}
+\item[{const {\bf Polygon} \&}]{borders, }
+\item[{const std\+::vector$<$ {\bf Polygon} $>$ \&}]{obstacle\+\_\+list, }
+\item[{const std\+::vector$<$ std\+::pair$<$ int, {\bf Polygon} $>$$>$ \&}]{victim\+\_\+list, }
+\item[{const {\bf Polygon} \&}]{gate, }
+\item[{const float}]{x, }
+\item[{const float}]{y, }
+\item[{const float}]{theta, }
+\item[{{\bf Path} \&}]{path, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{pathPlanning_8hpp_a1167a1806905a9b2df3591f4e3821dca}{}\label{pathPlanning_8hpp_a1167a1806905a9b2df3591f4e3821dca}

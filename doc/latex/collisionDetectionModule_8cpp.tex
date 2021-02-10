@@ -1,0 +1,389 @@
+\hypertarget{collisionDetectionModule_8cpp}{}\section{src/collision\+Detection\+Module.cpp File Reference}
+\label{collisionDetectionModule_8cpp}\index{src/collision\+Detection\+Module.\+cpp@{src/collision\+Detection\+Module.\+cpp}}
+{\ttfamily \#include \char`\"{}collision\+Detection\+Module.\+hpp\char`\"{}}\\*
+Include dependency graph for collision\+Detection\+Module.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=241pt]{collisionDetectionModule_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+segment \hyperlink{collisionDetectionModule_8cpp_ac00660574f32e63039402e0b32829fa0}{get\+Segment} (double x0, double y0, double xf, double yf)
+\item 
+circle \hyperlink{collisionDetectionModule_8cpp_a75dab4df77767985e71a0f12780c8651}{get\+Circle} (double x, double y, double r)
+\item 
+void \hyperlink{collisionDetectionModule_8cpp_a8aadc49fbe98b521d9280ce4d0546278}{get\+Plottable\+Segment} (segment L, std\+::vector$<$ double $>$ \&L\+\_\+x\+\_\+data, std\+::vector$<$ double $>$ \&L\+\_\+y\+\_\+data)
+\item 
+void \hyperlink{collisionDetectionModule_8cpp_ae8155fb328040900e5f0019d27ff64e9}{get\+Plottable\+Circle} (circle c, std\+::vector$<$ double $>$ \&cf\+\_\+x, std\+::vector$<$ double $>$ \&cf\+\_\+y)
+\item 
+void \hyperlink{collisionDetectionModule_8cpp_a098c5ba24bd0019076010c7208f87c48}{get\+Plottable\+Arc} (arc a, std\+::vector$<$ double $>$ \&arc\+\_\+x\+\_\+data, std\+::vector$<$ double $>$ \&arc\+\_\+y\+\_\+data)
+\item 
+void \hyperlink{collisionDetectionModule_8cpp_ad524fe2b1726a905d53a8a63f57caa12}{plot\+LL} (segment L1, segment L2)
+\item 
+void \hyperlink{collisionDetectionModule_8cpp_ad7b5ae148eced1081debc32222e0180e}{plot\+CL} (circle c, segment L)
+\item 
+void \hyperlink{collisionDetectionModule_8cpp_a895ccddeb129b3fb059660fd45ea00c1}{plot\+AL} (circle c, arc a, segment L, double i\+\_\+x0, double i\+\_\+y0, double i\+\_\+x1, double i\+\_\+y1)
+\item 
+double \hyperlink{collisionDetectionModule_8cpp_a1686bea7650bb70f997f5c22556f17f5}{get\+Angular\+Coeff} (segment L)
+\item 
+double \hyperlink{collisionDetectionModule_8cpp_a83e5bb021855b8061a145d056e224da6}{get\+Intercept} (segment L, double m)
+\item 
+bool \hyperlink{collisionDetectionModule_8cpp_aeb93f834fe94af8aebf6c56cb7e2bd64}{is\+Vertical} (segment L)
+\item 
+bool \hyperlink{collisionDetectionModule_8cpp_af4abf464c6772933f3fa2ea95f554cbf}{is\+Horizontal} (segment L)
+\item 
+std\+::tuple$<$ double, double $>$ \hyperlink{collisionDetectionModule_8cpp_a36320729f307de437e3b20710933d441}{get\+Middle\+Pt\+Coords} (segment L)
+\item 
+double \hyperlink{collisionDetectionModule_8cpp_a1f85cabf7ff9b9b10f885832b0142007}{get\+Segment\+Length} (segment L)
+\item 
+std\+::tuple$<$ segment, segment $>$ \hyperlink{collisionDetectionModule_8cpp_a1cdc724ae15f2f939a86812d621bed70}{get\+Chords} (arc a)
+\item 
+circle \hyperlink{collisionDetectionModule_8cpp_a09a74dc2e8976cd645ebf577dc3d2fca}{get\+Cricle\+From\+Arc} (arc a)
+\item 
+std\+::tuple$<$ bool, double, double $>$ \hyperlink{collisionDetectionModule_8cpp_a32193beac69867b52a5aa634fdccedfc}{inters\+Line\+Line} (segment L1, segment L2)
+\item 
+std\+::tuple$<$ bool, double, double, double, double, double, double $>$ \hyperlink{collisionDetectionModule_8cpp_aec5cea694b133d876d74b30932ce8177}{inters\+Circle\+Line} (circle c, segment L)
+\item 
+std\+::tuple$<$ bool, double, double, double, double $>$ \hyperlink{collisionDetectionModule_8cpp_a0455ed7a2a0350cadda022dbf30df873}{inters\+Arc\+Line} (arc a, segment L)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Angular\+Coeff@{get\+Angular\+Coeff}}
+\index{get\+Angular\+Coeff@{get\+Angular\+Coeff}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Angular\+Coeff(segment L)}{getAngularCoeff(segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Angular\+Coeff (
+\begin{DoxyParamCaption}
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a1686bea7650bb70f997f5c22556f17f5}{}\label{collisionDetectionModule_8cpp_a1686bea7650bb70f997f5c22556f17f5}
+It returns the angular coefficient of the line passing via the provided segment (i.\+e. m = delta\+\_\+y / delta\+\_\+x). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}double\mbox{]} Angular coefficient (i.\+e. m). 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Chords@{get\+Chords}}
+\index{get\+Chords@{get\+Chords}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Chords(arc a)}{getChords(arc a)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$segment, segment$>$ get\+Chords (
+\begin{DoxyParamCaption}
+\item[{arc}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a1cdc724ae15f2f939a86812d621bed70}{}\label{collisionDetectionModule_8cpp_a1cdc724ae15f2f939a86812d621bed70}
+Retrieves two chords from an arc. None of them is vertical nor horizontal. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Arc. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}std\+::tuple$<$segment, segment$>$\mbox{]} Tuple with 2 segment chords. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Circle@{get\+Circle}}
+\index{get\+Circle@{get\+Circle}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Circle(double x, double y, double r)}{getCircle(double x, double y, double r)}}]{\setlength{\rightskip}{0pt plus 5cm}circle get\+Circle (
+\begin{DoxyParamCaption}
+\item[{double}]{x, }
+\item[{double}]{y, }
+\item[{double}]{r}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a75dab4df77767985e71a0f12780c8651}{}\label{collisionDetectionModule_8cpp_a75dab4df77767985e71a0f12780c8651}
+Create a structure representing a circle. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x} & Center x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y} & Center y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em r} & Radius of the circle. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}circle\mbox{]} c Circle type. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Cricle\+From\+Arc@{get\+Cricle\+From\+Arc}}
+\index{get\+Cricle\+From\+Arc@{get\+Cricle\+From\+Arc}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Cricle\+From\+Arc(arc a)}{getCricleFromArc(arc a)}}]{\setlength{\rightskip}{0pt plus 5cm}circle get\+Cricle\+From\+Arc (
+\begin{DoxyParamCaption}
+\item[{arc}]{a}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a09a74dc2e8976cd645ebf577dc3d2fca}{}\label{collisionDetectionModule_8cpp_a09a74dc2e8976cd645ebf577dc3d2fca}
+Given a dubins arc it returns the corresponding circle. It finds two chords within the arc. Then i looks for chords bisectors. In the end, from the bisectors intersection, it finds the center. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Arc. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}circle\mbox{]} Circle derived from the provided arc. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Intercept@{get\+Intercept}}
+\index{get\+Intercept@{get\+Intercept}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Intercept(segment L, double m)}{getIntercept(segment L, double m)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Intercept (
+\begin{DoxyParamCaption}
+\item[{segment}]{L, }
+\item[{double}]{m}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a83e5bb021855b8061a145d056e224da6}{}\label{collisionDetectionModule_8cpp_a83e5bb021855b8061a145d056e224da6}
+It returns the intercept of the line passing via the provided segment with a given angular coefficient. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\mbox{\tt in}  & {\em m} & Angular coefficient of the line passing via L. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}double\mbox{]} Intercept (i.\+e. q). 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Middle\+Pt\+Coords@{get\+Middle\+Pt\+Coords}}
+\index{get\+Middle\+Pt\+Coords@{get\+Middle\+Pt\+Coords}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Middle\+Pt\+Coords(segment L)}{getMiddlePtCoords(segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$double, double$>$ get\+Middle\+Pt\+Coords (
+\begin{DoxyParamCaption}
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a36320729f307de437e3b20710933d441}{}\label{collisionDetectionModule_8cpp_a36320729f307de437e3b20710933d441}
+Given a segment it returns the middle point coordinates. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}std\+::tuple$<$double, double$>$\mbox{]} Tuple with x-\/coord and y-\/coord. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Plottable\+Arc@{get\+Plottable\+Arc}}
+\index{get\+Plottable\+Arc@{get\+Plottable\+Arc}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Plottable\+Arc(arc a, std\+::vector$<$ double $>$ \&arc\+\_\+x\+\_\+data, std\+::vector$<$ double $>$ \&arc\+\_\+y\+\_\+data)}{getPlottableArc(arc a, std::vector< double > &arc_x_data, std::vector< double > &arc_y_data)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Plottable\+Arc (
+\begin{DoxyParamCaption}
+\item[{arc}]{a, }
+\item[{std\+::vector$<$ double $>$ \&}]{arc\+\_\+x\+\_\+data, }
+\item[{std\+::vector$<$ double $>$ \&}]{arc\+\_\+y\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a098c5ba24bd0019076010c7208f87c48}{}\label{collisionDetectionModule_8cpp_a098c5ba24bd0019076010c7208f87c48}
+Retrieves the two vectors\+: the former is filled with arc x-\/coords and the latter with arc y-\/coords. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Arc. \\
+\hline
+\mbox{\tt out}  & {\em L\+\_\+x\+\_\+data} & Vector of x-\/coords. \\
+\hline
+\mbox{\tt out}  & {\em L\+\_\+y\+\_\+data} & Vector of y-\/coords. \\
+\hline
+\end{DoxyParams}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Plottable\+Circle@{get\+Plottable\+Circle}}
+\index{get\+Plottable\+Circle@{get\+Plottable\+Circle}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Plottable\+Circle(circle c, std\+::vector$<$ double $>$ \&cf\+\_\+x, std\+::vector$<$ double $>$ \&cf\+\_\+y)}{getPlottableCircle(circle c, std::vector< double > &cf_x, std::vector< double > &cf_y)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Plottable\+Circle (
+\begin{DoxyParamCaption}
+\item[{circle}]{c, }
+\item[{std\+::vector$<$ double $>$ \&}]{cf\+\_\+x, }
+\item[{std\+::vector$<$ double $>$ \&}]{cf\+\_\+y}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_ae8155fb328040900e5f0019d27ff64e9}{}\label{collisionDetectionModule_8cpp_ae8155fb328040900e5f0019d27ff64e9}
+Retrieves the two vectors\+: the former is filled with circle x-\/coords and the latter with circle y-\/coords. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em c} & Circle. \\
+\hline
+\mbox{\tt out}  & {\em L\+\_\+x\+\_\+data} & Vector of x-\/coords. \\
+\hline
+\mbox{\tt out}  & {\em L\+\_\+y\+\_\+data} & Vector of y-\/coords. \\
+\hline
+\end{DoxyParams}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Plottable\+Segment@{get\+Plottable\+Segment}}
+\index{get\+Plottable\+Segment@{get\+Plottable\+Segment}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Plottable\+Segment(segment L, std\+::vector$<$ double $>$ \&\+L\+\_\+x\+\_\+data, std\+::vector$<$ double $>$ \&\+L\+\_\+y\+\_\+data)}{getPlottableSegment(segment L, std::vector< double > &L_x_data, std::vector< double > &L_y_data)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Plottable\+Segment (
+\begin{DoxyParamCaption}
+\item[{segment}]{L, }
+\item[{std\+::vector$<$ double $>$ \&}]{L\+\_\+x\+\_\+data, }
+\item[{std\+::vector$<$ double $>$ \&}]{L\+\_\+y\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a8aadc49fbe98b521d9280ce4d0546278}{}\label{collisionDetectionModule_8cpp_a8aadc49fbe98b521d9280ce4d0546278}
+Retrieves the two vectors\+: the former is filled with segment x-\/coords and the latter with segment y-\/coords. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\mbox{\tt out}  & {\em L\+\_\+x\+\_\+data} & Vector of x-\/coords. \\
+\hline
+\mbox{\tt out}  & {\em L\+\_\+y\+\_\+data} & Vector of y-\/coords. \\
+\hline
+\end{DoxyParams}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Segment@{get\+Segment}}
+\index{get\+Segment@{get\+Segment}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Segment(double x0, double y0, double xf, double yf)}{getSegment(double x0, double y0, double xf, double yf)}}]{\setlength{\rightskip}{0pt plus 5cm}segment get\+Segment (
+\begin{DoxyParamCaption}
+\item[{double}]{x0, }
+\item[{double}]{y0, }
+\item[{double}]{xf, }
+\item[{double}]{yf}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_ac00660574f32e63039402e0b32829fa0}{}\label{collisionDetectionModule_8cpp_ac00660574f32e63039402e0b32829fa0}
+Create a structure representing a segment. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em x0} & Initial x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em y0} & Initial y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em xf} & Final x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em yf} & Final y-\/coord. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}segment\mbox{]} L Segment type. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!get\+Segment\+Length@{get\+Segment\+Length}}
+\index{get\+Segment\+Length@{get\+Segment\+Length}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Segment\+Length(segment L)}{getSegmentLength(segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}double get\+Segment\+Length (
+\begin{DoxyParamCaption}
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a1f85cabf7ff9b9b10f885832b0142007}{}\label{collisionDetectionModule_8cpp_a1f85cabf7ff9b9b10f885832b0142007}
+It returns the the length of a given segment. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}double\mbox{]} Tuple with x-\/coord and y-\/coord. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!inters\+Arc\+Line@{inters\+Arc\+Line}}
+\index{inters\+Arc\+Line@{inters\+Arc\+Line}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{inters\+Arc\+Line(arc a, segment L)}{intersArcLine(arc a, segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double, double$>$ inters\+Arc\+Line (
+\begin{DoxyParamCaption}
+\item[{arc}]{a, }
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a0455ed7a2a0350cadda022dbf30df873}{}\label{collisionDetectionModule_8cpp_a0455ed7a2a0350cadda022dbf30df873}
+Determine if there is an intersection between an arc of a circle and a segment. If there is an intersection it returns also the coords. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Arc. \\
+\hline
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}std\+::tuple$<$bool, double, double, double, double$>$\mbox{]} Tuple with bool true if intersection exists, 1st intersection (x-\/coord, y-\/coord), 2nd intersection (x-\/coord, y-\/coord). 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!inters\+Circle\+Line@{inters\+Circle\+Line}}
+\index{inters\+Circle\+Line@{inters\+Circle\+Line}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{inters\+Circle\+Line(circle c, segment L)}{intersCircleLine(circle c, segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double, double, double, double, double$>$ inters\+Circle\+Line (
+\begin{DoxyParamCaption}
+\item[{circle}]{c, }
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_aec5cea694b133d876d74b30932ce8177}{}\label{collisionDetectionModule_8cpp_aec5cea694b133d876d74b30932ce8177}
+Determine if there is an intersection between a circle and a segment. If there is an intersection it returns also the coords. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em c} & Circle. \\
+\hline
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}std\+::tuple$<$bool, double, double, double, double, double, double$>$\mbox{]} Tuple with bool true if intersection exists, 1st intersection (x-\/coord, y-\/coord), 1st intersection angle w.\+r.\+t. center, 2nd intersection (x-\/coord, y-\/coord), 2nd intersection angle w.\+r.\+t. center. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!inters\+Line\+Line@{inters\+Line\+Line}}
+\index{inters\+Line\+Line@{inters\+Line\+Line}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{inters\+Line\+Line(segment L1, segment L2)}{intersLineLine(segment L1, segment L2)}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::tuple$<$bool, double, double$>$ inters\+Line\+Line (
+\begin{DoxyParamCaption}
+\item[{segment}]{L1, }
+\item[{segment}]{L2}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a32193beac69867b52a5aa634fdccedfc}{}\label{collisionDetectionModule_8cpp_a32193beac69867b52a5aa634fdccedfc}
+Determine if there is an intersection between two segments. If there is an intersection it returns also the coords. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L1} & First segment. \\
+\hline
+\mbox{\tt in}  & {\em L2} & Second segment. \\
+\hline
+\mbox{\tt out}  & {\em $<$flag\+\_\+i,x,y$>$} & Tuple with bool true if intersection exists, intersection (x-\/coord, y-\/coord). \\
+\hline
+\end{DoxyParams}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!is\+Horizontal@{is\+Horizontal}}
+\index{is\+Horizontal@{is\+Horizontal}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{is\+Horizontal(segment L)}{isHorizontal(segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}bool is\+Horizontal (
+\begin{DoxyParamCaption}
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_af4abf464c6772933f3fa2ea95f554cbf}{}\label{collisionDetectionModule_8cpp_af4abf464c6772933f3fa2ea95f554cbf}
+Given a segment it returns true if it is horizontal (i.\+e. angular coeff = 0). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}bool\mbox{]} True if horizontal, false otherwise. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!is\+Vertical@{is\+Vertical}}
+\index{is\+Vertical@{is\+Vertical}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{is\+Vertical(segment L)}{isVertical(segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}bool is\+Vertical (
+\begin{DoxyParamCaption}
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_aeb93f834fe94af8aebf6c56cb7e2bd64}{}\label{collisionDetectionModule_8cpp_aeb93f834fe94af8aebf6c56cb7e2bd64}
+Given a segment it returns true if it is verticla (i.\+e. angular coeff = I\+NF). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}bool\mbox{]} True if vertical, false otherwise. 
+\end{DoxyReturn}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!plot\+AL@{plot\+AL}}
+\index{plot\+AL@{plot\+AL}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{plot\+A\+L(circle c, arc a, segment L, double i\+\_\+x0, double i\+\_\+y0, double i\+\_\+x1, double i\+\_\+y1)}{plotAL(circle c, arc a, segment L, double i_x0, double i_y0, double i_x1, double i_y1)}}]{\setlength{\rightskip}{0pt plus 5cm}void plot\+AL (
+\begin{DoxyParamCaption}
+\item[{circle}]{c, }
+\item[{arc}]{a, }
+\item[{segment}]{L, }
+\item[{double}]{i\+\_\+x0, }
+\item[{double}]{i\+\_\+y0, }
+\item[{double}]{i\+\_\+x1, }
+\item[{double}]{i\+\_\+y1}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_a895ccddeb129b3fb059660fd45ea00c1}{}\label{collisionDetectionModule_8cpp_a895ccddeb129b3fb059660fd45ea00c1}
+It plots an arc and a segment and save it as Arc\+\_\+segment\+\_\+intersection.\+png in /home/user\+\_\+name/workspace/project/src/testing\+\_\+imgs . 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em c} & Circle. \\
+\hline
+\mbox{\tt in}  & {\em a} & Arc. \\
+\hline
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\mbox{\tt in}  & {\em i\+\_\+x0} & First intersection point x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em i\+\_\+y0} & First intersection point y-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em i\+\_\+x1} & Second intersection point x-\/coord. \\
+\hline
+\mbox{\tt in}  & {\em i\+\_\+y1} & Second intersection point y-\/coord. \\
+\hline
+\end{DoxyParams}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!plot\+CL@{plot\+CL}}
+\index{plot\+CL@{plot\+CL}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{plot\+C\+L(circle c, segment L)}{plotCL(circle c, segment L)}}]{\setlength{\rightskip}{0pt plus 5cm}void plot\+CL (
+\begin{DoxyParamCaption}
+\item[{circle}]{c, }
+\item[{segment}]{L}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_ad7b5ae148eced1081debc32222e0180e}{}\label{collisionDetectionModule_8cpp_ad7b5ae148eced1081debc32222e0180e}
+It plots a circle and a segment and save it as Circle\+\_\+segment\+\_\+intersection.\+png in /home/user\+\_\+name/workspace/project/src/testing\+\_\+imgs . 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em c} & Circle. \\
+\hline
+\mbox{\tt in}  & {\em L} & Segment. \\
+\hline
+\end{DoxyParams}
+\index{collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}!plot\+LL@{plot\+LL}}
+\index{plot\+LL@{plot\+LL}!collision\+Detection\+Module.\+cpp@{collision\+Detection\+Module.\+cpp}}
+\subsubsection[{\texorpdfstring{plot\+L\+L(segment L1, segment L2)}{plotLL(segment L1, segment L2)}}]{\setlength{\rightskip}{0pt plus 5cm}void plot\+LL (
+\begin{DoxyParamCaption}
+\item[{segment}]{L1, }
+\item[{segment}]{L2}
+\end{DoxyParamCaption}
+)}\hypertarget{collisionDetectionModule_8cpp_ad524fe2b1726a905d53a8a63f57caa12}{}\label{collisionDetectionModule_8cpp_ad524fe2b1726a905d53a8a63f57caa12}
+It plots two segments and save it as Segmentss\+\_\+intersection.\+png. in /home/user\+\_\+name/workspace/project/src/testing\+\_\+imgs . 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em L1} & Arc. \\
+\hline
+\mbox{\tt in}  & {\em L2} & Vector of x-\/coords. \\
+\hline
+\end{DoxyParams}

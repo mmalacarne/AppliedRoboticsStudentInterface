@@ -1,0 +1,58 @@
+\hypertarget{mapProcessing_8hpp}{}\section{include/map\+Processing.hpp File Reference}
+\label{mapProcessing_8hpp}\index{include/map\+Processing.\+hpp@{include/map\+Processing.\+hpp}}
+{\ttfamily \#include \char`\"{}utils.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}clipper.\+hpp\char`\"{}}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$opencv2/opencv.\+hpp$>$}\\*
+{\ttfamily \#include $<$experimental/filesystem$>$}\\*
+Include dependency graph for map\+Processing.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{mapProcessing_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=344pt]{mapProcessing_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{mapProcessing_8hpp_ace488fd56a8a7af5f51cd0e2d0e1f64e}{my\+\_\+process\+Map} (const cv\+::\+Mat \&img\+\_\+in, const double scale, std\+::vector$<$ \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$ \&obstacles\+\_\+list, std\+::vector$<$ std\+::pair$<$ int, \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$$>$ \&victims\+\_\+list, \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} \&gate, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{mapProcessing_8hpp_a7ef6c7ca3985fcd74c63ddd4f00f2f04}{my\+\_\+find\+Robot} (const cv\+::\+Mat \&img\+\_\+in, const double scale, \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} \&triangle, double \&x, double \&y, double \&theta, const std\+::string \&config\+\_\+folder)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{map\+Processing.\+hpp@{map\+Processing.\+hpp}!my\+\_\+find\+Robot@{my\+\_\+find\+Robot}}
+\index{my\+\_\+find\+Robot@{my\+\_\+find\+Robot}!map\+Processing.\+hpp@{map\+Processing.\+hpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+find\+Robot(const cv\+::\+Mat \&img\+\_\+in, const double scale, Polygon \&triangle, double \&x, double \&y, double \&theta, const std\+::string \&config\+\_\+folder)}{my_findRobot(const cv::Mat &img_in, const double scale, Polygon &triangle, double &x, double &y, double &theta, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool my\+\_\+find\+Robot (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{const double}]{scale, }
+\item[{{\bf Polygon} \&}]{triangle, }
+\item[{double \&}]{x, }
+\item[{double \&}]{y, }
+\item[{double \&}]{theta, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8hpp_a7ef6c7ca3985fcd74c63ddd4f00f2f04}{}\label{mapProcessing_8hpp_a7ef6c7ca3985fcd74c63ddd4f00f2f04}
+\index{map\+Processing.\+hpp@{map\+Processing.\+hpp}!my\+\_\+process\+Map@{my\+\_\+process\+Map}}
+\index{my\+\_\+process\+Map@{my\+\_\+process\+Map}!map\+Processing.\+hpp@{map\+Processing.\+hpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+process\+Map(const cv\+::\+Mat \&img\+\_\+in, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate, const std\+::string \&config\+\_\+folder)}{my_processMap(const cv::Mat &img_in, const double scale, std::vector< Polygon > &obstacles_list, std::vector< std::pair< int, Polygon >> &victims_list, Polygon &gate, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool my\+\_\+process\+Map (
+\begin{DoxyParamCaption}
+\item[{const cv\+::\+Mat \&}]{img\+\_\+in, }
+\item[{const double}]{scale, }
+\item[{std\+::vector$<$ {\bf Polygon} $>$ \&}]{obstacles\+\_\+list, }
+\item[{std\+::vector$<$ std\+::pair$<$ int, {\bf Polygon} $>$$>$ \&}]{victims\+\_\+list, }
+\item[{{\bf Polygon} \&}]{gate, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{mapProcessing_8hpp_ace488fd56a8a7af5f51cd0e2d0e1f64e}{}\label{mapProcessing_8hpp_ace488fd56a8a7af5f51cd0e2d0e1f64e}

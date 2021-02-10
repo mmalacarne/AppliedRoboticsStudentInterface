@@ -36,7 +36,7 @@ build/
 
 # Camera calibration
 intrinsic_calibration.xml
-src/camera_calibration.cpp
+#src/camera_calibration.cpp
 
 # Shape detection
 src/demo_shape_detection
@@ -46,7 +46,12 @@ include/dubinsPrimitives.hpp
 src/dubinsPrimitives.cpp
 
 # Test scripts
+src/map_processing_tests.cpp
 src/path_plan_tests.cpp
+src/various_tests.cpp
 
 # Testing images folder
-src/testing_imgs
+#src/testing_imgs
+
+# Doxy file
+Doxyfile

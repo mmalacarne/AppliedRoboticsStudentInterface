@@ -1,0 +1,212 @@
+\hypertarget{probabilisticRoadMap_8cpp}{}\section{src/probabilistic\+Road\+Map.cpp File Reference}
+\label{probabilisticRoadMap_8cpp}\index{src/probabilistic\+Road\+Map.\+cpp@{src/probabilistic\+Road\+Map.\+cpp}}
+{\ttfamily \#include \char`\"{}probabilistic\+Road\+Map.\+hpp\char`\"{}}\\*
+Include dependency graph for probabilistic\+Road\+Map.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{probabilisticRoadMap_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{probabilisticRoadMap_8cpp_a6c116f4575d27d102053dbc576117fa4}{B\+\_\+\+O\+F\+F\+S\+ET}~0.\+05
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{probabilisticRoadMap_8cpp_abfe1f992f72267c3dcd3295d7cc6f0a9}{is\+P\+IP} (const Point \&q\+\_\+pt, const Point \&s\+\_\+pt, const Polygon \&obj)
+\item 
+void \hyperlink{probabilisticRoadMap_8cpp_a69d5700b6355404bb10c95f97985c70d}{get\+Euclidian\+Dist} (const Point \&pt0, const Point \&pt1, double \&d)
+\item 
+bool \hyperlink{probabilisticRoadMap_8cpp_a24cb07ee59747d60da7ee436fb3e6678}{is\+Clear\+Edge} (const Point \&node0, const Point \&node1, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list)
+\item 
+bool \hyperlink{probabilisticRoadMap_8cpp_aebec67020ba69c1a3b53e656e5f845d7}{map\+\_\+cmp} (const std\+::pair$<$ Point, double $>$ \&a, const std\+::pair$<$ Point, double $>$ \&b)
+\item 
+void \hyperlink{probabilisticRoadMap_8cpp_a34c66507e0e4e85c289ddbf4553e06be}{get\+Min\+Distance\+Node} (const std\+::set$<$ Point $>$ \&all\+\_\+nodes\+\_\+set, const std\+::map$<$ Point, double $>$ \&distances, Point \&node\+\_\+u)
+\item 
+void \hyperlink{probabilisticRoadMap_8cpp_a884e484006b515130c89e5e43e258753}{get\+Graph} (const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const Point \&robot\+\_\+bc, const int n\+\_\+pts, const int knn, std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&graph)
+\item 
+void \hyperlink{probabilisticRoadMap_8cpp_a2bc678078a49de54f4b2bb89d7b88d1e}{get\+Dijkstra\+Path} (const Point \&q\+\_\+i, const Point \&q\+\_\+f, const std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&graph, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, std\+::vector$<$ Point $>$ \&g\+\_\+path)
+\item 
+void \hyperlink{probabilisticRoadMap_8cpp_ab88af9e0f07a0909c46c84a0f5d4daab}{path\+Smoother} (const std\+::vector$<$ Point $>$ \&g\+\_\+path, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, std\+::vector$<$ Point $>$ \&s\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!B\+\_\+\+O\+F\+F\+S\+ET@{B\+\_\+\+O\+F\+F\+S\+ET}}
+\index{B\+\_\+\+O\+F\+F\+S\+ET@{B\+\_\+\+O\+F\+F\+S\+ET}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{B\+\_\+\+O\+F\+F\+S\+ET}{B_OFFSET}}]{\setlength{\rightskip}{0pt plus 5cm}\#define B\+\_\+\+O\+F\+F\+S\+ET~0.\+05}\hypertarget{probabilisticRoadMap_8cpp_a6c116f4575d27d102053dbc576117fa4}{}\label{probabilisticRoadMap_8cpp_a6c116f4575d27d102053dbc576117fa4}
+
+
+\subsection{Function Documentation}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!get\+Dijkstra\+Path@{get\+Dijkstra\+Path}}
+\index{get\+Dijkstra\+Path@{get\+Dijkstra\+Path}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Dijkstra\+Path(const Point \&q\+\_\+i, const Point \&q\+\_\+f, const std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&graph, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, std\+::vector$<$ Point $>$ \&g\+\_\+path)}{getDijkstraPath(const Point &q_i, const Point &q_f, const std::map< Point, std::vector< Point >> &graph, const std::vector< Polygon > &obstacle_list, std::vector< Point > &g_path)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Dijkstra\+Path (
+\begin{DoxyParamCaption}
+\item[{const Point \&}]{q\+\_\+i, }
+\item[{const Point \&}]{q\+\_\+f, }
+\item[{const std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&}]{graph, }
+\item[{const std\+::vector$<$ Polygon $>$ \&}]{obstacle\+\_\+list, }
+\item[{std\+::vector$<$ Point $>$ \&}]{g\+\_\+path}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_a2bc678078a49de54f4b2bb89d7b88d1e}{}\label{probabilisticRoadMap_8cpp_a2bc678078a49de54f4b2bb89d7b88d1e}
+Returns, via Dijkstra algorithm, a vector of ordered nodes that determins the shortest path in the graph from the initial query point to the final query point. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em q\+\_\+i} & Query initial point. \\
+\hline
+\mbox{\tt in}  & {\em q\+\_\+f} & Query final point. \\
+\hline
+\mbox{\tt in}  & {\em graph} & Map structure defining the graph. \\
+\hline
+\mbox{\tt in}  & {\em obstacle\+\_\+list} & List of obstacles polygon representing the not free space. \\
+\hline
+\mbox{\tt out}  & {\em g\+\_\+path} & Vector of point describing the path from q\+\_\+i to q\+\_\+f. \\
+\hline
+\end{DoxyParams}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!get\+Euclidian\+Dist@{get\+Euclidian\+Dist}}
+\index{get\+Euclidian\+Dist@{get\+Euclidian\+Dist}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Euclidian\+Dist(const Point \&pt0, const Point \&pt1, double \&d)}{getEuclidianDist(const Point &pt0, const Point &pt1, double &d)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Euclidian\+Dist (
+\begin{DoxyParamCaption}
+\item[{const Point \&}]{pt0, }
+\item[{const Point \&}]{pt1, }
+\item[{double \&}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_a69d5700b6355404bb10c95f97985c70d}{}\label{probabilisticRoadMap_8cpp_a69d5700b6355404bb10c95f97985c70d}
+Computes the euclidean distance between two given points. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em pt0} & First point coords. \\
+\hline
+\mbox{\tt in}  & {\em pt1} & Second point coords. \\
+\hline
+\mbox{\tt out}  & {\em d} & Computed euclidean distance. \\
+\hline
+\end{DoxyParams}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!get\+Graph@{get\+Graph}}
+\index{get\+Graph@{get\+Graph}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Graph(const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const Point \&robot\+\_\+bc, const int n\+\_\+pts, const int knn, std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&graph)}{getGraph(const Polygon &borders, const std::vector< Polygon > &obstacle_list, const std::vector< std::pair< int, Polygon >> &victim_list, const Polygon &gate, const Point &robot_bc, const int n_pts, const int knn, std::map< Point, std::vector< Point >> &graph)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Graph (
+\begin{DoxyParamCaption}
+\item[{const Polygon \&}]{borders, }
+\item[{const std\+::vector$<$ Polygon $>$ \&}]{obstacle\+\_\+list, }
+\item[{const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&}]{victim\+\_\+list, }
+\item[{const Polygon \&}]{gate, }
+\item[{const Point \&}]{robot\+\_\+bc, }
+\item[{const int}]{n\+\_\+pts, }
+\item[{const int}]{knn, }
+\item[{std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&}]{graph}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_a884e484006b515130c89e5e43e258753}{}\label{probabilisticRoadMap_8cpp_a884e484006b515130c89e5e43e258753}
+Returns a graph with points uniformly distributed. The graph G(\+V, E) is a key-\/value structure with verteces as keys and edges as value. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em borders} & Borders\textquotesingle{} points coord. \\
+\hline
+\mbox{\tt in}  & {\em obstacle\+\_\+list} & List of obstacles polygon representing the not free space. \\
+\hline
+\mbox{\tt in}  & {\em victim\+\_\+list} & List of victims id and polygon. \\
+\hline
+\mbox{\tt in}  & {\em gate} & Gate polygon. \\
+\hline
+\mbox{\tt in}  & {\em robot\+\_\+bc} & Robot baricenter. \\
+\hline
+\mbox{\tt in}  & {\em n\+\_\+pts} & Number of points to generate in the map. \\
+\hline
+\mbox{\tt out}  & {\em graph} & Map structure defining the graph. \\
+\hline
+\end{DoxyParams}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!get\+Min\+Distance\+Node@{get\+Min\+Distance\+Node}}
+\index{get\+Min\+Distance\+Node@{get\+Min\+Distance\+Node}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Min\+Distance\+Node(const std\+::set$<$ Point $>$ \&all\+\_\+nodes\+\_\+set, const std\+::map$<$ Point, double $>$ \&distances, Point \&node\+\_\+u)}{getMinDistanceNode(const std::set< Point > &all_nodes_set, const std::map< Point, double > &distances, Point &node_u)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Min\+Distance\+Node (
+\begin{DoxyParamCaption}
+\item[{const std\+::set$<$ Point $>$ \&}]{all\+\_\+nodes\+\_\+set, }
+\item[{const std\+::map$<$ Point, double $>$ \&}]{distances, }
+\item[{Point \&}]{node\+\_\+u}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_a34c66507e0e4e85c289ddbf4553e06be}{}\label{probabilisticRoadMap_8cpp_a34c66507e0e4e85c289ddbf4553e06be}
+Given the a set of nodes and the distances map of Dijkstra algorithm, it provides the node with minimum distance. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em all\+\_\+nodes\+\_\+set} & Set with all nodes that need to be sorted. \\
+\hline
+\mbox{\tt in}  & {\em distances} & Map of distances\+: distances\mbox{[}u\mbox{]} = n -\/$>$ distance n from q\+\_\+i to u. \\
+\hline
+\mbox{\tt out}  & {\em node\+\_\+u} & Node in distances map with minimum distance. \\
+\hline
+\end{DoxyParams}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!is\+Clear\+Edge@{is\+Clear\+Edge}}
+\index{is\+Clear\+Edge@{is\+Clear\+Edge}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{is\+Clear\+Edge(const Point \&node0, const Point \&node1, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list)}{isClearEdge(const Point &node0, const Point &node1, const std::vector< Polygon > &obstacle_list)}}]{\setlength{\rightskip}{0pt plus 5cm}bool is\+Clear\+Edge (
+\begin{DoxyParamCaption}
+\item[{const Point \&}]{node0, }
+\item[{const Point \&}]{node1, }
+\item[{const std\+::vector$<$ Polygon $>$ \&}]{obstacle\+\_\+list}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_a24cb07ee59747d60da7ee436fb3e6678}{}\label{probabilisticRoadMap_8cpp_a24cb07ee59747d60da7ee436fb3e6678}
+Given two graph\textquotesingle{}s edeges it returns true if they do not collide with any of the provided obstacles, false otherwise. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em node0} & First graph\textquotesingle{}s node. \\
+\hline
+\mbox{\tt in}  & {\em node0} & Second graph\textquotesingle{}s node. \\
+\hline
+\mbox{\tt in}  & {\em obstacle\+\_\+list} & List of Polygon obstacles. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}bool\mbox{]} Bool true if graph\textquotesingle{}s edge do not collide with any obstacle, false otherwise. 
+\end{DoxyReturn}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!is\+P\+IP@{is\+P\+IP}}
+\index{is\+P\+IP@{is\+P\+IP}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{is\+P\+I\+P(const Point \&q\+\_\+pt, const Point \&s\+\_\+pt, const Polygon \&obj)}{isPIP(const Point &q_pt, const Point &s_pt, const Polygon &obj)}}]{\setlength{\rightskip}{0pt plus 5cm}bool is\+P\+IP (
+\begin{DoxyParamCaption}
+\item[{const Point \&}]{q\+\_\+pt, }
+\item[{const Point \&}]{s\+\_\+pt, }
+\item[{const Polygon \&}]{obj}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_abfe1f992f72267c3dcd3295d7cc6f0a9}{}\label{probabilisticRoadMap_8cpp_abfe1f992f72267c3dcd3295d7cc6f0a9}
+Returns true if the point is internal to a given polygon. It verifies the condition of the query point via ray-\/casting algorithm. (P\+IP -\/ Point In Polygon). 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em q\+\_\+pt} & Query point coordinates. \\
+\hline
+\mbox{\tt in}  & {\em s\+\_\+pt} & Safe external point coordinates. \\
+\hline
+\mbox{\tt in}  & {\em obj} & Polygon object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}bool\mbox{]} Bool true if the query point is internal, false otherwise. 
+\end{DoxyReturn}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!map\+\_\+cmp@{map\+\_\+cmp}}
+\index{map\+\_\+cmp@{map\+\_\+cmp}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{map\+\_\+cmp(const std\+::pair$<$ Point, double $>$ \&a, const std\+::pair$<$ Point, double $>$ \&b)}{map_cmp(const std::pair< Point, double > &a, const std::pair< Point, double > &b)}}]{\setlength{\rightskip}{0pt plus 5cm}bool map\+\_\+cmp (
+\begin{DoxyParamCaption}
+\item[{const std\+::pair$<$ Point, double $>$ \&}]{a, }
+\item[{const std\+::pair$<$ Point, double $>$ \&}]{b}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_aebec67020ba69c1a3b53e656e5f845d7}{}\label{probabilisticRoadMap_8cpp_aebec67020ba69c1a3b53e656e5f845d7}
+Returns true if the second element of the first pair is less than the second element of the second pair. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & First pair. \\
+\hline
+\mbox{\tt in}  & {\em b} & Second pair. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}bool\mbox{]} Bool true if a second element is less than b second element, false otherwise. 
+\end{DoxyReturn}
+\index{probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}!path\+Smoother@{path\+Smoother}}
+\index{path\+Smoother@{path\+Smoother}!probabilistic\+Road\+Map.\+cpp@{probabilistic\+Road\+Map.\+cpp}}
+\subsubsection[{\texorpdfstring{path\+Smoother(const std\+::vector$<$ Point $>$ \&g\+\_\+path, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, std\+::vector$<$ Point $>$ \&s\+\_\+path)}{pathSmoother(const std::vector< Point > &g_path, const std::vector< Polygon > &obstacle_list, std::vector< Point > &s_path)}}]{\setlength{\rightskip}{0pt plus 5cm}void path\+Smoother (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ Point $>$ \&}]{g\+\_\+path, }
+\item[{const std\+::vector$<$ Polygon $>$ \&}]{obstacle\+\_\+list, }
+\item[{std\+::vector$<$ Point $>$ \&}]{s\+\_\+path}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8cpp_ab88af9e0f07a0909c46c84a0f5d4daab}{}\label{probabilisticRoadMap_8cpp_ab88af9e0f07a0909c46c84a0f5d4daab}
+Given a graph path, it provides a smoothed version. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em g\+\_\+path} & Graph path found with Dijkstra (at least 3 points). \\
+\hline
+\mbox{\tt in}  & {\em obstacle\+\_\+list} & List of obstacles polygon representing the not free space. \\
+\hline
+\mbox{\tt out}  & {\em s\+\_\+path} & Smoothed path. \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,142 @@
+\hypertarget{pathPlanning_8cpp}{}\section{src/path\+Planning.cpp File Reference}
+\label{pathPlanning_8cpp}\index{src/path\+Planning.\+cpp@{src/path\+Planning.\+cpp}}
+{\ttfamily \#include \char`\"{}path\+Planning.\+hpp\char`\"{}}\\*
+Include dependency graph for path\+Planning.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{pathPlanning_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}{N\+\_\+\+P\+TS}~150
+\item 
+\#define \hyperlink{pathPlanning_8cpp_a3b1076720ba707d01eb86475b2e2529b}{K\+NN}~10
+\item 
+\#define \hyperlink{pathPlanning_8cpp_a336f67e9817ede04fdf58ee2cd144522}{I\+N\+C\+R\+E\+A\+SE}~0.\+3
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{pathPlanning_8cpp_a30baa5ddb4612336969595f47876c5e1}{sort\+Victims\+By\+ID} (const std\+::pair$<$ int, Point $>$ \&i, const std\+::pair$<$ int, Point $>$ \&j)
+\item 
+void \hyperlink{pathPlanning_8cpp_a9baab275277a6c78a21be766fa5795c5}{expand\+Obstacle\+List} (const int id, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, std\+::vector$<$ Polygon $>$ \&expanded\+\_\+list)
+\item 
+void \hyperlink{pathPlanning_8cpp_a7aaa8da2708c5ec3872c52cb55352949}{create\+Arc\+Path} (const arc \&a, Path \&path)
+\item 
+void \hyperlink{pathPlanning_8cpp_a58433264a5ace17ffe7276ba235fcb98}{create\+Path} (const std\+::vector$<$ curve $>$ \&dubins\+\_\+path, Path \&path)
+\item 
+float \hyperlink{pathPlanning_8cpp_af1c9a6a9923e46591eabc35b9fa6ed02}{get\+Path\+Distance} (const std\+::vector$<$ Point $>$ path)
+\item 
+bool \hyperlink{pathPlanning_8cpp_a1167a1806905a9b2df3591f4e3821dca}{my\+\_\+plan\+Path} (const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const float x, const float y, const float theta, Path \&path, const std\+::string \&config\+\_\+folder)
+\end{DoxyCompactItemize}
+
+
+\subsection{Macro Definition Documentation}
+\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!I\+N\+C\+R\+E\+A\+SE@{I\+N\+C\+R\+E\+A\+SE}}
+\index{I\+N\+C\+R\+E\+A\+SE@{I\+N\+C\+R\+E\+A\+SE}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{I\+N\+C\+R\+E\+A\+SE}{INCREASE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+C\+R\+E\+A\+SE~0.\+3}\hypertarget{pathPlanning_8cpp_a336f67e9817ede04fdf58ee2cd144522}{}\label{pathPlanning_8cpp_a336f67e9817ede04fdf58ee2cd144522}
+Allowed percentage of increased path. \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!K\+NN@{K\+NN}}
+\index{K\+NN@{K\+NN}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{K\+NN}{KNN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+NN~10}\hypertarget{pathPlanning_8cpp_a3b1076720ba707d01eb86475b2e2529b}{}\label{pathPlanning_8cpp_a3b1076720ba707d01eb86475b2e2529b}
+Number of K Nearest Neighbors. \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!N\+\_\+\+P\+TS@{N\+\_\+\+P\+TS}}
+\index{N\+\_\+\+P\+TS@{N\+\_\+\+P\+TS}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{N\+\_\+\+P\+TS}{N_PTS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+\_\+\+P\+TS~150}\hypertarget{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}{}\label{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}
+When defined it compile the logic for the mission 1, otherwise mission 2.
+
+Number of points to sample for the randmo sampling map. 
+
+\subsection{Function Documentation}
+\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!create\+Arc\+Path@{create\+Arc\+Path}}
+\index{create\+Arc\+Path@{create\+Arc\+Path}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{create\+Arc\+Path(const arc \&a, Path \&path)}{createArcPath(const arc &a, Path &path)}}]{\setlength{\rightskip}{0pt plus 5cm}void create\+Arc\+Path (
+\begin{DoxyParamCaption}
+\item[{const arc \&}]{a, }
+\item[{Path \&}]{path}
+\end{DoxyParamCaption}
+)}\hypertarget{pathPlanning_8cpp_a7aaa8da2708c5ec3872c52cb55352949}{}\label{pathPlanning_8cpp_a7aaa8da2708c5ec3872c52cb55352949}
+Given an arc from a Dubins curve it populates a Path struct with points evaluated every 0.\+05. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em a} & Dubins arc. \\
+\hline
+\mbox{\tt out}  & {\em path} & Path object for the robot. \\
+\hline
+\end{DoxyParams}
+\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!create\+Path@{create\+Path}}
+\index{create\+Path@{create\+Path}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{create\+Path(const std\+::vector$<$ curve $>$ \&dubins\+\_\+path, Path \&path)}{createPath(const std::vector< curve > &dubins_path, Path &path)}}]{\setlength{\rightskip}{0pt plus 5cm}void create\+Path (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ curve $>$ \&}]{dubins\+\_\+path, }
+\item[{Path \&}]{path}
+\end{DoxyParamCaption}
+)}\hypertarget{pathPlanning_8cpp_a58433264a5ace17ffe7276ba235fcb98}{}\label{pathPlanning_8cpp_a58433264a5ace17ffe7276ba235fcb98}
+Given a vector of dubins curves it populate the path for the robot. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em dubins\+\_\+path} & Vector of dubins curves that describe the path. \\
+\hline
+\mbox{\tt out}  & {\em path} & Path object for the robot. \\
+\hline
+\end{DoxyParams}
+\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!expand\+Obstacle\+List@{expand\+Obstacle\+List}}
+\index{expand\+Obstacle\+List@{expand\+Obstacle\+List}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{expand\+Obstacle\+List(const int id, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, std\+::vector$<$ Polygon $>$ \&expanded\+\_\+list)}{expandObstacleList(const int id, const std::vector< std::pair< int, Polygon >> &victim_list, std::vector< Polygon > &expanded_list)}}]{\setlength{\rightskip}{0pt plus 5cm}void expand\+Obstacle\+List (
+\begin{DoxyParamCaption}
+\item[{const int}]{id, }
+\item[{const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&}]{victim\+\_\+list, }
+\item[{std\+::vector$<$ Polygon $>$ \&}]{expanded\+\_\+list}
+\end{DoxyParamCaption}
+)}\hypertarget{pathPlanning_8cpp_a9baab275277a6c78a21be766fa5795c5}{}\label{pathPlanning_8cpp_a9baab275277a6c78a21be766fa5795c5}
+Given a victim\textquotesingle{}s id it populates a vector of obstacles with all the victims with bigger id. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em id} & Victim\textquotesingle{}s id. \\
+\hline
+\mbox{\tt in}  & {\em victim\+\_\+list} & Vector with pairs of victim ID and polygon. \\
+\hline
+\mbox{\tt out}  & {\em expanded\+\_\+list} & Vector with obstacles and all victims polygon with bigger id. \\
+\hline
+\end{DoxyParams}
+\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!get\+Path\+Distance@{get\+Path\+Distance}}
+\index{get\+Path\+Distance@{get\+Path\+Distance}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{get\+Path\+Distance(const std\+::vector$<$ Point $>$ path)}{getPathDistance(const std::vector< Point > path)}}]{\setlength{\rightskip}{0pt plus 5cm}float get\+Path\+Distance (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ Point $>$}]{path}
+\end{DoxyParamCaption}
+)}\hypertarget{pathPlanning_8cpp_af1c9a6a9923e46591eabc35b9fa6ed02}{}\label{pathPlanning_8cpp_af1c9a6a9923e46591eabc35b9fa6ed02}
+Given a vector of point representing a path, it reurns the total length. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em path} & Vector of points composing a path. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{[}float\mbox{]} The total length of the path. 
+\end{DoxyReturn}
+\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!my\+\_\+plan\+Path@{my\+\_\+plan\+Path}}
+\index{my\+\_\+plan\+Path@{my\+\_\+plan\+Path}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{my\+\_\+plan\+Path(const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const float x, const float y, const float theta, Path \&path, const std\+::string \&config\+\_\+folder)}{my_planPath(const Polygon &borders, const std::vector< Polygon > &obstacle_list, const std::vector< std::pair< int, Polygon >> &victim_list, const Polygon &gate, const float x, const float y, const float theta, Path &path, const std::string &config_folder)}}]{\setlength{\rightskip}{0pt plus 5cm}bool my\+\_\+plan\+Path (
+\begin{DoxyParamCaption}
+\item[{const Polygon \&}]{borders, }
+\item[{const std\+::vector$<$ Polygon $>$ \&}]{obstacle\+\_\+list, }
+\item[{const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&}]{victim\+\_\+list, }
+\item[{const Polygon \&}]{gate, }
+\item[{const float}]{x, }
+\item[{const float}]{y, }
+\item[{const float}]{theta, }
+\item[{Path \&}]{path, }
+\item[{const std\+::string \&}]{config\+\_\+folder}
+\end{DoxyParamCaption}
+)}\hypertarget{pathPlanning_8cpp_a1167a1806905a9b2df3591f4e3821dca}{}\label{pathPlanning_8cpp_a1167a1806905a9b2df3591f4e3821dca}
+\char`\"{}\+Mask\char`\"{} for plan\+Path. For more info look in \hyperlink{namespacestudent_acfe62076a49d23bb083f2f880fd24c77}{student\+::plan\+Path} docs. \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!sort\+Victims\+By\+ID@{sort\+Victims\+By\+ID}}
+\index{sort\+Victims\+By\+ID@{sort\+Victims\+By\+ID}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{sort\+Victims\+By\+I\+D(const std\+::pair$<$ int, Point $>$ \&i, const std\+::pair$<$ int, Point $>$ \&j)}{sortVictimsByID(const std::pair< int, Point > &i, const std::pair< int, Point > &j)}}]{\setlength{\rightskip}{0pt plus 5cm}bool sort\+Victims\+By\+ID (
+\begin{DoxyParamCaption}
+\item[{const std\+::pair$<$ int, Point $>$ \&}]{i, }
+\item[{const std\+::pair$<$ int, Point $>$ \&}]{j}
+\end{DoxyParamCaption}
+)}\hypertarget{pathPlanning_8cpp_a30baa5ddb4612336969595f47876c5e1}{}\label{pathPlanning_8cpp_a30baa5ddb4612336969595f47876c5e1}
+Sorts the victims from the smaller ID to the biggest. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em victims\+\_\+id\+\_\+bc} & Vector with ID -\/ victim\textquotesingle{}s baricenter coords sorted by ID. \\
+\hline
+\end{DoxyParams}

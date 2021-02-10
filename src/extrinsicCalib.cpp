@@ -4,6 +4,10 @@
 #define LOG_IU
 #define LOG_FPT
 #define LOG_U
+
+/*!
+* Flag to determine dist_coeffs values. If def -> dist_coeffs = [0,0,0,0,0]
+*/
 #define DIST_COEFFS_DEFAULT
 
 //**********************************************************************
@@ -94,36 +98,14 @@ void readPtsFromCSV(std::string file_path, std::vector<cv::Point2f>& img_points)
     input.close();
 }
 
-/*!
-* It reads the distortion coefficients from src/intrinsic_calibration.xml.
-* @param[out]  dist_coeffs  The distortion coefficients.
-*/
-/*void getDistCoeffs(cv::Mat& dist_coeffs){
-	std::cout << "getDistCoeffs is reading from intrinsic_calibration.xml" << std::endl;
 
-    std::string this_file_path = __FILE__;
-    std::string this_file_name = "extrinsicCalib.cpp";
-    int upper_bound = this_file_path.length() - this_file_name.length();
-    std::string xml_path = this_file_path.substr(0, upper_bound) + "intrinsic_calibration.xml";
-
-    std::cout << "xml_path = " << xml_path << std::endl;
-
-    // Read xml
-    pugi::xml_document doc;
-    if (!doc.load_file(xml_path.c_str())) 
-        std::cerr << "pugixml - FILE NOT LOADED" << std::endl;
-
-    pugi::xml_node root = doc.document_element();
-    pugi::xml_node node = root.child("opencv_storage");
-    pugi::xml_node dc_node = node.child("distortion_coefficients");
-    pugi::xml_node data_node = dc_node.child("data");
-
-    std::cout << "dist_coeffs_node = " << data_node.text() << std::endl;
-}*/
 
 //**********************************************************************
 // PUBLIC FUNCTION
 //**********************************************************************
+/*!
+* "Mask" for extrinsicCalib. For more info look in student::extrinsicCalib docs.
+*/
 bool my_extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_points, 
     const cv::Mat& camera_matrix, cv::Mat& rvec, cv::Mat& tvec, const std::string& config_folder){
     #ifdef LOG_EC
@@ -148,13 +130,10 @@ bool my_extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_po
 
     #ifdef DIST_COEFFS_DEFAULT
         dist_coeffs = cv::Mat1d::zeros(1, 4); // dist_coeffs = (cv::Mat1d(1,4) << 0, 0, 0, 0, 0);
-        // Look at mail reply
         std::cout << "STUDENT FUNCTION - DIST_COEFFS_DEFAULT [0,0,0,0,0]" << std::endl;
-        //std::cout << "Shouldn't I get dist_coeffs from intrinsic_calibration.xml???" << std::endl;
-        //std::cout << std::experimental::filesystem::current_path() << std::endl;
     #else
         std::cout << "STUDENT FUNCTION - NO DIST_COEFFS_DEFAULT" << std::endl;
-        //getDistCoeffs(dist_coeffs);
+        std::cout << "STUDENT FUNCTION - COPY & PASTE DIST_COEFFS FROM intrinsic_calibration.xml" << std::endl;
 
         // Copied & pasted dist coeffs value from intrinsic_calibration.xml
         double dc_k1 = -3.8003887070277098e-01;
@@ -174,6 +153,9 @@ bool my_extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_po
     return all_good;
 }
 
+/*!
+* "Mask" for imageUndistort. For more info look in student::imageUndistort docs.
+*/
 void my_imageUndistort(const cv::Mat& img_in, cv::Mat& img_out, 
     const cv::Mat& cam_matrix, const cv::Mat& dist_coeffs, const std::string& config_folder){
     #ifdef LOG_IU
@@ -203,6 +185,9 @@ void my_imageUndistort(const cv::Mat& img_in, cv::Mat& img_out,
     }
 }
 
+/*!
+* "Mask" for findPlaneTransform. For more info look in student::findPlaneTransform docs.
+*/
 void my_findPlaneTransform(const cv::Mat& cam_matrix, const cv::Mat& rvec, const cv::Mat& tvec, 
     const std::vector<cv::Point3f>& object_points_plane, const std::vector<cv::Point2f>& dest_image_points_plane, 
     cv::Mat& plane_transf, const std::string& config_folder){
@@ -215,6 +200,9 @@ void my_findPlaneTransform(const cv::Mat& cam_matrix, const cv::Mat& rvec, const
     plane_transf = cv::getPerspectiveTransform(image_points, dest_image_points_plane);
 }
 
+/*!
+* "Mask" for unwarp. For more info look in student::unwarp docs.
+*/
 void my_unwarp(const cv::Mat& img_in, cv::Mat& img_out, const cv::Mat& transf, 
     const std::string& config_folder){
     #ifdef LOG_U

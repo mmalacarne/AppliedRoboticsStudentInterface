@@ -1,5 +1,7 @@
 #include "mapProcessing.hpp"
 
+#define LOG_PM
+#define LOG_FR
 //#define DEBUG_PM
 //#define DEBUG_OBSTACLES
 //#define DEBUG_OFFSET_OBSTACLES
@@ -9,6 +11,21 @@
 //#define DEBUG_getTemplateImgs
 //#define DEBUG_getTMDigit
 //#define DEBUG_FR
+
+/*!
+* Rotation angle to apply to the ROI of a detected digit.
+*/
+#define ANGLE 90
+
+/*!
+* True if the ROI has to be flipped on the x axis, false otherwise.
+*/
+#define X_FLIP false
+
+/*!
+* True if the ROI has to be flipped on the y axis, false otherwise.
+*/
+#define Y_FLIP true
 
 namespace clpr = ClipperLib;
 
@@ -264,7 +281,7 @@ double getTriangleRadius(const cv::Mat& hsv_img, const double scale){
 void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list, const double scale){
 	clpr::Paths all_offset_obstacles;
 	clpr::ClipperOffset co;
-	//co.MiterLimit = 4;
+	co.MiterLimit = 4;
 
 	// ClipperLib offset is in px --> offset*scale = px
 	double px_offset = offset * scale;
@@ -276,9 +293,6 @@ void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list, const 
 	for (const auto& obstacle: obstacles_list){
 		clpr::Path clpr_obstacle;
 		for (const auto& pt: obstacle){
-			// Obstacle's pts are in meters --> pt*scale = px
-			//int x = pt.x * scale * INT_ROUND;
-			//int y = pt.y * scale * INT_ROUND;
 			int x = pt.x * INT_ROUND;
 			int y = pt.y * INT_ROUND;
 
@@ -291,11 +305,11 @@ void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list, const 
 		}
 
 		if (obstacle.size() == 3)
-			co.AddPath(clpr_obstacle, clpr::jtSquare, clpr::etClosedLine);
+			co.AddPath(clpr_obstacle, clpr::jtSquare, clpr::etClosedLine); // jtRound
 		else
 			co.AddPath(clpr_obstacle, clpr::jtSquare, clpr::etClosedPolygon);
 
-		//co.AddPath(clpr_obstacle, clpr::jtMiter, clpr::etClosedPolygon);
+		co.AddPath(clpr_obstacle, clpr::jtMiter, clpr::etClosedPolygon);
 	}
 
 	co.Execute(all_offset_obstacles, px_offset);
@@ -313,11 +327,6 @@ void offsetObstacles(double offset, std::vector<Polygon>& obstacles_list, const 
 				//double y = (pt.Y / scale) / INT_ROUND;
 				double x = pt.X / INT_ROUND;
 				double y = pt.Y / INT_ROUND;
-
-				/*#ifdef DEBUG_OFFSET_OBSTACLES
-					std::cout << "pt.X = " << pt.X << " x = " << x << std::endl;
-					std::cout << "pt.Y = " << pt.Y << " y = " << y << std::endl;
-				#endif*/
 
 				offsetted_obstacle.emplace_back(x, y);
 			}
@@ -355,17 +364,13 @@ void getObstacles(const cv::Mat& hsv_img, const double scale, std::vector<Polygo
 	// Set the obstacle offset a little bit more than the robot_radius
 	double extra_margin = 0.02; // obstacles additional margin of 2cm -> better be safe than sorry;)
 	double offset = getTriangleRadius(hsv_img, scale) + extra_margin;
-	//double offset = getTriangleRadius(hsv_img, scale);
 
 	// Offsetting the obstacles
 	offsetObstacles(offset, obstacles_list, scale);
 
 	#ifdef DEBUG_OFFSET_OBSTACLES
-		//std::cout << "Radius = " << offset-extra_margin << " m" << std::endl;
-		//std::cout << "Radius = Radius + margin = " << offset << " m" << std::endl;
-		//std::cout << "Radius*scale = " << offset*scale << " px" << std::endl;
-
-		std::cout << "Radius = " << offset << " m" << std::endl;
+		std::cout << "Radius = " << offset-extra_margin << " m" << std::endl;
+		std::cout << "Radius = Radius + margin = " << offset << " m" << std::endl;
 		std::cout << "Radius*scale = " << offset*scale << " px" << std::endl;
 
 		std::cout << "getObstacles()- triangle radius retrieved" << std::endl;
@@ -405,150 +410,6 @@ void getTemplateImgs(std::vector<std::pair<int,cv::Mat>>& template_img_list){
   	cv::destroyAllWindows();
   #endif
 }
-
-/*
-// BRUTE FORCE APPROACH
-//#define DEBUG_getAllROI
-// Retrieves all ROIs: it rotates the original ROI of rotation_angle and then it flips it
-void getAllROI(cv::Mat& orig_ROI, const int rotation_angle, std::vector<std::vector<cv::Mat>>& all_ROI){
-	// All kind of edited ROI
-	std::vector<cv::Mat> all_r_ROI; 	// all rotated ROI
-	std::vector<cv::Mat> all_fx_ROI; 	// all rotated and x-axis-flipped ROI
-	std::vector<cv::Mat> all_fy_ROI; 	// all rotated and y-axis-flipped ROI
-	// Get ROI center
-	cv::Point2f ROI_center(orig_ROI.cols/2., orig_ROI.rows/2.);
-
-	// Set rotation
-	int max_i = (360 / rotation_angle);
-
-	// Support structures
-	double angle;
-	double scale = 1.0;
-	cv::Mat rotation_matrix, r_ROI, f_x_ROI, f_y_ROI;
-
-	// Rotate ROI of rotation angle and flip
-	for (int i = 0; i < max_i; i++){
-    	angle = static_cast<double>(i*rotation_angle);
-    	rotation_matrix = cv::getRotationMatrix2D(ROI_center, angle, scale);
-    	cv::warpAffine(orig_ROI, r_ROI, rotation_matrix, orig_ROI.size(), 
-    		cv::INTER_LINEAR, cv::BORDER_CONSTANT, cv::Scalar(255, 255, 255));
-
-    	// flip(src,dst,x) x=0 -> x-axis-flip, x=1 y-axis-flip, x=2 z-axis-flip
-    	cv::flip(r_ROI, f_x_ROI, 0);
-    	cv::flip(r_ROI, f_y_ROI, 1);
-
-    	// Populate the vector of ROIs
-    	all_r_ROI.push_back(r_ROI);
-    	all_fx_ROI.push_back(f_x_ROI);
-    	all_fy_ROI.push_back(f_y_ROI);
-
-    	#ifdef DEBUG_getAllROI
-    		cv::imshow("Rotated " + std::to_string(angle), r_ROI);
-    		cv::imshow("Flipped X " + std::to_string(angle), f_x_ROI);
-    		cv::imshow("Flipped Y " + std::to_string(angle), f_y_ROI);
-    		cv::waitKey(0);
-    		cv::destroyAllWindows();
-    	#endif
-	}
-
-	all_ROI.push_back(all_r_ROI);
-	all_ROI.push_back(all_fx_ROI);
-	all_ROI.push_back(all_fy_ROI);
-
-	#ifdef DEBUG_getAllROI
-		std::cout << "all_ROI.size() = " << all_ROI.size() << std::endl; // all_ROI.size() = 3
-		std::cout << "all_ROI[0].size() = " << all_ROI[0].size() << std::endl; // allROI[i].size() = 36
-		std::cout << "all_ROI[1].size() = " << all_ROI[1].size() << std::endl;
-		std::cout << "all_ROI[2].size() = " << all_ROI[2].size() << std::endl;
-		std::cout << "getAllROI() - END" << std::endl;
-	#endif
-}
-
-// Given allROI it computes the best template matching
-int getTMDigit(std::vector<std::vector<cv::Mat>>& all_ROI, 
-	std::vector<std::pair<int,cv::Mat>>& template_images, std::pair<int,int>& ROI_idx){
-	double best_score = 0;
-	cv::Mat match;
-	double score;
-	int id;
-	
-	for (int i = 0; i < all_ROI.size(); i++){
-		for (int j = 0; j < all_ROI[i].size(); j++){
-			for (const auto& id_templ: template_images){
-				cv::matchTemplate(all_ROI[i][j], id_templ.second, match, cv::TM_CCOEFF);
-				cv::minMaxLoc(match, nullptr, &score);
-
-				if (score > best_score){
-					best_score = score;
-					id = id_templ.first;
-					ROI_idx.first = i;
-					ROI_idx.second = j;
-				}
-			}
-		}
-	}
-
-	#ifdef DEBUG_getTMDigit
-		std::cout << "getTMDigit() - triple for loop" << std::endl;
-		std::cout << "Best score = " << best_score << std::endl;
-		std::cout << "ID = " << id << std::endl;
-		std::cout << "ROI_idx.first = " << ROI_idx.first << " ";
-		std::cout << "ROI_idx.second = " << ROI_idx.second << std::endl;
-	#endif
-
-	return id;
-}
-
-// OCR approach - t computes the best recognized digit
-std::string getOCRDigit(std::vector<std::vector<cv::Mat>>& all_ROI){
-	// Retrieve the digit with the heighest recognition confidence
-    std::string final_id, recognized_id;
-	// Retrieve the digit with the highest confidence from all ROIs
-	int best_confidence = 0;
-	int confidence;
-	int cols = all_ROI[0][0].cols;
-	int rows = all_ROI[0][0].cols;
-	int step = all_ROI[0][0].cols;
-
-	#ifdef DEBUG_VICTIMS_ID
-		cv::Mat best_ROI;
-	#endif
-
-	for (int i = 0; i < all_ROI.size(); i++){
-		for (int j = 0; j < all_ROI[i].size(); j++){
-			// Create Tesseract object and retrieve digit
-			tesseract::TessBaseAPI *ocr = new tesseract::TessBaseAPI();
-			ocr->Init(NULL, "eng");
-			ocr->SetPageSegMode(tesseract::PSM_SINGLE_CHAR);
-			ocr->SetVariable("tessedit_char_whitelist", "0123456789"); //[0, 6] during exam?
-		    ocr->SetImage(all_ROI[i][j].data, cols, rows, 3, step);
-
-		    recognized_id = std::string(ocr->GetUTF8Text());
-		    confidence = ocr->MeanTextConf();
-
-		    if (confidence > best_confidence){
-		    	final_id = recognized_id;
-		    	best_confidence = confidence;
-		    	#ifdef DEBUG_VICTIMS_ID
-		    		best_ROI = all_ROI[i][j];
-		    	#endif
-		    }
-
-		    ocr->End();
-		}
-	}
-
-	#ifdef DEBUG_VICTIMS_ID
-		std::cout << "Best ROI with confidence = " << best_confidence << std::endl;
-		std::string best_w = "OCR - Best ROI - ID = " + final_id;
-		cv::imshow(best_w, best_ROI);
-		cv::waitKey(0);
-		cv::destroyAllWindows();
-	#endif
-
-	return final_id;
-}
-*/
 
 /*!
 * Assuming all victims have been rotated and flipped in the same known way, it applies a series 
@@ -626,47 +487,24 @@ int getVictimID(const cv::Mat& hsv_img, const cv::Mat& mask, const double scale,
 	std::vector<cv::Point> approx_curve;
 	for (const auto& pt: victim_contour)
 		approx_curve.emplace_back(cv::Point(pt.x*scale, pt.y*scale));
-		//std::cout << "x -> " << pt.x*scale << " y -> " << pt.y*scale << std::endl;
 
 	// Get victim ROI
-	cv::Rect box = cv::boundingRect(cv::Mat(approx_curve)); // Victim's bounding box
-	cv::Mat orig_ROI(filtered, box); // ROI with the digit
-	cv::resize(orig_ROI, orig_ROI, cv::Size(200, 200)); // Resize orig_ROI
-    cv::threshold(orig_ROI, orig_ROI, 100, 255, 0); // Threshold and binarize ROI to suppress noise
+	cv::Rect box = cv::boundingRect(cv::Mat(approx_curve)); 	// Victim's bounding box
+	cv::Mat orig_ROI(filtered, box); 							// ROI with the digit
+	cv::resize(orig_ROI, orig_ROI, cv::Size(200, 200)); 		// Resize orig_ROI
+    cv::threshold(orig_ROI, orig_ROI, 100, 255, 0); 			// Threshold and binarize ROI to suppress noise
 
     // Apply some additional smoothing and filtering
     cv::Mat kernel = cv::getStructuringElement(cv::MORPH_RECT, cv::Size((2*2)+1, (2*2)+1));
     cv::erode(orig_ROI, orig_ROI, kernel);
     cv::GaussianBlur(orig_ROI, orig_ROI, cv::Size(5, 5), 2, 2);
     cv::erode(orig_ROI, orig_ROI, kernel);
-
-    /*// BRUTE-FORCE APPROACH NOT WORKING AT ALL
-    // Template matching variables declaration
-	static std::pair<int,int> ROI_idx;
-	cv::Mat editedROI;
-	int rotation_angle = 10.0;
-	int victim_id;
-
-    // Retrieve all edited ROIs: rotated of rotation_angle and flipped
-    std::vector<std::vector<cv::Mat>> all_ROI;
-    getAllROI(orig_ROI, rotation_angle, all_ROI);
-
-    victim_id = getTMDigit(all_ROI, template_images, ROI_idx);
-
-	#ifdef DEBUG_VICTIMS_ID
-		std::string ew = "Edited ROI - ID = " + std::to_string(victim_id);
-		cv::imshow(ew, all_ROI[ROI_idx.first][ROI_idx.second]);
-	#endif*/
-
+    
     // Rotate and flip orig_ROI in order to be recognizable/readable
-    // TODO: the param for the edit can be read from a specific file in /tmp
     cv::Mat edited_ROI;
-	double angle = 90;
-	bool flag_x_flip = false;
-	bool flag_y_flip = true;
 	int victim_id;
 
-    getEditedROI(orig_ROI, angle, flag_x_flip, flag_y_flip, edited_ROI);
+    getEditedROI(orig_ROI, ANGLE, X_FLIP, Y_FLIP, edited_ROI);
     getTMDigit(edited_ROI, template_images, victim_id);
 
 	#ifdef DEBUG_VICTIMS_ID
@@ -720,7 +558,6 @@ void getVictimsAndGate(const cv::Mat& hsv_img, const double scale,
 
 	// Retrieve the template images
 	std::vector<std::pair<int,cv::Mat>> template_images;
-	std::string config_path = "/tmp"; // TODO: delete and pass as argument to function
 	getTemplateImgs(template_images);
 
 	// Retrieve victims and gate depending on verteces
@@ -788,9 +625,12 @@ void getOrientation(Polygon& triangle, double& baricenter_x, double& baricenter_
 //**********************************************************************
 // PUBLIC FUNCTIONS
 //**********************************************************************
+/*!
+* "Mask" for processMap. For more info look in student::processMap docs.
+*/
 bool my_processMap(const cv::Mat& img_in, const double scale, std::vector<Polygon>& obstacles_list, 
 	std::vector<std::pair<int,Polygon>>& victims_list, Polygon& gate, const std::string& config_folder){    
-    #ifdef DEBUG_PM
+    #ifdef LOG_PM
     	std::cout << "STUDENT FUNCTION - my_processMap" << std::endl;
     #endif
 
@@ -806,9 +646,12 @@ bool my_processMap(const cv::Mat& img_in, const double scale, std::vector<Polygo
 	return true;
 }
 
+/*!
+* "Mask" for findRobot. For more info look in student::findRobot docs.
+*/
 bool my_findRobot(const cv::Mat& img_in, const double scale, Polygon& triangle, double& x, double& y, 
 	double& theta, const std::string& config_folder){
-    #ifdef DEBUG_FR
+    #ifdef LOG_FR
     	std::cout << "STUDENT FUNCTION - my_findRobot" << std::endl;
     #endif
 

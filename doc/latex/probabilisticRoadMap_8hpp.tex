@@ -1,0 +1,116 @@
+\hypertarget{probabilisticRoadMap_8hpp}{}\section{include/probabilistic\+Road\+Map.hpp File Reference}
+\label{probabilisticRoadMap_8hpp}\index{include/probabilistic\+Road\+Map.\+hpp@{include/probabilistic\+Road\+Map.\+hpp}}
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$cmath$>$}\\*
+{\ttfamily \#include $<$tuple$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$random$>$}\\*
+{\ttfamily \#include $<$set$>$}\\*
+{\ttfamily \#include $<$assert.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}collision\+Detection\+Module.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}utils.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}matplotlibcpp.\+h\char`\"{}}\\*
+Include dependency graph for probabilistic\+Road\+Map.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{probabilisticRoadMap_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{probabilisticRoadMap_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{probabilisticRoadMap_8hpp_a884e484006b515130c89e5e43e258753}{get\+Graph} (const \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} \&borders, const std\+::vector$<$ \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$$>$ \&victim\+\_\+list, const \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} \&gate, const \hyperlink{structPoint}{Point} \&robot\+\_\+bc, const int n\+\_\+pts, const int knn, std\+::map$<$ \hyperlink{structPoint}{Point}, std\+::vector$<$ \hyperlink{structPoint}{Point} $>$$>$ \&graph)
+\item 
+void \hyperlink{probabilisticRoadMap_8hpp_a2bc678078a49de54f4b2bb89d7b88d1e}{get\+Dijkstra\+Path} (const \hyperlink{structPoint}{Point} \&q\+\_\+i, const \hyperlink{structPoint}{Point} \&q\+\_\+f, const std\+::map$<$ \hyperlink{structPoint}{Point}, std\+::vector$<$ \hyperlink{structPoint}{Point} $>$$>$ \&graph, const std\+::vector$<$ \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$ \&obstacle\+\_\+list, std\+::vector$<$ \hyperlink{structPoint}{Point} $>$ \&g\+\_\+path)
+\item 
+void \hyperlink{probabilisticRoadMap_8hpp_ab88af9e0f07a0909c46c84a0f5d4daab}{path\+Smoother} (const std\+::vector$<$ \hyperlink{structPoint}{Point} $>$ \&g\+\_\+path, const std\+::vector$<$ \hyperlink{utils_8hpp_a18281038c49470960bd8f4d15b893441}{Polygon} $>$ \&obstacle\+\_\+list, std\+::vector$<$ \hyperlink{structPoint}{Point} $>$ \&s\+\_\+path)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{probabilistic\+Road\+Map.\+hpp@{probabilistic\+Road\+Map.\+hpp}!get\+Dijkstra\+Path@{get\+Dijkstra\+Path}}
+\index{get\+Dijkstra\+Path@{get\+Dijkstra\+Path}!probabilistic\+Road\+Map.\+hpp@{probabilistic\+Road\+Map.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Dijkstra\+Path(const Point \&q\+\_\+i, const Point \&q\+\_\+f, const std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&graph, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, std\+::vector$<$ Point $>$ \&g\+\_\+path)}{getDijkstraPath(const Point &q_i, const Point &q_f, const std::map< Point, std::vector< Point >> &graph, const std::vector< Polygon > &obstacle_list, std::vector< Point > &g_path)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Dijkstra\+Path (
+\begin{DoxyParamCaption}
+\item[{const {\bf Point} \&}]{q\+\_\+i, }
+\item[{const {\bf Point} \&}]{q\+\_\+f, }
+\item[{const std\+::map$<$ {\bf Point}, std\+::vector$<$ {\bf Point} $>$$>$ \&}]{graph, }
+\item[{const std\+::vector$<$ {\bf Polygon} $>$ \&}]{obstacle\+\_\+list, }
+\item[{std\+::vector$<$ {\bf Point} $>$ \&}]{g\+\_\+path}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8hpp_a2bc678078a49de54f4b2bb89d7b88d1e}{}\label{probabilisticRoadMap_8hpp_a2bc678078a49de54f4b2bb89d7b88d1e}
+Returns, via Dijkstra algorithm, a vector of ordered nodes that determins the shortest path in the graph from the initial query point to the final query point. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em q\+\_\+i} & Query initial point. \\
+\hline
+\mbox{\tt in}  & {\em q\+\_\+f} & Query final point. \\
+\hline
+\mbox{\tt in}  & {\em graph} & Map structure defining the graph. \\
+\hline
+\mbox{\tt in}  & {\em obstacle\+\_\+list} & List of obstacles polygon representing the not free space. \\
+\hline
+\mbox{\tt out}  & {\em g\+\_\+path} & Vector of point describing the path from q\+\_\+i to q\+\_\+f. \\
+\hline
+\end{DoxyParams}
+\index{probabilistic\+Road\+Map.\+hpp@{probabilistic\+Road\+Map.\+hpp}!get\+Graph@{get\+Graph}}
+\index{get\+Graph@{get\+Graph}!probabilistic\+Road\+Map.\+hpp@{probabilistic\+Road\+Map.\+hpp}}
+\subsubsection[{\texorpdfstring{get\+Graph(const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const Point \&robot\+\_\+bc, const int n\+\_\+pts, const int knn, std\+::map$<$ Point, std\+::vector$<$ Point $>$$>$ \&graph)}{getGraph(const Polygon &borders, const std::vector< Polygon > &obstacle_list, const std::vector< std::pair< int, Polygon >> &victim_list, const Polygon &gate, const Point &robot_bc, const int n_pts, const int knn, std::map< Point, std::vector< Point >> &graph)}}]{\setlength{\rightskip}{0pt plus 5cm}void get\+Graph (
+\begin{DoxyParamCaption}
+\item[{const {\bf Polygon} \&}]{borders, }
+\item[{const std\+::vector$<$ {\bf Polygon} $>$ \&}]{obstacle\+\_\+list, }
+\item[{const std\+::vector$<$ std\+::pair$<$ int, {\bf Polygon} $>$$>$ \&}]{victim\+\_\+list, }
+\item[{const {\bf Polygon} \&}]{gate, }
+\item[{const {\bf Point} \&}]{robot\+\_\+bc, }
+\item[{const int}]{n\+\_\+pts, }
+\item[{const int}]{knn, }
+\item[{std\+::map$<$ {\bf Point}, std\+::vector$<$ {\bf Point} $>$$>$ \&}]{graph}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8hpp_a884e484006b515130c89e5e43e258753}{}\label{probabilisticRoadMap_8hpp_a884e484006b515130c89e5e43e258753}
+Returns a graph with points uniformly distributed. The graph G(\+V, E) is a key-\/value structure with verteces as keys and edges as value. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em borders} & Borders\textquotesingle{} points coord. \\
+\hline
+\mbox{\tt in}  & {\em obstacle\+\_\+list} & List of obstacles polygon representing the not free space. \\
+\hline
+\mbox{\tt in}  & {\em victim\+\_\+list} & List of victims id and polygon. \\
+\hline
+\mbox{\tt in}  & {\em gate} & Gate polygon. \\
+\hline
+\mbox{\tt in}  & {\em robot\+\_\+bc} & Robot baricenter. \\
+\hline
+\mbox{\tt in}  & {\em n\+\_\+pts} & Number of points to generate in the map. \\
+\hline
+\mbox{\tt out}  & {\em graph} & Map structure defining the graph. \\
+\hline
+\end{DoxyParams}
+\index{probabilistic\+Road\+Map.\+hpp@{probabilistic\+Road\+Map.\+hpp}!path\+Smoother@{path\+Smoother}}
+\index{path\+Smoother@{path\+Smoother}!probabilistic\+Road\+Map.\+hpp@{probabilistic\+Road\+Map.\+hpp}}
+\subsubsection[{\texorpdfstring{path\+Smoother(const std\+::vector$<$ Point $>$ \&g\+\_\+path, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, std\+::vector$<$ Point $>$ \&s\+\_\+path)}{pathSmoother(const std::vector< Point > &g_path, const std::vector< Polygon > &obstacle_list, std::vector< Point > &s_path)}}]{\setlength{\rightskip}{0pt plus 5cm}void path\+Smoother (
+\begin{DoxyParamCaption}
+\item[{const std\+::vector$<$ {\bf Point} $>$ \&}]{g\+\_\+path, }
+\item[{const std\+::vector$<$ {\bf Polygon} $>$ \&}]{obstacle\+\_\+list, }
+\item[{std\+::vector$<$ {\bf Point} $>$ \&}]{s\+\_\+path}
+\end{DoxyParamCaption}
+)}\hypertarget{probabilisticRoadMap_8hpp_ab88af9e0f07a0909c46c84a0f5d4daab}{}\label{probabilisticRoadMap_8hpp_ab88af9e0f07a0909c46c84a0f5d4daab}
+Given a graph path, it provides a smoothed version. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em g\+\_\+path} & Graph path found with Dijkstra (at least 3 points). \\
+\hline
+\mbox{\tt in}  & {\em obstacle\+\_\+list} & List of obstacles polygon representing the not free space. \\
+\hline
+\mbox{\tt out}  & {\em s\+\_\+path} & Smoothed path. \\
+\hline
+\end{DoxyParams}

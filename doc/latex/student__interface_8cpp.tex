@@ -1,0 +1,42 @@
+\hypertarget{student__interface_8cpp}{}\section{src/student\+\_\+interface.cpp File Reference}
+\label{student__interface_8cpp}\index{src/student\+\_\+interface.\+cpp@{src/student\+\_\+interface.\+cpp}}
+{\ttfamily \#include \char`\"{}student\+\_\+image\+\_\+elab\+\_\+interface.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}student\+\_\+planning\+\_\+interface.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}image\+Manager.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}extrinsic\+Calib.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}map\+Processing.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}path\+Planning.\+hpp\char`\"{}}\\*
+{\ttfamily \#include $<$opencv2/opencv.\+hpp$>$}\\*
+Include dependency graph for student\+\_\+interface.\+cpp\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{student__interface_8cpp__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacestudent}{student}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{namespacestudent_a3117c968a47bf95f86bdb813a3b64e56}{student\+::load\+Image} (cv\+::\+Mat \&img\+\_\+out, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_a3b726e7af03a643c06dcde23057a82ea}{student\+::generic\+Image\+Listener} (const cv\+::\+Mat \&img\+\_\+in, std\+::string topic, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_a6103f938ce28f8820c48c089d5f95098}{student\+::extrinsic\+Calib} (const cv\+::\+Mat \&img\+\_\+in, std\+::vector$<$ cv\+::\+Point3f $>$ object\+\_\+points, const cv\+::\+Mat \&camera\+\_\+matrix, cv\+::\+Mat \&rvec, cv\+::\+Mat \&tvec, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_aceb2a29362b8223a9d3601d9496e1c98}{student\+::image\+Undistort} (const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&dist\+\_\+coeffs, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_a528d33658d0d4d982a46f18b7abb4a70}{student\+::find\+Plane\+Transform} (const cv\+::\+Mat \&cam\+\_\+matrix, const cv\+::\+Mat \&rvec, const cv\+::\+Mat \&tvec, const std\+::vector$<$ cv\+::\+Point3f $>$ \&object\+\_\+points\+\_\+plane, const std\+::vector$<$ cv\+::\+Point2f $>$ \&dest\+\_\+image\+\_\+points\+\_\+plane, cv\+::\+Mat \&plane\+\_\+transf, const std\+::string \&config\+\_\+folder)
+\item 
+void \hyperlink{namespacestudent_a6b8caf348979f55e58a75193233c219d}{student\+::unwarp} (const cv\+::\+Mat \&img\+\_\+in, cv\+::\+Mat \&img\+\_\+out, const cv\+::\+Mat \&transf, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_a684c71c41ce1327ab90152b661ee1e8a}{student\+::process\+Map} (const cv\+::\+Mat \&img\+\_\+in, const double scale, std\+::vector$<$ Polygon $>$ \&obstacles\+\_\+list, std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victims\+\_\+list, Polygon \&gate, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_afd56b779672a672e15ac45dc927b8a6b}{student\+::find\+Robot} (const cv\+::\+Mat \&img\+\_\+in, const double scale, Polygon \&triangle, double \&x, double \&y, double \&theta, const std\+::string \&config\+\_\+folder)
+\item 
+bool \hyperlink{namespacestudent_acfe62076a49d23bb083f2f880fd24c77}{student\+::plan\+Path} (const Polygon \&borders, const std\+::vector$<$ Polygon $>$ \&obstacle\+\_\+list, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, const Polygon \&gate, const float x, const float y, const float theta, Path \&path, const std\+::string \&config\+\_\+folder)
+\end{DoxyCompactItemize}
