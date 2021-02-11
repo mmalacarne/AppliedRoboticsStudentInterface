@@ -7,17 +7,17 @@
 /*!
 * When defined it compile the logic for the mission 1, otherwise mission 2.
 */
-//#define MISSION_1
+#define MISSION_1
 
 /*!
 * Number of points to sample for the randmo sampling map.
 */
-#define N_PTS 150
+#define N_PTS 250
 
 /*!
 * Number of K Nearest Neighbors.
 */
-#define KNN 10
+#define KNN 10 // 5
 
 #ifndef MISSION_1
 
@@ -440,11 +440,11 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
     	getPlottableGate(gate);
     	getPlottableNodes(graph);
     	//getPlottableEdges(graph);
-    	/*getPlottableGraphPath(graph_path);
-    	getPlottableSmoothedGraphPath(smoothed_path);
-    	getPlottableRobot(x, y);
+    	//getPlottableGraphPath(dijkstra_path);
+    	//getPlottableSmoothedGraphPath(smoothed_path);
+    	//getPlottableRobot(x, y);
 
-    	plt::title("Map with pts in C_free");
+    	/*plt::title("Map - 250 pts - 10KNN");
 
     	// Set x-axis and y-axis to [xmin-1, xmax+1] and [ymin-1, ymax+1] respectively
 		double x_min_max[2] = {plt::xlim()[0], plt::xlim()[1]};
@@ -456,7 +456,7 @@ bool my_planPath(const Polygon& borders, const std::vector<Polygon>& obstacle_li
 		std::string this_file_path = __FILE__;
 		std::string this_file_name = "pathPlanning.cpp";
 		int upper_bound = this_file_path.length() - this_file_name.length();
-		std::string png_name = this_file_path.substr(0, upper_bound) + "testing_imgs/Map_pts.png";
+		std::string png_name = this_file_path.substr(0, upper_bound) + "testing_imgs/Map_250pts_10knn.png";
 	    plt::save(png_name);*/
     #endif
 

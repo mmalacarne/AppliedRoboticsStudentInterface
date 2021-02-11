@@ -2,7 +2,7 @@
 
 //#define DEBUG_PIP
 
-#define B_OFFSET 0.05 // 5 cm
+#define B_OFFSET 0.06 // 6 cm
 
 namespace plt = matplotlibcpp;
 

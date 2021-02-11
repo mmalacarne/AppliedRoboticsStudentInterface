@@ -136,10 +136,10 @@ bool my_extrinsicCalib(const cv::Mat& img_in, std::vector<cv::Point3f> object_po
         std::cout << "STUDENT FUNCTION - COPY & PASTE DIST_COEFFS FROM intrinsic_calibration.xml" << std::endl;
 
         // Copied & pasted dist coeffs value from intrinsic_calibration.xml
-        double dc_k1 = -3.8003887070277098e-01;
-        double dc_k2 = 1.6491942975982371e-01;
-        double dc_k3 = -7.2969848408770512e-04;
-        double dc_p1 = -8.3850307681785957e-04;
+        double dc_k1 = -2.4511434435991794e-01;
+        double dc_k2 = -1.8061064103007338e-01;
+        double dc_k3 = -6.0537633175725154e-03;
+        double dc_p1 = 8.5233159156998372e-03;
         double dc_p2 = 0.;
 
         dist_coeffs = (cv::Mat1d(1,4) << dc_k1, dc_k2, dc_k3, dc_p1, dc_p2);

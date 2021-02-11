@@ -20,18 +20,16 @@ void my_loadImage(cv::Mat& img_out, const std::string& config_folder){
   #endif
 
   #ifdef DEBUG_LI
-    static std::string dir_path = "/home/mala/Desktop/RP_Lab/Lab5_07-10-20/lect8/demo_shape_detection/test/";
-    static std::string jpg_file = dir_path + "test_arena.jpg";
+    //static std::string dir_path = "/home/mala/Desktop/RP_Lab/Lab5_07-10-20/lect8/demo_shape_detection/test/";
+    //static std::string jpg_file = dir_path + "test_arena.jpg";
+    static std::string dir_path = "/home/mala/Desktop/Material-20210211/camera_image_raw/";
+    static std::string jpg_file = dir_path + "000.jpg";
   #else
     static std::string dir_path = config_folder + "/img_to_load/";
     static std::string jpg_file = dir_path + "*.jpg";
   #endif
   
   img_out = cv::imread(jpg_file);
-
-  #ifdef DEBUG_LI
-    std::cout << "jpg_file: " << jpg_file << std::endl;
-  #endif
 }
 
 /*!

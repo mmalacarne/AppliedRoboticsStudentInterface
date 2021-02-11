@@ -37,6 +37,7 @@ build/
 # Camera calibration
 intrinsic_calibration.xml
 #src/camera_calibration.cpp
+#calib_config.xml
 
 # Shape detection
 src/demo_shape_detection
@@ -51,7 +52,7 @@ src/path_plan_tests.cpp
 src/various_tests.cpp
 
 # Testing images folder
-#src/testing_imgs
+src/testing_imgs
 
 # Doxy file
 Doxyfile

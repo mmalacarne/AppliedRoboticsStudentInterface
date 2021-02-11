@@ -195,28 +195,6 @@ bool getRobot(const cv::Mat& hsv_img, const double scale, Polygon& triangle){
 		throw std::logic_error("ERROR - Robot with " + std::to_string(approx_curve.size()) + " edges");
 		return false;
 	}
-
-	/*// Create the contour poligon and populate it with verteces
-	for (const auto& pt: approx_curve) 
-		triangle.emplace_back(pt.x/scale, pt.y/scale);
-
-	#ifdef DEBUG_FR
-		cv::Mat img_in;
-		cv::cvtColor(hsv_img, img_in, cv::COLOR_HSV2BGR);
-		cv::Mat contours_img = img_in.clone();
-
-		// cv::Scalar(40,190,40) = green
-		// cv::Scalar(0,170,220) = yellow
-		drawContours(contours_img, contours, -1, cv::Scalar(0,170,220), 2, cv::LINE_AA);
-
-		std::string window_name = "Robot contours - #edges = " + std::to_string(triangle.size());
-		cv::imshow(window_name, contours_img);
-		cv::waitKey(0);
-		cv::destroyWindow(window_name);
-	#endif
-
-	if (triangle.size() != 3)
-		throw std::logic_error("Error! Robot with " + std::to_string(triangle.size()) + " edges");*/
 }
 
 /*!
