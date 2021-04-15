@@ -11,11 +11,11 @@ Include dependency graph for path\+Planning.\+cpp\+:\nopagebreak
 \subsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \hyperlink{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}{N\+\_\+\+P\+TS}~150
+\#define \hyperlink{pathPlanning_8cpp_a0e1825ddd7e05b735b28f1137fcaf78e}{M\+I\+S\+S\+I\+O\+N\+\_\+1}
+\item 
+\#define \hyperlink{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}{N\+\_\+\+P\+TS}~250
 \item 
 \#define \hyperlink{pathPlanning_8cpp_a3b1076720ba707d01eb86475b2e2529b}{K\+NN}~10
-\item 
-\#define \hyperlink{pathPlanning_8cpp_a336f67e9817ede04fdf58ee2cd144522}{I\+N\+C\+R\+E\+A\+SE}~0.\+3
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -23,8 +23,6 @@ Include dependency graph for path\+Planning.\+cpp\+:\nopagebreak
 bool \hyperlink{pathPlanning_8cpp_a30baa5ddb4612336969595f47876c5e1}{sort\+Victims\+By\+ID} (const std\+::pair$<$ int, Point $>$ \&i, const std\+::pair$<$ int, Point $>$ \&j)
 \item 
 void \hyperlink{pathPlanning_8cpp_a9baab275277a6c78a21be766fa5795c5}{expand\+Obstacle\+List} (const int id, const std\+::vector$<$ std\+::pair$<$ int, Polygon $>$$>$ \&victim\+\_\+list, std\+::vector$<$ Polygon $>$ \&expanded\+\_\+list)
-\item 
-void \hyperlink{pathPlanning_8cpp_a7aaa8da2708c5ec3872c52cb55352949}{create\+Arc\+Path} (const arc \&a, Path \&path)
 \item 
 void \hyperlink{pathPlanning_8cpp_a58433264a5ace17ffe7276ba235fcb98}{create\+Path} (const std\+::vector$<$ curve $>$ \&dubins\+\_\+path, Path \&path)
 \item 
@@ -35,35 +33,18 @@ bool \hyperlink{pathPlanning_8cpp_a1167a1806905a9b2df3591f4e3821dca}{my\+\_\+pla
 
 
 \subsection{Macro Definition Documentation}
-\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!I\+N\+C\+R\+E\+A\+SE@{I\+N\+C\+R\+E\+A\+SE}}
-\index{I\+N\+C\+R\+E\+A\+SE@{I\+N\+C\+R\+E\+A\+SE}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
-\subsubsection[{\texorpdfstring{I\+N\+C\+R\+E\+A\+SE}{INCREASE}}]{\setlength{\rightskip}{0pt plus 5cm}\#define I\+N\+C\+R\+E\+A\+SE~0.\+3}\hypertarget{pathPlanning_8cpp_a336f67e9817ede04fdf58ee2cd144522}{}\label{pathPlanning_8cpp_a336f67e9817ede04fdf58ee2cd144522}
-Allowed percentage of increased path. \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!K\+NN@{K\+NN}}
+\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!K\+NN@{K\+NN}}
 \index{K\+NN@{K\+NN}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
 \subsubsection[{\texorpdfstring{K\+NN}{KNN}}]{\setlength{\rightskip}{0pt plus 5cm}\#define K\+NN~10}\hypertarget{pathPlanning_8cpp_a3b1076720ba707d01eb86475b2e2529b}{}\label{pathPlanning_8cpp_a3b1076720ba707d01eb86475b2e2529b}
-Number of K Nearest Neighbors. \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!N\+\_\+\+P\+TS@{N\+\_\+\+P\+TS}}
+Number of K Nearest Neighbors. \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!M\+I\+S\+S\+I\+O\+N\+\_\+1@{M\+I\+S\+S\+I\+O\+N\+\_\+1}}
+\index{M\+I\+S\+S\+I\+O\+N\+\_\+1@{M\+I\+S\+S\+I\+O\+N\+\_\+1}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
+\subsubsection[{\texorpdfstring{M\+I\+S\+S\+I\+O\+N\+\_\+1}{MISSION_1}}]{\setlength{\rightskip}{0pt plus 5cm}\#define M\+I\+S\+S\+I\+O\+N\+\_\+1}\hypertarget{pathPlanning_8cpp_a0e1825ddd7e05b735b28f1137fcaf78e}{}\label{pathPlanning_8cpp_a0e1825ddd7e05b735b28f1137fcaf78e}
+When defined it compile the logic for the mission 1, otherwise mission 2. \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!N\+\_\+\+P\+TS@{N\+\_\+\+P\+TS}}
 \index{N\+\_\+\+P\+TS@{N\+\_\+\+P\+TS}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
-\subsubsection[{\texorpdfstring{N\+\_\+\+P\+TS}{N_PTS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+\_\+\+P\+TS~150}\hypertarget{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}{}\label{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}
-When defined it compile the logic for the mission 1, otherwise mission 2.
-
+\subsubsection[{\texorpdfstring{N\+\_\+\+P\+TS}{N_PTS}}]{\setlength{\rightskip}{0pt plus 5cm}\#define N\+\_\+\+P\+TS~250}\hypertarget{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}{}\label{pathPlanning_8cpp_a67f9565ee144db95e5394b15e393e539}
 Number of points to sample for the randmo sampling map. 
 
 \subsection{Function Documentation}
-\index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!create\+Arc\+Path@{create\+Arc\+Path}}
-\index{create\+Arc\+Path@{create\+Arc\+Path}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
-\subsubsection[{\texorpdfstring{create\+Arc\+Path(const arc \&a, Path \&path)}{createArcPath(const arc &a, Path &path)}}]{\setlength{\rightskip}{0pt plus 5cm}void create\+Arc\+Path (
-\begin{DoxyParamCaption}
-\item[{const arc \&}]{a, }
-\item[{Path \&}]{path}
-\end{DoxyParamCaption}
-)}\hypertarget{pathPlanning_8cpp_a7aaa8da2708c5ec3872c52cb55352949}{}\label{pathPlanning_8cpp_a7aaa8da2708c5ec3872c52cb55352949}
-Given an arc from a Dubins curve it populates a Path struct with points evaluated every 0.\+05. 
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em a} & Dubins arc. \\
-\hline
-\mbox{\tt out}  & {\em path} & Path object for the robot. \\
-\hline
-\end{DoxyParams}
 \index{path\+Planning.\+cpp@{path\+Planning.\+cpp}!create\+Path@{create\+Path}}
 \index{create\+Path@{create\+Path}!path\+Planning.\+cpp@{path\+Planning.\+cpp}}
 \subsubsection[{\texorpdfstring{create\+Path(const std\+::vector$<$ curve $>$ \&dubins\+\_\+path, Path \&path)}{createPath(const std::vector< curve > &dubins_path, Path &path)}}]{\setlength{\rightskip}{0pt plus 5cm}void create\+Path (
@@ -72,7 +53,7 @@ Given an arc from a Dubins curve it populates a Path struct with points evaluate
 \item[{Path \&}]{path}
 \end{DoxyParamCaption}
 )}\hypertarget{pathPlanning_8cpp_a58433264a5ace17ffe7276ba235fcb98}{}\label{pathPlanning_8cpp_a58433264a5ace17ffe7276ba235fcb98}
-Given a vector of dubins curves it populate the path for the robot. 
+Given a vector of dubins curves it populate the path for the robot. For each arc in the Dubins curve it populates a Path struct with points evaluated every 0.\+05. 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em dubins\+\_\+path} & Vector of dubins curves that describe the path. \\
 \hline

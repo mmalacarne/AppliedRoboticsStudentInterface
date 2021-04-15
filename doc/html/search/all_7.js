@@ -2,7 +2,6 @@ var searchData=
 [
   ['imagemanager_2ecpp',['imageManager.cpp',['../imageManager_8cpp.html',1,'']]],
   ['imageundistort',['imageUndistort',['../namespacestudent.html#aceb2a29362b8223a9d3601d9496e1c98',1,'student']]],
-  ['increase',['INCREASE',['../pathPlanning_8cpp.html#a336f67e9817ede04fdf58ee2cd144522',1,'pathPlanning.cpp']]],
   ['intersarcline',['intersArcLine',['../collisionDetectionModule_8cpp.html#a0455ed7a2a0350cadda022dbf30df873',1,'collisionDetectionModule.cpp']]],
   ['interscircleline',['intersCircleLine',['../collisionDetectionModule_8cpp.html#aec5cea694b133d876d74b30932ce8177',1,'collisionDetectionModule.cpp']]],
   ['interslineline',['intersLineLine',['../collisionDetectionModule_8cpp.html#a32193beac69867b52a5aa634fdccedfc',1,'collisionDetectionModule.cpp']]],

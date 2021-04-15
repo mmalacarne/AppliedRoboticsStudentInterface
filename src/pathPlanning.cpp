@@ -20,12 +20,10 @@
 #define KNN 10 // 5
 
 #ifndef MISSION_1
-
 /*!
 * Allowed percentage of increased path.
 */
 #define INCREASE 0.3 // 30%
-
 #endif
 
 namespace plt = matplotlibcpp;
@@ -315,50 +313,38 @@ void expandObstacleList(const int id, const std::vector<std::pair<int,Polygon>>&
 }
 
 /*!
-* Given an arc from a Dubins curve it populates a Path struct with points 
-* evaluated every 0.05.
-* @param[in] 	a 		Dubins arc.
-* @param[out] 	path 	Path object for the robot.
-*/
-void createArcPath(const arc& a, Path& path){
-	double ds = 0.05; // 5 cm
-
-	double xf, yf, thf;
-	float _l, _xf, _yf, _thf, _k;
-
-	for (double l = 0; l <= a.L; l += ds){
-		std::tie(xf, yf, thf) = circline(l, a.x0, a.y0, a.th0, a.k);
-
-		_l = static_cast<float>(l);
-		_xf = static_cast<float>(xf);
-		_yf = static_cast<float>(yf);
-		_thf = static_cast<float>(thf);
-		_k = static_cast<float>(a.k);
-
-		path.points.emplace_back(_l, _xf, _yf, _thf, _k);
-	}
-
-	// TODELETE
-    // Professor interface
-    /*float xc = 0, yc = 1.5, r = 1.4;
-    float ds = 0.05;
-    for (float theta = -M_PI/2, s = 0; theta<(-M_PI/2 + 1.2); theta+=ds/r, s+=ds) {
-      path.points.emplace_back(s, xc+r*std::cos(theta), yc+r*std::sin(theta), theta+M_PI/2, 1./r);    
-    }*/
-}
-
-/*!
-* Given a vector of dubins curves it populate the path for the robot.
+* Given a vector of dubins curves it populate the path for the robot. For each arc in the 
+* Dubins curve it populates a Path struct with points evaluated every 0.05.
 * @param[in] 	dubins_path 	Vector of dubins curves that describe the path.
 * @param[out] 	path 			Path object for the robot.
 */
 void createPath(const std::vector<curve>& dubins_path, Path& path){
+	// Vector with all arcs that make the Dubins curve
+	std::vector<arc> all_arcs;
 	for (const curve& c: dubins_path){
-		createArcPath(c.arc1, path);
+		all_arcs.push_back(c.arc1);
+		all_arcs.push_back(c.arc2);
+		all_arcs.push_back(c.arc3);
+	}	
 
-		createArcPath(c.arc2, path);
+	// Vars init in order to populate a Path struct with pts 
+	// evaluated every 5 cm
+	double ds = 0.05; // 5 cm
+	double xf, yf, thf;
+	float _l, _xf, _yf, _thf, _k;
 
-		createArcPath(c.arc3, path);
+	for (const arc& a: all_arcs){
+		for (double l = 0; l <= a.L; l += ds){
+			std::tie(xf, yf, thf) = circline(l, a.x0, a.y0, a.th0, a.k);
+
+			_l = static_cast<float>(l);
+			_xf = static_cast<float>(xf);
+			_yf = static_cast<float>(yf);
+			_thf = static_cast<float>(thf);
+			_k = static_cast<float>(a.k);
+
+			path.points.emplace_back(_l, _xf, _yf, _thf, _k);
+		}
 	}
 }
 

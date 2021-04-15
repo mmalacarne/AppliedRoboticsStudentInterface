@@ -100,12 +100,12 @@ Include dependency graph for pathPlanning.cpp:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a67f9565ee144db95e5394b15e393e539"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a67f9565ee144db95e5394b15e393e539">N_PTS</a>&#160;&#160;&#160;150</td></tr>
+<tr class="memitem:a0e1825ddd7e05b735b28f1137fcaf78e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a0e1825ddd7e05b735b28f1137fcaf78e">MISSION_1</a></td></tr>
+<tr class="separator:a0e1825ddd7e05b735b28f1137fcaf78e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67f9565ee144db95e5394b15e393e539"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a67f9565ee144db95e5394b15e393e539">N_PTS</a>&#160;&#160;&#160;250</td></tr>
 <tr class="separator:a67f9565ee144db95e5394b15e393e539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3b1076720ba707d01eb86475b2e2529b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a3b1076720ba707d01eb86475b2e2529b">KNN</a>&#160;&#160;&#160;10</td></tr>
 <tr class="separator:a3b1076720ba707d01eb86475b2e2529b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a336f67e9817ede04fdf58ee2cd144522"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a336f67e9817ede04fdf58ee2cd144522">INCREASE</a>&#160;&#160;&#160;0.3</td></tr>
-<tr class="separator:a336f67e9817ede04fdf58ee2cd144522"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -113,8 +113,6 @@ Functions</h2></td></tr>
 <tr class="separator:a30baa5ddb4612336969595f47876c5e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9baab275277a6c78a21be766fa5795c5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a9baab275277a6c78a21be766fa5795c5">expandObstacleList</a> (const int id, const std::vector&lt; std::pair&lt; int, Polygon &gt;&gt; &amp;victim_list, std::vector&lt; Polygon &gt; &amp;expanded_list)</td></tr>
 <tr class="separator:a9baab275277a6c78a21be766fa5795c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7aaa8da2708c5ec3872c52cb55352949"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a7aaa8da2708c5ec3872c52cb55352949">createArcPath</a> (const arc &amp;a, Path &amp;path)</td></tr>
-<tr class="separator:a7aaa8da2708c5ec3872c52cb55352949"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58433264a5ace17ffe7276ba235fcb98"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#a58433264a5ace17ffe7276ba235fcb98">createPath</a> (const std::vector&lt; curve &gt; &amp;dubins_path, Path &amp;path)</td></tr>
 <tr class="separator:a58433264a5ace17ffe7276ba235fcb98"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1c9a6a9923e46591eabc35b9fa6ed02"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pathPlanning_8cpp.html#af1c9a6a9923e46591eabc35b9fa6ed02">getPathDistance</a> (const std::vector&lt; Point &gt; path)</td></tr>
@@ -123,19 +121,6 @@ Functions</h2></td></tr>
 <tr class="separator:a1167a1806905a9b2df3591f4e3821dca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a class="anchor" id="a336f67e9817ede04fdf58ee2cd144522"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define INCREASE&#160;&#160;&#160;0.3</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Allowed percentage of increased path. </p>
-
-</div>
-</div>
 <a class="anchor" id="a3b1076720ba707d01eb86475b2e2529b"></a>
 <div class="memitem">
 <div class="memproto">
@@ -149,54 +134,33 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a0e1825ddd7e05b735b28f1137fcaf78e"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MISSION_1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>When defined it compile the logic for the mission 1, otherwise mission 2. </p>
+
+</div>
+</div>
 <a class="anchor" id="a67f9565ee144db95e5394b15e393e539"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define N_PTS&#160;&#160;&#160;150</td>
+          <td class="memname">#define N_PTS&#160;&#160;&#160;250</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>When defined it compile the logic for the mission 1, otherwise mission 2.</p>
 <p>Number of points to sample for the randmo sampling map. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a class="anchor" id="a7aaa8da2708c5ec3872c52cb55352949"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void createArcPath </td>
-          <td>(</td>
-          <td class="paramtype">const arc &amp;&#160;</td>
-          <td class="paramname"><em>a</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Path &amp;&#160;</td>
-          <td class="paramname"><em>path</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Given an arc from a Dubins curve it populates a Path struct with points evaluated every 0.05. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">a</td><td>Dubins arc. </td></tr>
-    <tr><td class="paramdir">[out]</td><td class="paramname">path</td><td>Path object for the robot. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="a58433264a5ace17ffe7276ba235fcb98"></a>
 <div class="memitem">
 <div class="memproto">
@@ -220,7 +184,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Given a vector of dubins curves it populate the path for the robot. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Given a vector of dubins curves it populate the path for the robot. For each arc in the Dubins curve it populates a Path struct with points evaluated every 0.05. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">dubins_path</td><td>Vector of dubins curves that describe the path. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">path</td><td>Path object for the robot. </td></tr>
